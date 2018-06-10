@@ -8,8 +8,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc001TwoSum:");
-            new leetcode.Lc001TwoSum().Test();
+            Console.WriteLine("Palindrome_Manacher:");
+            new strings.Palindrome_Manacher().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
@@ -18,7 +18,7 @@ namespace alg
 
         static void Test()
         {
-            Console.WriteLine((-1)&5);
+            Console.WriteLine(-1/2);
         }
     }
 }

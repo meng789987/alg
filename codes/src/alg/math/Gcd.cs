@@ -1,9 +1,11 @@
-
 using System;
 
+/*
+ * tags: Euclid
+ */
 namespace alg.math
 {
-    public class GreatestCommonDenominator
+    public class GreatestCommonDivisor
     {
         public int Gcd(int a, int b)
         {

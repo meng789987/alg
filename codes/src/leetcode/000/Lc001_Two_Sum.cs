@@ -6,10 +6,11 @@ using alg;
 
 /*
  * tags: hash
+ * Time(n), Space(n)
  */
 namespace leetcode
 {
-    public class Lc001TwoSum
+    public class Lc001_Two_Sum
     {
         public int[] TwoSum(int[] nums, int target)
         {
