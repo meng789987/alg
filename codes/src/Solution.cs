@@ -8,8 +8,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Palindrome_Manacher:");
-            new strings.Palindrome_Manacher().Test();
+            Console.WriteLine("Lc160_Intersection_of_Two_Linked_Lists:");
+            new leetcode.Lc160_Intersection_of_Two_Linked_Lists().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
