@@ -8,8 +8,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc160_Intersection_of_Two_Linked_Lists:");
-            new leetcode.Lc160_Intersection_of_Two_Linked_Lists().Test();
+            Console.WriteLine("FindMajority_Moore:");
+            new array.FindMajority_Moore().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
@@ -18,7 +18,9 @@ namespace alg
 
         static void Test()
         {
-            Console.WriteLine(-1/2);
+            int i = -1;
+            ulong a = (ulong)i;
+            Console.WriteLine(a);
         }
     }
 }
