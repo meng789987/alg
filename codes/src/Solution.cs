@@ -8,8 +8,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("FindMajority_Moore:");
-            new array.FindMajority_Moore().Test();
+            Console.WriteLine("Lc164_Maximum_Gap:");
+            new leetcode.Lc164_Maximum_Gap().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
