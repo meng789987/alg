@@ -8,8 +8,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc164_Maximum_Gap:");
-            new leetcode.Lc164_Maximum_Gap().Test();
+            Console.WriteLine("Lc188_Best_Time_to_Buy_and_Sell_Stock_IV:");
+            new leetcode.Lc188_Best_Time_to_Buy_and_Sell_Stock_IV().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
