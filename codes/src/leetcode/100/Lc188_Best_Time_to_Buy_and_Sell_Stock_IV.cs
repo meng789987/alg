@@ -70,6 +70,9 @@ namespace leetcode
             prices = new int[] { 3, 3, 5, 0, 0, 3, 1, 4 };
             Console.WriteLine(MaxProfit(2, prices) == 6);
             Console.WriteLine(MaxProfitCompact(2, prices) == 6);
+
+            prices = new int[] { 1, 2, 3, 4, 5 };
+            Console.WriteLine(MaxProfit(2, prices) == 4);
         }
     }
 }
