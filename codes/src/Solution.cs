@@ -9,8 +9,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc188_Best_Time_to_Buy_and_Sell_Stock_IV:");
-            new leetcode.Lc188_Best_Time_to_Buy_and_Sell_Stock_IV().Test();
+            Console.WriteLine("PrefixTree:");
+            new tree.PrefixTree().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
