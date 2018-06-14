@@ -37,10 +37,11 @@ namespace alg.tree
 
             if (i < node.Value.Length) // split
             {
-                root.Children[ci] = new Node(word);
-                root.Children[ci].IsLeaf = true;
+                root.Children[ci] = new Node(node.Value.Substring(0, i));
+                root.Children[ci].IsLeaf = i == word.Length;
                 root.Children[ci].Children[node.Value[i] - 'a'] = node;
-                node.Value = node.Value.Substring(0, i);
+                node.Value = node.Value.Substring(i);
+                if (i < word.Length) InsertRc(root.Children[ci], word.Substring(i));
             }
             else if (i == word.Length) // same length
             {
@@ -68,7 +69,7 @@ namespace alg.tree
             int i = 0;
             while (i < node.Value.Length && i < word.Length && node.Value[i] == word[i]) i++;
 
-            if (i < word.Length) return SearchRc(node, word.Substring(i), leafOnly);
+            if (i < word.Length) return i == node.Value.Length && SearchRc(node, word.Substring(i), leafOnly);
             return !leafOnly || (i == node.Value.Length && node.IsLeaf);
         }
 
@@ -96,6 +97,16 @@ namespace alg.tree
             Console.WriteLine(trie.Search("app") == false);
             Console.WriteLine(trie.StartsWith("app") == true);
             trie.Insert("app");
+            Console.WriteLine(trie.Search("app") == true);
+
+            trie = new PrefixTree();
+            trie.Insert("app");
+            trie.Insert("apple");
+            trie.Insert("beer");
+            trie.Insert("add");
+            trie.Insert("jam");
+            trie.Insert("rental");
+            Console.WriteLine(trie.Search("apps") == false);
             Console.WriteLine(trie.Search("app") == true);
         }
     }
