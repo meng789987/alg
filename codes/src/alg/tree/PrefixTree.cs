@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 /*
- * tags: counting sort, radix sort
- * Time(n), Space(n)
+ * tags: prefix tree
+ * Insert/Search: Time(n), Space(n)
  */
 namespace alg.tree
 {
@@ -12,81 +12,55 @@ namespace alg.tree
     {
         public PrefixTree()
         {
-            _root = new Node("");
+            _root = new Node();
         }
 
         public void Insert(string word)
         {
             if (string.IsNullOrEmpty(word)) return;
-            InsertRc(_root, word);
-        }
-
-        void InsertRc(Node root, string word)
-        {
-            int ci = word[0] - 'a';
-            if (root.Children[ci] == null)
+            var node = _root;
+            foreach (var w in word)
             {
-                root.Children[ci] = new Node(word);
-                root.Children[ci].IsLeaf = true;
-                return;
+                int ci = w - 'a';
+                if (node.Children[ci] == null)
+                    node.Children[ci] = new Node();
+                node = node.Children[ci];
             }
-
-            var node = root.Children[ci];
-            int i = 0;
-            while (i < node.Value.Length && i < word.Length && node.Value[i] == word[i]) i++;
-
-            if (i < node.Value.Length) // split
-            {
-                root.Children[ci] = new Node(node.Value.Substring(0, i));
-                root.Children[ci].IsLeaf = i == word.Length;
-                root.Children[ci].Children[node.Value[i] - 'a'] = node;
-                node.Value = node.Value.Substring(i);
-                if (i < word.Length) InsertRc(root.Children[ci], word.Substring(i));
-            }
-            else if (i == word.Length) // same length
-            {
-                node.IsLeaf = true;
-            }
-            else
-            {
-                InsertRc(node, word.Substring(i));
-            }
+            node.IsLeaf = true;
         }
 
 
         public bool Search(string word)
         {
-            if (string.IsNullOrEmpty(word)) return false;
-            return SearchRc(_root, word, true);
-        }
-
-        bool SearchRc(Node root, string word, bool leafOnly)
-        {
-            int ci = word[0] - 'a';
-            if (root.Children[ci] == null) return false;
-
-            var node = root.Children[ci];
-            int i = 0;
-            while (i < node.Value.Length && i < word.Length && node.Value[i] == word[i]) i++;
-
-            if (i < word.Length) return i == node.Value.Length && SearchRc(node, word.Substring(i), leafOnly);
-            return !leafOnly || (i == node.Value.Length && node.IsLeaf);
+            var node = SearchPrefix(word);
+            return node != null && node.IsLeaf;
         }
 
         public bool StartsWith(string word)
         {
-            if (string.IsNullOrEmpty(word)) return false;
-            return SearchRc(_root, word, false);
+            var node = SearchPrefix(word);
+            return node != null;
+        }
+
+        Node SearchPrefix(string word)
+        {
+            if (string.IsNullOrEmpty(word)) return null;
+            var node = _root;
+            foreach (var w in word)
+            {
+                int ci = w - 'a';
+                if (node.Children[ci] == null) return null;
+                node = node.Children[ci];
+            }
+            return node;
         }
 
         private Node _root;
 
         class Node
         {
-            public string Value;
             public Node[] Children = new Node[26];
             public bool IsLeaf;
-            public Node(string value) { Value = value; }
         }
 
         public void Test()
