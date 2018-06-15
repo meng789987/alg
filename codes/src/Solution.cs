@@ -9,8 +9,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("PrefixTree:");
-            new tree.PrefixTree().Test();
+            Console.WriteLine("Lc745_Prefix_and_Suffix_Search:");
+            new leetcode.Lc745_Prefix_and_Suffix_Search().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
@@ -19,6 +19,8 @@ namespace alg
 
         static void Test()
         {
+            var word = "abc";
+            Console.WriteLine(new string(word.Reverse().ToArray()));
         }
     }
 }
