@@ -43,7 +43,6 @@ namespace leetcode
             foreach (var j in adjs[c])
             {
                 if (!TryFinishDfs(adjs, j, states)) return false;
-                states[j] = 2;
             }
             states[c] = 2;
             return true;

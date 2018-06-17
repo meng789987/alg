@@ -18,29 +18,57 @@ namespace alg.sort
         private void SortRc(int[] a, int lo, int hi)
         {
             if (lo >= hi) return;
-            int m = Partition(a, lo, hi);
-            SortRc(a, lo, m - 1);
-            SortRc(a, m + 1, hi);
+            int p = Partition(a, lo, hi);
+            SortRc(a, lo, p - 1);
+            SortRc(a, p + 1, hi);
         }
 
         private int Partition(int[] a, int lo, int hi)
         {
-            int val = a[hi];
-            while (lo < hi)
+            int pivot = a[hi];
+            int i = lo;
+            for (int j = lo; j < hi; j++)
             {
-                while (lo < hi && a[lo] < val) lo++;
-                while (lo < hi && a[hi] > val) hi--;
-                int t = a[lo];
-                a[lo] = a[hi];
-                a[hi] = t;
+                if (a[j] < pivot)
+                {
+                    int t = a[i];
+                    a[i] = a[j];
+                    a[j] = t;
+                    i++;
+                }
             }
-            return lo;
+            a[hi] = a[i];
+            a[i] = pivot;
+            return i;
+        }
+
+        // this requires to recursively call SortRc(a, lo, p) instead of SortRc(a, lo, p - 1);
+        private int PartitionHoare(int[] a, int lo, int hi)
+        {
+            int pivot = a[lo];
+            int i = lo - 1, j = hi + 1;
+            while (true)
+            {
+                do { i++; } while (a[i] < pivot);
+                do { j--; } while (a[j] > pivot);
+                if (i >= j) return j;
+
+                int t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+            }
         }
 
         public void Test()
         {
             var nums = new int[] { 3, 4, 5, 2, 7, 234, 84, 24 };
             var exp = nums.ToArray();
+            Sort(nums);
+            Array.Sort(exp);
+            Console.WriteLine(exp.SequenceEqual(nums));
+
+            nums = new int[] { 2, 3, 5, 3, 5, 1, 7, 8 };
+            exp = nums.ToArray();
             Sort(nums);
             Array.Sort(exp);
             Console.WriteLine(exp.SequenceEqual(nums));

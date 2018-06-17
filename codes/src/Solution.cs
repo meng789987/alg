@@ -9,8 +9,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc745_Prefix_and_Suffix_Search:");
-            new leetcode.Lc745_Prefix_and_Suffix_Search().Test();
+            Console.WriteLine("QuickSort:");
+            new sort.QuickSort().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
