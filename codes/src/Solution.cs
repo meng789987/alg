@@ -9,8 +9,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("QuickSort:");
-            new sort.QuickSort().Test();
+            Console.WriteLine("Lc212_Word_Search_II:");
+            new leetcode.Lc212_Word_Search_II().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
