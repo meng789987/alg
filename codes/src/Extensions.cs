@@ -6,34 +6,41 @@ namespace alg
 {
     public static class Extensions
     {
-        public static bool SameSet<T>(this IEnumerable<T> a, IEnumerable<T> b)
+        public static bool SameSet(this IEnumerable<int> a, IEnumerable<int> b)
         {
-            if (a == null && b == null) return true;
-            if (a == null || b == null) return false;
-
-            var al = a.ToList();
-            var bl = b.ToList();
-            al.Sort();
-            bl.Sort();
-
-            return al.SequenceEqual(bl);
+            return SameSet(a, b, Comparer<int>.Default);
         }
 
-        public static bool SameSet<T>(this IList<IList<T>> a, IList<IList<T>> b)
+        public static bool SameSet(this IEnumerable<double> a, IEnumerable<double> b)
+        {
+            return SameSet(a, b, Comparer<double>.Default);
+        }
+
+        public static bool SameSet(this IEnumerable<char> a, IEnumerable<char> b)
+        {
+            return SameSet(a, b, Comparer<char>.Default);
+        }
+
+        public static bool SameSet(this IEnumerable<string> a, IEnumerable<string> b)
+        {
+            return SameSet(a, b, Comparer<string>.Default);
+        }
+
+        public static bool SameSet<T>(this IEnumerable<IEnumerable<T>> a, IEnumerable<IEnumerable<T>> b)
         {
             if (a == null && b == null) return true;
             if (a == null || b == null) return false;
 
             var al = a.ToList();
             var bl = b.ToList();
-            al.Sort((i, j) => i.Compare(j));
-            bl.Sort((i, j) => i.Compare(j));
-            var comp = Comparer<IList<T>>.Create((i, j) => i.Compare(j, Comparer<T>.Default));
+            al.Sort((i, j) => i.Compare(j, Comparer<T>.Default));
+            bl.Sort((i, j) => i.Compare(j, Comparer<T>.Default));
+            var comp = Comparer<IEnumerable<T>>.Create((i, j) => i.Compare(j, Comparer<T>.Default));
 
             return al.Compare(bl, comp) == 0;
         }
 
-        public static bool SameWith<T>(this T[,] a, T[,] b)
+        public static bool SameSquare<T>(this T[,] a, T[,] b)
         {
             if (a == null && b == null) return true;
             if (a == null || b == null) return false;
@@ -53,11 +60,6 @@ namespace alg
             return ib.MoveNext() ? false : true;
         }
 
-        public static int Compare<T>(this IEnumerable<T> a, IEnumerable<T> b)
-        {
-            return Compare(a, b, Comparer<T>.Default);
-        }
-
         public static int Compare<T>(this IEnumerable<T> a, IEnumerable<T> b, IComparer<T> comparer)
         {
             if (a == null && b == null) return 0;
@@ -75,6 +77,19 @@ namespace alg
                 }
                 return ib.MoveNext() ? -1 : 0;
             }
+        }
+
+        private static bool SameSet<T>(IEnumerable<T> a, IEnumerable<T> b, IComparer<T> comparer)
+        {
+            if (a == null && b == null) return true;
+            if (a == null || b == null) return false;
+
+            var al = a.ToList();
+            var bl = b.ToList();
+            al.Sort(comparer);
+            bl.Sort(comparer);
+
+            return al.SequenceEqual(bl);
         }
     }
 }

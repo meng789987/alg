@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -9,8 +10,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc212_Word_Search_II:");
-            new leetcode.Lc212_Word_Search_II().Test();
+            Console.WriteLine("Lc218_The_Skyline_Problem:");
+            new leetcode.Lc218_The_Skyline_Problem().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
@@ -19,8 +20,9 @@ namespace alg
 
         static void Test()
         {
-            var word = "abc";
-            Console.WriteLine(new string(word.Reverse().ToArray()));
+            var a = new List<int[]> { new int[] { 1 }, new int[] { 2 } };
+            var b = new List<int[]> { new int[] { 2 }, new int[] { 1 } };
+            Console.WriteLine(a.SameSet(b));
         }
     }
 }
