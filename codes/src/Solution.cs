@@ -10,8 +10,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc218_The_Skyline_Problem:");
-            new leetcode.Lc218_The_Skyline_Problem().Test();
+            Console.WriteLine("Lc224_Basic_Calculator:");
+            new leetcode.Lc224_Basic_Calculator().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
@@ -20,9 +20,16 @@ namespace alg
 
         static void Test()
         {
-            var a = new List<int[]> { new int[] { 1 }, new int[] { 2 } };
-            var b = new List<int[]> { new int[] { 2 }, new int[] { 1 } };
-            Console.WriteLine(a.SameSet(b));
+            var count = 1000000000;
+            var samples = 0;
+            var rand = new Random();
+            for (int i = 0; i < count; i++)
+            {
+                var x = rand.NextDouble();
+                var y = rand.NextDouble();
+                if (x * x + y * y < 1) samples++;
+            }
+            Console.WriteLine($"pi={4.0*samples/count}");
         }
     }
 }
