@@ -10,8 +10,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc224_Basic_Calculator:");
-            new leetcode.Lc224_Basic_Calculator().Test();
+            Console.WriteLine("Lc233_Number_of_Digit_One:");
+            new leetcode.Lc233_Number_of_Digit_One().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
