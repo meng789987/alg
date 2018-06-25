@@ -56,10 +56,19 @@ namespace alg.math
             //On July 14, 2009 Hallvard Furuseth suggested the macro compacted table.
         }
 
+        /*
+         * clear all bits except the least one
+         */
+        public int LeastSignaficantBit(int n)
+        {
+            return n & (-n);
+        }
+
         public void Test()
         {
             Console.WriteLine(BitCount(0b101101) == 4);
             Console.WriteLine(BitCount(0b101011011101) == 8);
+            Console.WriteLine(LeastSignaficantBit(0b101011011100) == 0b100);
         }
     }
 }

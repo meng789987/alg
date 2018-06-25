@@ -11,9 +11,9 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc233_Number_of_Digit_One:");
-            //new leetcode.Lc233_Number_of_Digit_One().Test();
-            Test();
+            Console.WriteLine("Lc136_Single_Number:");
+            new leetcode.Lc136_Single_Number().Test();
+            //Test();
 
             Console.WriteLine("Press any key to exit ...");
             Console.ReadKey();
