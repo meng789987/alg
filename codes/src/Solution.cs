@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using leetcode;
 
 namespace alg
 {
@@ -11,8 +12,8 @@ namespace alg
         static void Main(string[] args)
         {
             Console.WriteLine("Lc233_Number_of_Digit_One:");
-            new leetcode.Lc233_Number_of_Digit_One().Test();
-            //Test();
+            //new leetcode.Lc233_Number_of_Digit_One().Test();
+            Test();
 
             Console.WriteLine("Press any key to exit ...");
             Console.ReadKey();
@@ -20,16 +21,8 @@ namespace alg
 
         static void Test()
         {
-            var count = 1000000000;
-            var samples = 0;
-            var rand = new Random();
-            for (int i = 0; i < count; i++)
-            {
-                var x = rand.NextDouble();
-                var y = rand.NextDouble();
-                if (x * x + y * y < 1) samples++;
-            }
-            Console.WriteLine($"pi={4.0*samples/count}");
+            var table = new System.Data.DataTable();
+            Console.WriteLine(table.Compute("(1+2)*(4+3)", null));
         }
     }
 }
