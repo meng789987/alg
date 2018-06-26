@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc136_Single_Number:");
-            new leetcode.Lc136_Single_Number().Test();
+            Console.WriteLine("Lc274_H_Index:");
+            new leetcode.Lc274_H_Index().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
