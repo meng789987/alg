@@ -15,51 +15,56 @@ namespace leetcode
         public IList<string> FindWords(char[,] board, string[] words)
         {
             var ret = new List<string>();
-            var root = new Node();
+            var root = BuildTrie(words);
             for (int i = 0; i < board.GetLength(0); i++)
             {
                 for (int j = 0; j < board.GetLength(1); j++)
-                    BuildTrie(board, i, j, root);
-            }
-
-            var wordset = new HashSet<string>(words);
-            foreach (var word in wordset)
-            {
-                if (Find(root, word)) ret.Add(word);
+                    Dfs(board, i, j, root, ret);
             }
 
             return ret;
         }
 
-        private void BuildTrie(char[,] board, int i, int j, Node node)
+        private Node BuildTrie(string[] words)
         {
-            if (i < 0 || i >= board.GetLength(0)
-                || j < 0 || j >= board.GetLength(1)
-                || board[i, j] < 'a') return;
-            int ci = board[i, j] - 'a';
-            if (node.Children[ci] == null)
-                node.Children[ci] = new Node();
-            node = node.Children[ci];
-            board[i, j] = (char)(board[i, j] - 26);
-            BuildTrie(board, i - 1, j, node);
-            BuildTrie(board, i + 1, j, node);
-            BuildTrie(board, i, j - 1, node);
-            BuildTrie(board, i, j + 1, node);
-            board[i, j] = (char)(board[i, j] + 26);
+            var root = new Node();
+            foreach (var word in words)
+            {
+                var node = root;
+                foreach (var c in word)
+                {
+                    int ci = c - 'a';
+                    if (node.Children[ci] == null)
+                        node.Children[ci] = new Node();
+                    node = node.Children[ci];
+                }
+                node.Word = word;
+            }
+            return root;
         }
 
-        private bool Find(Node node, string word)
+        private void Dfs(char[,] board, int i, int j, Node node, IList<string> res)
         {
-            foreach (var c in word)
+            char c = board[i, j];
+            if (c == '#' || node.Children[c - 'a'] == null) return;
+            node = node.Children[c - 'a'];
+            if (node.Word != null)
             {
-                if (node.Children[c - 'a'] == null) return false;
-                node = node.Children[c - 'a'];
+                res.Add(node.Word);
+                node.Word = null; // remove dup
             }
-            return true;
+
+            board[i, j] = '#';
+            if (i > 0) Dfs(board, i - 1, j, node, res);
+            if (j > 0) Dfs(board, i, j - 1, node, res);
+            if (i < board.GetLength(0) - 1) Dfs(board, i + 1, j, node, res);
+            if (j < board.GetLength(1) - 1) Dfs(board, i, j + 1, node, res);
+            board[i, j] = c;
         }
-        
+
         private class Node
         {
+            public string Word;
             public Node[] Children = new Node[26];
         }
 
@@ -73,6 +78,11 @@ namespace leetcode
                 {'i','f','l','v'} };
             var words = new string[] { "oath", "pea", "eat", "rain" };
             var exp = new string[] { "eat", "oath" };
+            Console.WriteLine(exp.SameSet(FindWords(board, words)));
+
+            board = new char[,] { {'a'} };
+            words = new string[] { "a", "a" };
+            exp = new string[] { "a" };
             Console.WriteLine(exp.SameSet(FindWords(board, words)));
         }
     }
