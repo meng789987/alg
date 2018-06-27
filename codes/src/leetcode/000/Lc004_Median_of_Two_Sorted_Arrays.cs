@@ -23,8 +23,8 @@ namespace leetcode
                 nums2 = t;
             }
             int m = nums1.Length, n = nums2.Length;
-
-            for (int lo = 0, hi = m; ;)
+            int lo = 0, hi = m;
+            while (true)
             {
                 int i = (lo + hi) / 2;
                 int j = (m + n + 1) / 2 - i;
