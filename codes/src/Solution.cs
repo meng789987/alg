@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc274_H_Index:");
-            new leetcode.Lc274_H_Index().Test();
+            Console.WriteLine("Standard_Backtracking:");
+            new backtracking.Standard_Backtracking().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
@@ -22,6 +22,7 @@ namespace alg
         static void Test()
         {
             var table = new System.Data.DataTable();
+            Console.WriteLine(table.Compute("(1+2)*(4+3)", null));
             Console.WriteLine(table.Compute("(1+2)*(4+3)", null));
         }
     }
