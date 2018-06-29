@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc141_Linked_List_Cycle:");
-            new leetcode.Lc141_Linked_List_Cycle().Test();
+            Console.WriteLine("Lc301_Remove_Invalid_Parentheses:");
+            new leetcode.Lc301_Remove_Invalid_Parentheses().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
@@ -24,7 +24,8 @@ namespace alg
             var table = new System.Data.DataTable();
             Console.WriteLine(table.Compute("(1+2)*(4+3)", null));
             Console.WriteLine(table.Compute("(1+2)*(4+3)", null));
-            
+
+            int[] a;
         }
     }
 }
