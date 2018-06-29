@@ -11,9 +11,9 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc301_Remove_Invalid_Parentheses:");
-            new leetcode.Lc301_Remove_Invalid_Parentheses().Test();
-            //Test();
+            Console.WriteLine("SegmentTreeSum:");
+            new tree.SegmentTreeSum().Test();
+            Test();
 
             Console.WriteLine("Press any key to exit ...");
             Console.ReadKey();
@@ -25,7 +25,8 @@ namespace alg
             Console.WriteLine(table.Compute("(1+2)*(4+3)", null));
             Console.WriteLine(table.Compute("(1+2)*(4+3)", null));
 
-            int[] a;
+            var (a, b) = (3, 4);
+            Console.WriteLine($"{a}.{b}");
         }
     }
 }
