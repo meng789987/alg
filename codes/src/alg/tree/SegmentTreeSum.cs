@@ -5,13 +5,19 @@ using System.Linq;
 /*
  * tags: segment tree
  * Space(n); Build: Time(n), Query/Update: Time(logn)
- * segment tree is a perfect binary tree. Each node has a sum and a data range.
- * root is the sum of data range[0..n-1], its left is sum of data range[0..n/2], and its right is sum of data range[n/2+1..n-1].
+ * Tree node has a sum/max/gcd/lcd for its data range. If a node is the sum of data range[i..j], 
+ * then its left is sum of data range[i..(i+j)/2], and its right is sum of data range[(i+j)/2+1..j].
  * e.g. for data [10, 13, 12, 15, 16, 18], it would be:
- *                        84(0-7)
- *           50(0-3)                   34(4-7)
- *    23(0-1)       27(2-3)      34(4-5)      0(6-7)
- * 10(0)  13(1)  12(2)  15(3)  16(4)  18(5)  0(6)  0(7)
+ *                84[0..5]
+ *         35[0..2]            49[3..5]
+ *   23[0..1]             31[3..4]    
+ * 10[0]  13[1]  12[2]  15[3]  16[4]  18[5]
+ * 
+ * use an array, for node i its left is 2*i and right is 2*i+1. root is a[1]
+ *                84[0..7]
+ *          50[0..3]
+ *   23[0..1]      27[2..3]      34[4..5]
+ * 10[0]  13[1]  12[2]  15[3]  16[4]  18[5]  0[6]  0[7]
  */
 namespace alg.tree
 {
@@ -20,57 +26,52 @@ namespace alg.tree
         public SegmentTreeSum() { }
         public SegmentTreeSum(int[] data)
         {
-            _data = data;
-
             int n = 1;
-            while (n < _data.Length) n <<= 1;
-            n = n * 2 - 1;
-            _segtree = new int[n];
-            BuildTree(0, 0, _data.Length - 1);
+            while (n < data.Length) n <<= 1;
+            _segtree = new int[2 * n];
+
+            for (int i = 0; i < data.Length; i++)
+                _segtree[i + n] = data[i];
+            for (int i = n - 1; i > 0; i--)  // bottom up
+                _segtree[i] = _segtree[2 * i] + _segtree[2 * i + 1];
         }
 
         // sum of data[i..j]
         public int Sum(int i, int j)
         {
-            return Sum(0, 0, _data.Length - 1, i, j);
+            int sum = 0;
+            i += _segtree.Length / 2;
+            j += _segtree.Length / 2;
+            while (i <= j)
+            {
+                if (i % 2 == 1) // node i is right child, add itself instead of its parent
+                {
+                    sum += _segtree[i];
+                    i++; // move to parent sibling
+                }
+                if (j % 2 == 0) // node j is left child, add itself instead of its parent
+                {
+                    sum += _segtree[j];
+                    j--; // move to parent sibling
+                }
+                i /= 2;
+                j /= 2;
+            }
+            return sum;
         }
 
         // set data[pos] = newValue
         public void Update(int pos, int newValue)
         {
-            Update(0, 0, _data.Length - 1, pos, newValue - _data[pos]);
-        }
-
-
-        private int BuildTree(int node, int lo, int hi)
-        {
-            if (lo == hi) return _segtree[node] = _data[lo];
-            int m = (lo + hi) / 2;
-            return _segtree[node] = BuildTree(node * 2 + 1, lo, m) + BuildTree(node * 2 + 2, m + 1, hi);
-        }
-
-        // calculate the sum of data[i..j] from node whose range is [lo..hi]
-        private int Sum(int node, int lo, int hi, int i, int j)
-        {
-            if (hi < i || j < lo) return 0; // no overlap
-            if (i <= lo && hi <= j) return _segtree[node]; // the node is fully covered
-            int m = (lo + hi) / 2;
-            return Sum(node * 2 + 1, lo, m, i, j) + Sum(node * 2 + 2, m + 1, hi, i, j);
-        }
-
-        private void Update(int node, int lo, int hi, int pos, int diff)
-        {
-            if (pos < lo || hi < pos) return;
-            _segtree[node] += diff;
-            if (lo < hi) // not leaf node
+            pos += _segtree.Length / 2;
+            _segtree[pos] = newValue;
+            while (pos > 0)
             {
-                int m = (lo + hi) / 2;
-                Update(node * 2 + 1, lo, m, pos, diff);
-                Update(node * 2 + 2, m + 1, hi, pos, diff);
+                pos /= 2;
+                _segtree[pos] = _segtree[2 * pos] + _segtree[2 * pos + 1];
             }
         }
 
-        private int[] _data;
         private int[] _segtree;
 
         public void Test()
