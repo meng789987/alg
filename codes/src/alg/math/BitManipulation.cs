@@ -9,7 +9,7 @@ namespace alg.math
     public class BitManipulation
     {
         /*
-         * n&(n-1) will clear the least signaficant 1-bit of n
+         * n&(n-1) will clear the least signaficant 1-bit (last set bit) of n
          */
         public int BitCount(int n)
         {
@@ -57,7 +57,7 @@ namespace alg.math
         }
 
         /*
-         * clear all bits except the least one
+         * clear all set bits except the least one
          */
         public int LeastSignaficantBit(int n)
         {

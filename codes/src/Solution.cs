@@ -11,9 +11,9 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("SegmentTreeSum:");
-            new tree.SegmentTreeSum().Test();
-            Test();
+            Console.WriteLine("BinaryIndexTree:");
+            new tree.BinaryIndexTree().Test();
+            //Test();
 
             Console.WriteLine("Press any key to exit ...");
             Console.ReadKey();
