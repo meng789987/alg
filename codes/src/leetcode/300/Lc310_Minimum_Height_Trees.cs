@@ -8,7 +8,7 @@ using alg;
  * tags: graph, bfs
  * Time(n), Space(n)
  * the root of the minimum height tree should be the middle one of the longest path.
- * the middle one of the longest path can be found using two pointers to move to center with same speed.
+ * the middle one of the longest path can be found by moving two pointers from two ends to center with same speed.
  */
 namespace leetcode
 {

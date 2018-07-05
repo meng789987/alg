@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc310_Minimum_Height_Trees:");
-            new leetcode.Lc310_Minimum_Height_Trees().Test();
+            Console.WriteLine("Lc312_Burst_Balloons:");
+            new leetcode.Lc312_Burst_Balloons().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
