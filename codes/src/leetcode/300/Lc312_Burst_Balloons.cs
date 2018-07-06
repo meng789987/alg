@@ -43,19 +43,33 @@ namespace leetcode
 
         public int MaxCoinsBottomUp(int[] nums)
         {
-            var ns = new int[nums.Length + 2];
-            int n = 1;
-            foreach (var num in nums)
-                if (num != 0) ns[n++] = num; // burst 0 first
-            ns[0] = ns[n++] = 1;
+            int n = nums.Length;
+            var ns = new int[n + 2];
+            Array.Copy(nums, 0, ns, 1, n);
+            ns[0] = ns[n + 1] = 1;
+            var dp = new int[n + 2, n + 2];
 
-            return MaxCoinsTopdown(ns, n, 0, n - 1, new int[n, n]);
+            for (int len = 1; len <= n; len++)
+            {
+                for (int i = 0; i <= n - len; i++)
+                {
+                    int j = i + len + 1;
+                    for (int k = i + 1; k < j; k++)
+                    {
+                        int c = dp[i, k] + dp[k, j] + ns[i] * ns[k] * ns[j];
+                        dp[i, j] = Math.Max(dp[i, j], c);
+                    }
+                }
+            }
+
+            return dp[0, n + 1];
         }
 
         public void Test()
         {
             var nums = new int[] { 3, 1, 5, 8 };
             Console.WriteLine(MaxCoins(nums) == 167);
+            Console.WriteLine(MaxCoinsBottomUp(nums) == 167);
         }
     }
 }

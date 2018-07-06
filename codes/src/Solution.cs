@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc312_Burst_Balloons:");
-            new leetcode.Lc312_Burst_Balloons().Test();
+            Console.WriteLine("Lc315_Count_of_Smaller_Numbers_After_Self:");
+            new leetcode.Lc315_Count_of_Smaller_Numbers_After_Self().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
@@ -26,8 +26,7 @@ namespace alg
             Console.WriteLine(table.Compute("(1+2)*(4+3)", null));
 
             var (a, b) = (3, 4);
-
-            var q = new Queue<int>();
+            SortedList<int, int> aa;
         }
     }
 }
