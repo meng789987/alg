@@ -5,9 +5,10 @@ using System.Text;
 using alg;
 
 /*
- * tags: dp
- * Time(kmn), Space(kmn)
- * dp[i, j, k] = max(dp[i+1, j, k], dp[i, j+1, k], nums1[i] * 10^x + dp[i+1, j, k-1], nums2[j] * 10^y + dp[i, j+1, k-1]), where x/y is number of digit of dp[i+1, j, k-1]/dp[i, j+1, k-1]
+ * tags: greedy
+ * Time(kmn), Space(k)
+ * 1. get max number from one array
+ * 2. get max number from two arrays using all of their digits.
  */
 namespace leetcode
 {
@@ -16,66 +17,49 @@ namespace leetcode
         public int[] MaxNumber(int[] nums1, int[] nums2, int k)
         {
             int m = nums1.Length, n = nums2.Length;
-            var dp = new List<int>[m + 2, n + 2, k + 1];
-
-            for (int i = m; i >= 0; i--)
+            k = Math.Min(k, m + n);
+            var ret = new int[k];
+            for (int i = Math.Max(0, k - n); i <= k && i <= m; i++)
             {
-                for (int j = n; j >= 0; j--)
-                {
-                    for (int kk = 1; kk <= k; kk++)
-                    {
-                        var x = new List<int>();
-                        if (i < m) x.Add(nums1[i]);
-                        if (dp[i + 1, j, kk - 1] != null)
-                            x.AddRange(dp[i + 1, j, kk - 1]);
-
-                        var y = new List<int>();
-                        if (j < n) x.Add(nums2[j]);
-                        if (dp[i, j + 1, kk - 1] != null)
-                            y.AddRange(dp[i, j + 1, kk - 1]);
-
-                        dp[i, j, kk] = Math.Max(dp[i + 1, j, kk], Math.Max(dp[i, j + 1, kk], Math.Max(x, y)));
-                    }
-                }
+                var max = Merge(MaxNumber(nums1, i), MaxNumber(nums2, k - i));
+                if (IsGreater(max, 0, ret, 0)) ret = max;
             }
-
-            var res = new List<int>();
-            for (long v = dp[0, 0, k]; v > 0; v /= 10)
-                res.Add((int)(v % 10));
-            if (res.Count == 0) res.Add(0);
-            res.Reverse();
-
-            return res.ToArray();
+            return ret;
         }
 
-        List<int> Max(List<int> a, List<int> b, List<int> c, List<int> d)
+        // return the max number from nums using k digits
+        int[] MaxNumber(int[] nums, int k)
         {
-
+            var ret = new int[k];
+            int ri = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                while (ri > 0 && i + k - ri < nums.Length && ret[ri - 1] < nums[i]) ri--;
+                if (ri < k) ret[ri++] = nums[i];
+            }
+            return ret;
         }
 
-        int MinStickersTopdown(int[,] stickerCounts, string target, Dictionary<string, int> memo)
+        int[] Merge(int[] nums1, int[] nums2)
         {
-            if (memo.ContainsKey(target)) return memo[target];
-
-            var targetCount = new int[26];
-            foreach (var c in target)
-                targetCount[c - 'a']++;
-
-            int min = int.MaxValue;
-            for (int i = 0; i < stickerCounts.GetLength(0); i++)
+            int m = nums1.Length, n = nums2.Length;
+            var ret = new int[m + n];
+            for (int i = 0, j = 0, k = 0; k < m + n; k++)
             {
-                if (stickerCounts[i, target[0] - 'a'] == 0) continue;
-                var sb = new StringBuilder();
-                for (int j = 0; j < 26; j++)
-                {
-                    if (targetCount[j] > stickerCounts[i, j])
-                        sb.Append((char)(j + 'a'), targetCount[j] - stickerCounts[i, j]);
-                }
-                int r = MinStickersTopdown(stickerCounts, sb.ToString(), memo);
-                if (0 <= r && r < min) min = r;
+                ret[k] = IsGreater(nums1, i, nums2, j) ? nums1[i++] : nums2[j++];
+            }
+            return ret;
+        }
+
+        bool IsGreater(int[] nums1, int i, int[] nums2, int j)
+        {
+            while (i < nums1.Length && j < nums2.Length && nums1[i] == nums2[j])
+            {
+                i++;
+                j++;
             }
 
-            return memo[target] = min == int.MaxValue ? -1 : 1 + min;
+            return j >= nums2.Length || (i < nums1.Length && nums1[i] > nums2[j]);
         }
 
         public void Test()
@@ -94,6 +78,11 @@ namespace leetcode
             nums2 = new int[] { 8, 9 };
             exp = new int[] { 9, 8, 9 };
             Console.WriteLine(exp.SequenceEqual(MaxNumber(nums1, nums2, 3)));
+
+            nums1 = new int[] { 2, 5, 6, 4, 4, 0 };
+            nums2 = new int[] { 7, 3, 8, 0, 6, 5, 7, 6, 2 };
+            exp = new int[] { 7, 3, 8, 2, 5, 6, 4, 4, 0, 6, 5, 7, 6, 2, 0 };
+            Console.WriteLine(exp.SequenceEqual(MaxNumber(nums1, nums2, 15)));
         }
     }
 }
