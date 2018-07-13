@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc321_Create_Maximum_Number:");
-            new leetcode.Lc321_Create_Maximum_Number().Test();
+            Console.WriteLine("Lc42_Trapping_Rain_Water:");
+            new leetcode.Lc42_Trapping_Rain_Water().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
