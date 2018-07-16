@@ -18,7 +18,7 @@ namespace alg.sort
         private void SortRc(int[] a, int lo, int hi)
         {
             if (lo >= hi) return;
-            int p = Partition(a, lo, hi);
+            int p = Partition3Way(a, lo, hi, a[hi]);
             SortRc(a, lo, p - 1);
             SortRc(a, p + 1, hi);
         }
@@ -31,14 +31,11 @@ namespace alg.sort
             {
                 if (a[j] < pivot)
                 {
-                    int t = a[i];
-                    a[i] = a[j];
-                    a[j] = t;
+                    Swap(a, i, j);
                     i++;
                 }
             }
-            a[hi] = a[i];
-            a[i] = pivot;
+            Swap(a, i, hi);
             return i;
         }
 
@@ -52,11 +49,30 @@ namespace alg.sort
                 do { i++; } while (a[i] < pivot);
                 do { j--; } while (a[j] > pivot);
                 if (i >= j) return j;
-
-                int t = a[i];
-                a[i] = a[j];
-                a[j] = t;
+                Swap(a, i, j);
             }
+        }
+
+        /*
+         * partition a into 3 parts: a[lo..i-1] < pivot == a[i..j] < a[j+1..hi]
+         */
+        private int Partition3Way(int[] a, int lo, int hi, int pivot)
+        {
+            int i = lo;
+            while (i <= hi)
+            {
+                if (a[i] < pivot) Swap(a, i++, lo++);
+                else if (a[i] > pivot) Swap(a, i, hi--);
+                else i++;
+            }
+            return i - 1;
+        }
+
+        void Swap(int[] a, int i, int j)
+        {
+            int t = a[i];
+            a[i] = a[j];
+            a[j] = t;
         }
 
         public void Test()

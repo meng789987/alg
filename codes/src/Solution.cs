@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc42_Trapping_Rain_Water:");
-            new leetcode.Lc42_Trapping_Rain_Water().Test();
+            Console.WriteLine("QuickSort:");
+            new sort.QuickSort().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
