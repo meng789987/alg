@@ -5,10 +5,15 @@ using System.Linq;
 using alg;
 
 /*
- * tags: bit, merge sort
+ * tags: bit, dc, merge sort
  * Time(nlogn), Space(n)
- * merge sort: result[i] is the the count of numbers moved from the right of i-th element to its left,
- *         so we track the moving count when merge.
+ * merge sort: divide the prefix sum array into two parts, sums[0..m] and sums[m+1..n-1],
+ *      to get count of pair (i,j) for lower <= sums[j] - sums[i] <= upper, it is sum of
+ *      MergeSort(sums, 0, m),       0<=i<j<=m
+ *      MergeSort(sums, m+1, n-1), m+1<=i<j<=n-1
+ *      and those 0<=i<=m<j<=n-1, to calculate count of this part, for each i, 
+ *      to find the first jl where lower <= sums[jl] - sums[i], and
+ *      to find the first ju where          sums[ju] - sums[i] <= upper, then it is ju - jl.
  * bit: bitree[i] is the count of numbers whose value is sitting at i-th in the sorted array.
  */
 namespace leetcode
@@ -17,35 +22,73 @@ namespace leetcode
     {
         public int CountRangeSum(int[] nums, int lower, int upper)
         {
-            int ret = 0;
             int n = nums.Length;
-            if (n == 0) return 0;
+            var sums = new long[n + 1];
+            for (int i = 0; i < n; i++) sums[i + 1] = sums[i] + nums[i];
+            return MergeSort(sums, 0, n, new long[n + 1], lower, upper);
+        }
 
-            var sums = new long[n];
-            sums[0] = nums[0];
-            for (int i = 1; i < n; i++)
-                sums[i] = sums[i - 1] + nums[i];
+        int MergeSort(long[] sums, int lo, int hi, long[] aux, int lower, int upper)
+        {
+            if (lo >= hi) return 0;
+            int m = (lo + hi) / 2;
+            return MergeSort(sums, lo, m, aux, lower, upper)
+                + MergeSort(sums, m + 1, hi, aux, lower, upper)
+                + Merge(sums, lo, m, hi, aux, lower, upper);
+        }
 
-            var sumSet = new SortedSet<long>(sums);
-            var sumsSorted = sumSet.ToArray();
-            var map = new Dictionary<long, int>();
-            for (int i = 0; i < n; i++)
-                map[sumsSorted[i]] = i;
-
-            var bitree = new int[n + 1];
-            for (int i = 0; i < n; i++)
+        int Merge(long[] sums, int lo, int m, int hi, long[] aux, int lower, int upper)
+        {
+            int count = 0;
+            for (int i = lo, jl = m + 1, ju = m + 1; i <= m; i++)
             {
-                AddBit(bitree, map[sums[i]] + 1, 1);
+                while (jl <= hi && sums[jl] - sums[i] < lower) jl++;
+                while (ju <= hi && sums[ju] - sums[i] <= upper) ju++;
+                count += ju - jl;
+            }
 
-                var posLower = Array.BinarySearch(sumsSorted, sums[i] - lower);
-                if (posLower < 0) posLower = -2 - posLower;
-                var posUpper = Array.BinarySearch(sumsSorted, sums[i] - upper);
-                if (posUpper < 0) posUpper = -1 - posUpper;
+            Array.Copy(sums, lo, aux, lo, hi - lo + 1);
+            for (int i = lo, j = m + 1, k = lo; k <= hi; k++)
+            {
+                if (j > hi || (i <= m && aux[i] < aux[j])) sums[k] = aux[i++];
+                else sums[k] = aux[j++];
+            }
 
-                ret += QueryBit(bitree, posLower + 1) - QueryBit(bitree, posUpper);
+            return count;
+        }
+
+        public int CountRangeSumBit(int[] nums, int lower, int upper)
+        {
+            int n = nums.Length;
+            var sums = new long[n + 1];
+            for (int i = 0; i < n; i++)
+                sums[i + 1] = sums[i] + nums[i];
+            var sortedSums = sums.ToArray();
+            Array.Sort(sortedSums);
+
+            int ret = 0;
+            var bitree = new int[n + 2];
+            foreach (var sum in sums)
+            {
+                ret += QueryBit(bitree, Find(sortedSums, sum - lower - 0.5)) 
+                    - QueryBit(bitree, Find(sortedSums, sum - upper + 0.5));
+                AddBit(bitree, Find(sortedSums, sum - 0.5) + 2, 1);
             }
 
             return ret;
+        }
+
+        // use double to avoid dup
+        int Find(long[] nums, double value)
+        {
+            int lo = 0;
+            for (int hi = nums.Length - 1; lo < hi;)
+            {
+                int m = (lo + hi) / 2;
+                if (nums[m] < value) lo = m + 1;
+                else hi = m - 1;
+            }
+            return lo;
         }
 
         int LowBit(int n)
@@ -77,6 +120,7 @@ namespace leetcode
         {
             var nums = new int[] { -2, 5, -1 };
             Console.WriteLine(CountRangeSum(nums, -2, 2) == 3);
+            Console.WriteLine(CountRangeSumBit(nums, -2, 2) == 3);
         }
     }
 }
