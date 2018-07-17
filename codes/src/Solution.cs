@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("QuickSort:");
-            new sort.QuickSort().Test();
+            Console.WriteLine("Lc327_Count_of_Range_Sum:");
+            new leetcode.Lc327_Count_of_Range_Sum().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
@@ -26,7 +26,8 @@ namespace alg
             Console.WriteLine(table.Compute("(1+2)*(4+3)", null));
 
             var (a, b) = (3, 4);
-
+            var ss = new SortedSet<int>(new int[] { 1, 2, 1 });
+            Console.WriteLine(ss.Count);
         }
     }
 }

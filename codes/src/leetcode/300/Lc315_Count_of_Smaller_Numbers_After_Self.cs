@@ -139,7 +139,7 @@ namespace leetcode
                 map[clone[i]] = i;
 
             var bitree = new int[n + 1];
-            for (int i=n-1; i>=0; i--)
+            for (int i = n - 1; i >= 0; i--)
             {
                 ret[i] = QueryBit(bitree, map[nums[i]]);
                 AddBit(bitree, map[nums[i]] + 1, 1);
