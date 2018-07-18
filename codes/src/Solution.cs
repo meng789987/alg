@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc327_Count_of_Range_Sum:");
-            new leetcode.Lc327_Count_of_Range_Sum().Test();
+            Console.WriteLine("Lc410_Split_Array_Largest_Sum:");
+            new leetcode.Lc410_Split_Array_Largest_Sum().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

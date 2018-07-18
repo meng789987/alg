@@ -173,6 +173,78 @@ namespace leetcode
             return r;
         }
 
+        public IList<int> CountSmallerSegtree(int[] nums)
+        {
+            var tree = new SegmentCountTree(new SortedSet<int>(nums).ToArray());
+            var ret = new int[nums.Length];
+            for (int i = nums.Length - 1; i >= 0; i--)
+            {
+                ret[i] = tree.Query(nums[i]);
+                tree.Update(nums[i]);
+            }
+            return ret;
+        }
+
+        class SegmentCountTree
+        {
+            public SegmentCountTree(int[] nums)
+            {
+                _root = Build(nums, 0, nums.Length - 1);
+            }
+
+            SegmentTreeNode Build(int[] nums, int lo, int hi)
+            {
+                if (lo > hi) return null;
+                var node = new SegmentTreeNode(nums[lo], nums[hi]);
+                if (lo == hi) return node;
+
+                int m = (lo + hi) / 2;
+                node.Left = Build(nums, lo, m);
+                node.Right = Build(nums, m + 1, hi);
+                return node;
+            }
+
+            public void Update(int value)
+            {
+                Update(_root, value);
+            }
+
+            void Update(SegmentTreeNode node, int value)
+            {
+                if (node == null || value < node.Min || node.Max < value) return;
+                node.Count++;
+                Update(node.Left, value);
+                Update(node.Right, value);
+            }
+
+            // return sum of Count of nodes whose range is less than given value
+            public int Query(int value)
+            {
+                return Query(_root, value);
+            }
+
+            int Query(SegmentTreeNode node, int value)
+            {
+                if (node == null || value <= node.Min) return 0;
+                if (node.Max < value) return node.Count;
+                return Query(node.Left, value) + Query(node.Right, value);
+            }
+
+            SegmentTreeNode _root;
+
+            class SegmentTreeNode
+            {
+                public int Min, Max;
+                public int Count;
+                public SegmentTreeNode Left, Right;
+                public SegmentTreeNode(int min, int max)
+                {
+                    Min = min;
+                    Max = max;
+                }
+            }
+        }
+
         public void Test()
         {
             var nums = new int[] { 5, 2, 6, 1 };
@@ -181,6 +253,7 @@ namespace leetcode
             Console.WriteLine(exp.SequenceEqual(CountSmallerMergeSort(nums)));
             Console.WriteLine(exp.SequenceEqual(CountSmallerBst(nums)));
             Console.WriteLine(exp.SequenceEqual(CountSmallerBit(nums)));
+            Console.WriteLine(exp.SequenceEqual(CountSmallerSegtree(nums)));
 
             nums = new int[] { 26, 78, 27, 100, 33, 67, 90, 23, 66, 5, 38, 7, 35, 23, 52, 22, 83, 51, 98, 69, 81, 32, 78, 28, 94, 13, 2, 97, 3, 76, 99, 51, 9, 21, 84, 66, 65, 36, 100, 41 };
             exp = new int[] { 10, 27, 10, 35, 12, 22, 28, 8, 19, 2, 12, 2, 9, 6, 12, 5, 17, 9, 19, 12, 14, 6, 12, 5, 12, 3, 0, 10, 0, 7, 8, 4, 0, 0, 4, 3, 2, 0, 1, 0 };
@@ -188,6 +261,7 @@ namespace leetcode
             Console.WriteLine(exp.SequenceEqual(CountSmallerMergeSort(nums)));
             Console.WriteLine(exp.SequenceEqual(CountSmallerBst(nums)));
             Console.WriteLine(exp.SequenceEqual(CountSmallerBit(nums)));
+            Console.WriteLine(exp.SequenceEqual(CountSmallerSegtree(nums)));
         }
     }
 }

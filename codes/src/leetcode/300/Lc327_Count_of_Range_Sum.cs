@@ -20,7 +20,7 @@ namespace leetcode
 {
     public class Lc327_Count_of_Range_Sum
     {
-        public int CountRangeSum(int[] nums, int lower, int upper)
+        public int CountRangeSumMergeSort(int[] nums, int lower, int upper)
         {
             int n = nums.Length;
             var sums = new long[n + 1];
@@ -57,70 +57,93 @@ namespace leetcode
             return count;
         }
 
-        public int CountRangeSumBit(int[] nums, int lower, int upper)
+        public int CountRangeSumSegTree(int[] nums, int lower, int upper)
         {
-            int n = nums.Length;
-            var sums = new long[n + 1];
-            for (int i = 0; i < n; i++)
+            // prefix sum; use long to avoid overflow
+            var sums = new long[nums.Length + 1];
+            for (int i = 0; i < nums.Length; i++)
                 sums[i + 1] = sums[i] + nums[i];
-            var sortedSums = sums.ToArray();
-            Array.Sort(sortedSums);
+
+            // intially the Count of all prefix sum is 0; use set to remove duplicates
+            var tree = new SegmentCountTree(new SortedSet<long>(sums).ToArray());
 
             int ret = 0;
-            var bitree = new int[n + 2];
-            foreach (var sum in sums)
+            for (int i = 0; i < nums.Length; i++)
             {
-                ret += QueryBit(bitree, Find(sortedSums, sum - lower - 0.5)) 
-                    - QueryBit(bitree, Find(sortedSums, sum - upper + 0.5));
-                AddBit(bitree, Find(sortedSums, sum - 0.5) + 2, 1);
+                // set the Count of previous prefix sum
+                tree.Update(sums[i]);
+
+                // query the count of j, where lower <= sum[i] - sum[j] <= upper, that is sum[i] - upper <= sum[j] <= sum[i] - lower
+                ret += tree.Query(sums[i + 1] - upper, sums[i + 1] - lower);
             }
 
             return ret;
         }
 
-        // use double to avoid dup
-        int Find(long[] nums, double value)
+        class SegmentCountTree
         {
-            int lo = 0;
-            for (int hi = nums.Length - 1; lo < hi;)
+            public SegmentCountTree(long[] nums)
             {
+                _root = Build(nums, 0, nums.Length - 1);
+            }
+
+            Node Build(long[] nums, int lo, int hi)
+            {
+                if (lo > hi) return null;
+                var node = new Node(nums[lo], nums[hi]);
+                if (lo == hi) return node;
+
                 int m = (lo + hi) / 2;
-                if (nums[m] < value) lo = m + 1;
-                else hi = m - 1;
+                node.Left = Build(nums, lo, m);
+                node.Right = Build(nums, m + 1, hi);
+                return node;
             }
-            return lo;
-        }
 
-        int LowBit(int n)
-        {
-            return n & (-n);
-        }
-
-        void AddBit(int[] bitree, int pos, int diff)
-        {
-            while (pos < bitree.Length)
+            public void Update(long value)
             {
-                bitree[pos] += diff;
-                pos += LowBit(pos);
+                Update(_root, value);
             }
-        }
 
-        int QueryBit(int[] bitree, int pos)
-        {
-            int r = 0;
-            while (pos > 0)
+            void Update(Node node, long value)
             {
-                r += bitree[pos];
-                pos -= LowBit(pos);
+                if (node == null || value < node.Min || value > node.Max) return;
+                node.Count++;
+                Update(node.Left, value);
+                Update(node.Right, value);
             }
-            return r;
+
+            public int Query(long min, long max)
+            {
+                return Query(_root, min, max);
+            }
+
+            int Query(Node node, long min, long max)
+            {
+                if (node == null || node.Max < min || max < node.Min) return 0;
+                if (min <= node.Min && node.Max <= max) return node.Count;
+                return Query(node.Left, min, max) + Query(node.Right, min, max);
+            }
+
+            Node _root;
+
+            class Node
+            {
+                public int Count;
+                public long Min, Max;
+                public Node Left, Right;
+                public Node(long min, long max)
+                {
+                    Min = min;
+                    Max = max;
+                }
+            }
         }
 
         public void Test()
         {
             var nums = new int[] { -2, 5, -1 };
-            Console.WriteLine(CountRangeSum(nums, -2, 2) == 3);
-            Console.WriteLine(CountRangeSumBit(nums, -2, 2) == 3);
+            Console.WriteLine(CountRangeSumMergeSort(nums, -2, 2) == 3);
+            Console.WriteLine(CountRangeSumSegTree(nums, -2, 2) == 3);
         }
     }
 }
