@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc410_Split_Array_Largest_Sum:");
-            new leetcode.Lc410_Split_Array_Largest_Sum().Test();
+            Console.WriteLine("Lc420_Strong_Password_Checker:");
+            new leetcode.Lc420_Strong_Password_Checker().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

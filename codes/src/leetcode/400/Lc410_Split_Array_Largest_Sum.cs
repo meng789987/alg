@@ -5,8 +5,8 @@ using System.Linq;
 using alg;
 
 /*
- * tags: dp
- * Time(mn^2), Space(mn)
+ * tags: bs, dp
+ * bs: Time(nlogw), Space(1)
  * dp[i, m] = min(max(dp[j, m-1], sum[j+1..i])), j=[0..i]
  */
 namespace leetcode
@@ -24,19 +24,15 @@ namespace leetcode
                 sum += num;
             }
 
-            long candidate = -1;
-            for (long lo = max, hi = sum; lo <= hi;)
+            long lo = max, hi = sum;
+            while (lo < hi)
             {
-                long mid = lo + (hi - lo) / 2;
-                if (IsGoodSize(nums, m, mid))
-                {
-                    candidate = mid;
-                    hi = mid - 1;
-                }
+                long mid = (lo + hi) / 2;
+                if (IsGoodSize(nums, m, mid)) hi = mid;
                 else lo = mid + 1;
             }
 
-            return (int)(candidate != -1 ? candidate : max);
+            return (int)hi;
         }
 
         bool IsGoodSize(int[] nums, int m, long size)
@@ -55,7 +51,7 @@ namespace leetcode
             return true;
         }
 
-        public int SplitArray(int[] nums, int m)
+        public int SplitArrayDp(int[] nums, int m)
         {
             int n = nums.Length;
             var sums = new long[n + 1];
@@ -80,8 +76,8 @@ namespace leetcode
         public void Test()
         {
             var nums = new int[] { 7, 2, 5, 10, 8 };
-            Console.WriteLine(SplitArray(nums, 2) == 18);
             Console.WriteLine(SplitArrayBs(nums, 2) == 18);
+            Console.WriteLine(SplitArrayDp(nums, 2) == 18);
         }
     }
 }
