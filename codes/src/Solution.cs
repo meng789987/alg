@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc420_Strong_Password_Checker:");
-            new leetcode.Lc420_Strong_Password_Checker().Test();
+            Console.WriteLine("Lc440_Kth_Smallest_in_Lexicographical_Order:");
+            new leetcode.Lc440_Kth_Smallest_in_Lexicographical_Order().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
@@ -27,7 +27,7 @@ namespace alg
 
             var (a, b) = (3, 4);
             var ss = new SortedSet<int>(new int[] { 1, 2, 1 });
-            Console.WriteLine(ss.Count);
+            Console.WriteLine(ss.Count); 
         }
     }
 }
