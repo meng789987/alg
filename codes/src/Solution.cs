@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc440_Kth_Smallest_in_Lexicographical_Order:");
-            new leetcode.Lc440_Kth_Smallest_in_Lexicographical_Order().Test();
+            Console.WriteLine("Lc446_Arithmetic_Slices_II_Subsequence:");
+            new leetcode.Lc446_Arithmetic_Slices_II_Subsequence().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
