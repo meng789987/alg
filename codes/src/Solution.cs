@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc446_Arithmetic_Slices_II_Subsequence:");
-            new leetcode.Lc446_Arithmetic_Slices_II_Subsequence().Test();
+            Console.WriteLine("Lc45_Jump_Game_II:");
+            new leetcode.Lc45_Jump_Game_II().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
