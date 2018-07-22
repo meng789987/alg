@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc45_Jump_Game_II:");
-            new leetcode.Lc45_Jump_Game_II().Test();
+            Console.WriteLine("Lc330_Patching_Array:");
+            new leetcode.Lc330_Patching_Array().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
