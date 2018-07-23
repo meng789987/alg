@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc330_Patching_Array:");
-            new leetcode.Lc330_Patching_Array().Test();
+            Console.WriteLine("Lc335_Self_Crossing:");
+            new leetcode.Lc335_Self_Crossing().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
