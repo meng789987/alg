@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc363_Max_Sum_of_Rectangle_No_Larger_ThanK:");
-            new leetcode.Lc363_Max_Sum_of_Rectangle_No_Larger_ThanK().Test();
+            Console.WriteLine("Lc689_Maximum_Sum_of3NonOverlapping_Subarrays:");
+            new leetcode.Lc689_Maximum_Sum_of3NonOverlapping_Subarrays().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
@@ -28,6 +28,7 @@ namespace alg
             var (a, b) = (3, 4);
             var ss = new SortedSet<int>();
             Console.WriteLine(ss.Min);
+
         }
 
     }
