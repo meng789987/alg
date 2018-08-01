@@ -1,11 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace alg
 {
     public static class Extensions
     {
+        public static long ElapsedMilliseconds(Action action, int loopCount = 1)
+        {
+            var watch = Stopwatch.StartNew();
+            for (int i = 0; i < loopCount; i++)
+                action();
+            watch.Stop();
+            return watch.ElapsedMilliseconds;
+        }
+
         public static bool SameSet(this IEnumerable<int> a, IEnumerable<int> b)
         {
             return SameSet(a, b, Comparer<int>.Default);

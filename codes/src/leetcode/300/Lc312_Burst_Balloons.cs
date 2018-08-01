@@ -9,6 +9,8 @@ using alg;
  * Time(n^3), Space(n^2)
  * dp(i, j) = max(dp(i, k) + nums[i] * nums[k] * nums[j] + dp(k, j)), k=(i..j)
  * burst ballons(i..k) first, then (k..j), then k
+ * The subproblem has to include the two guarding balloons making it n^2 complexity. It't not enough to define the subprolem dp[k] as the max points 
+ * when ballon k is last burst, as it's not self contained, it depends on its external conditions, its border ballons.
  */
 namespace leetcode
 {
