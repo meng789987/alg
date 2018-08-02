@@ -11,9 +11,9 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc664_Strange_Printer:");
-            //new leetcode.Lc664_Strange_Printer().Test();
-            Test();
+            Console.WriteLine("Lc552_Student_Attendance_RecordII:");
+            new leetcode.Lc552_Student_Attendance_RecordII().Test();
+            //Test();
 
             Console.WriteLine("Press any key to exit ...");
             Console.ReadKey();
