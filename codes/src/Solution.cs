@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Dp2Matrix:");
-            new dp.Dp2Matrix().Test();
+            Console.WriteLine("Lc517_Super_Washing_Machines:");
+            new leetcode.Lc517_Super_Washing_Machines().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

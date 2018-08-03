@@ -5,7 +5,7 @@ using System.Linq;
 using alg;
 
 /*
- * tags: bst
+ * tags: bst, heap
  * use two heaps to mimic self balanced bst
  */
 namespace leetcode
@@ -15,48 +15,60 @@ namespace leetcode
         public void AddNum(int num)
         {
             // add the num to lo first
-            if (_lo.ContainsKey(num))
-                _lo[num]++;
-            else _lo.Add(num, 1);
+            _lo.Add(num);
 
             // move the max item in lo to hi
-            {
-                int loMax = _lo.Keys.First();
-                if (_hi.ContainsKey(loMax))
-                    _hi[loMax]++;
-                else _hi.Add(loMax, 1);
-                if (_lo[loMax] > 1)
-                    _lo[loMax]--;
-                else _lo.Remove(loMax);
-                _hiCnt++;
-            }
+            _hi.Add(_lo.Poll());
 
             // balance lo and hi by moving the min item in hi to lo
-            if (_loCnt < _hiCnt)
-            {
-                int hiMin = _hi.Keys.First();
-                if (_lo.ContainsKey(hiMin))
-                    _lo[hiMin]++;
-                else _lo.Add(hiMin, 1);
-                if (_hi[hiMin] > 1)
-                    _hi[hiMin]--;
-                else _hi.Remove(hiMin);
-                _loCnt++;
-                _hiCnt--;
-            }
-
+            if (_lo.Count < _hi.Count)
+                _lo.Add(_hi.Poll());
         }
 
         public double FindMedian()
         {
-            if (_loCnt > _hiCnt)
-                return _lo.Keys.First();
-            return ((double)_lo.Keys.First() + _hi.Keys.First()) / 2.0;
+            if (_lo.Count > _hi.Count)
+                return _lo.Peek();
+            return ((double)_lo.Peek() + _hi.Peek()) / 2.0;
         }
 
-        int _loCnt, _hiCnt;
-        SortedDictionary<int, int> _lo = new SortedDictionary<int, int>((Comparer<int>.Create((a, b) => b - a)));
-        SortedDictionary<int, int> _hi = new SortedDictionary<int, int>();
+        Heap _lo = new Heap(Comparer<int>.Create((a, b) => b.CompareTo(a)));
+        Heap _hi = new Heap(Comparer<int>.Default);
+
+
+        class Heap
+        {
+            public Heap(IComparer<int> comp)
+            {
+                this.Map = new SortedDictionary<int, int>(comp);
+            }
+
+            public void Add(int num)
+            {
+                if (Map.ContainsKey(num)) Map[num]++;
+                else Map[num] = 1;
+                _Count++;
+            }
+
+            public int Poll()
+            {
+                var pair = Map.First();
+                if (pair.Value == 1) Map.Remove(pair.Key);
+                else Map[pair.Key]--;
+                _Count--;
+                return pair.Key;
+            }
+
+            public int Peek()
+            {
+                return Map.First().Key;
+            }
+
+            public int Count { get { return _Count; } }
+
+            private SortedDictionary<int, int> Map;
+            private int _Count;
+        }
 
         public void Test()
         {
