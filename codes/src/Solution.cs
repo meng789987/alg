@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc517_Super_Washing_Machines:");
-            new leetcode.Lc517_Super_Washing_Machines().Test();
+            Console.WriteLine("BinarySearch:");
+            new array.BinarySearch().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
