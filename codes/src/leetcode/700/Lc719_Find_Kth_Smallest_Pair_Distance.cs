@@ -6,10 +6,8 @@ using System.Numerics;
 using alg;
 
 /*
- * tags: bs
- * math: According to geometric sequence, b^0 + b^1 + ... + b^(w-1) = (b^w - 1) / (b - 1), that is the num n=11111 with width w and base b.
- * b^(w-1) < n < b^w, so b should be [n^(1/w), n^(1/(w-1)], then binary search; or
- * b^(w-1) < n < (b+1)^(w-1), so b=n^(1/(w-1)) is what we want to verify.
+ * tags: saddleback binary search
+ * Time(nlogw), Space(1), where w=maxValue-minValue
  */
 namespace leetcode
 {
@@ -17,25 +15,30 @@ namespace leetcode
     {
         public int SmallestDistancePair(int[] nums, int k)
         {
-            int n = nums.Length;
             Array.Sort(nums);
-            var q = new SortedSet<int[]>(Comparer<int[]>.Create((a, b) =>
-                nums[a[1]] - nums[a[0]] != nums[b[1]] - nums[b[0]]
-                ? nums[a[1]] - nums[a[0]] - nums[b[1]] + nums[b[0]]
-                : a[0] - b[0]
-            ));
+            int lo = 0, hi = nums[nums.Length - 1] - nums[0];
 
-            for (int i = 0; i < n - 1; i++)
-                q.Add(new int[] { i, i + 1 });
-
-            for (int i = 0; i < k - 1; i++)
+            while (lo < hi)
             {
-                var node = q.Min; q.Remove(q.Min);
-                if (node[1] < n - 1)
-                    q.Add(new int[] { node[0], node[1] + 1 });
+                int mid = lo + (hi - lo) / 2;
+                if (Count(nums, mid) < k) lo = mid + 1;
+                else hi = mid;
             }
 
-            return nums[q.Min[1]] - nums[q.Min[0]];
+            return lo;
+        }
+
+        // saddleback binary search to return the count of distances less than or equal to the given value
+        int Count(int[] nums, int value)
+        {
+            int count = 0;
+            int n = nums.Length;
+            for (int j = 1, i = 0; i < n - 1; i++)
+            {
+                while (j < n && nums[j] - nums[i] <= value) j++;
+                count += j - i - 1;
+            }
+            return count;
         }
 
 
@@ -43,6 +46,13 @@ namespace leetcode
         {
             var nums = new int[] { 1, 3, 1 };
             Console.WriteLine(SmallestDistancePair(nums, 1) == 0);
+            Console.WriteLine(SmallestDistancePair(nums, 2) == 2);
+            Console.WriteLine(SmallestDistancePair(nums, 3) == 2);
+
+            nums = new int[] { 1, 4, 6, 7, 10, 15 };
+            Console.WriteLine(SmallestDistancePair(nums, 1) == 1);
+            Console.WriteLine(SmallestDistancePair(nums, 8) == 5);
+            Console.WriteLine(SmallestDistancePair(nums, 13) == 9);
         }
     }
 }
