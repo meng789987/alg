@@ -8,7 +8,7 @@ using System.Linq;
  * Time(nlogn), Space(n)
  * dp[i] is the length of longest increasing subsequence ending with nums[i].
  * dp[i] = max(dp[k] + 1), where k=[0..i-1] and nums[k] < nums[i].
- * Since dp is ordered, so we can binary find nums[i] in dp 
+ * Since dp is ordered, so we can binary search nums[i] in dp 
  * to replace (dp[k] if nums[i]<dp[k], so dp[i] only contains the smallest tail number of all increasing subsequence with same length) 
  * or insert (nums[i] if nums[i]>dp[i-1]).
  */
@@ -19,83 +19,61 @@ namespace alg.dp
         int Lis(int[] nums)
         {
             var dp = new int[nums.Length];
-            int dplen = 0;
+            int len = 0;
 
             foreach (var num in nums)
             {
-                int idx = Array.BinarySearch(dp, 0, dplen, num);
+                int idx = Array.BinarySearch(dp, 0, len, num);
                 if (idx < 0)
                 {
                     idx = ~idx;
                     dp[idx] = num;
-                    if (idx == dplen) dplen++;
+                    if (idx == len) len++;
                 }
             }
 
-            return dplen;
-        }
-
-        int LisDp(int[] nums)
-        {
-            int n = nums.Length;
-            var dp = new int[n];
-            int max = 0;
-
-            for (int i = 0; i < n; i++)
-            {
-                for (int k = 0; k < i; k++)
-                {
-                    if (dp[i] < dp[k] && nums[k] < nums[i])
-                        dp[i] = dp[k];
-                }
-
-                dp[i]++;
-                if (max < dp[i]) max = dp[i];
-            }
-
-            return max;
+            return len;
         }
 
         IList<int> LisPath(int[] nums)
         {
             int n = nums.Length;
-            int[] lens = new int[n], idx=new int[n];
-            int maxi = 0;
+            var idx = new int[n]; // store the index of the number instead of the number itself to easy reconstructing the path
+            int len = 0;
+            var pre = new int[n]; // store the index of predecessor of nums[i] in the LIS ending at nums[i]
 
             for (int i = 0; i < n; i++)
             {
-                for (int k=0; k<i ; k++)
+                int lo = 0, hi = len - 1;
+                while (lo <= hi)
                 {
-                    if (lens[i]<lens[k] && nums[k]<nums[i])
-                    {
-                        lens[i] = lens[k];
-                        idx[i] = k;
-                    }
+                    int mid = (lo + hi) / 2;
+                    if (nums[idx[mid]] < nums[i]) lo = mid + 1;
+                    else hi = mid - 1;
                 }
 
-                lens[i]++;
-                if (lens[maxi] < lens[i]) maxi = i;
+                idx[lo] = i;
+                if (lo > 0) pre[i] = idx[lo - 1];
+                if (lo >= len) len = lo + 1;
             }
 
-            var res = new int[lens[maxi]];
-            for (int i = res.Length - 1, p = maxi; i >= 0; i--, p = idx[p])
+            var res = new int[len];
+            for (int p = idx[len - 1], i = len - 1; i >= 0; i--, p = pre[p])
                 res[i] = nums[p];
-                
+
             return res.ToList();
         }
 
         public void Test()
         {
             var nums = new int[] { 5, 2, 7, 4, 3, 8 };
-            var exp = new int[] { 5, 7, 8 };
+            var exp = new int[] { 2, 3, 8 };
             Console.WriteLine(Lis(nums) == 3);
-            Console.WriteLine(LisDp(nums) == 3);
             Console.WriteLine(exp.SequenceEqual(LisPath(nums)));
 
             nums = new int[] { 15, 27, 14, 38, 26, 55, 46, 65, 85 };
-            exp = new int[] { 15, 27, 38, 55, 65, 85 };
+            exp = new int[] { 15, 27, 38, 46, 65, 85 };
             Console.WriteLine(Lis(nums) == 6);
-            Console.WriteLine(LisDp(nums) == 6);
             Console.WriteLine(exp.SequenceEqual(LisPath(nums)));
         }
     }

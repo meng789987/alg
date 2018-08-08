@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc564_Find_the_Closest_Palindrome:");
-            new leetcode.Lc564_Find_the_Closest_Palindrome().Test();
+            Console.WriteLine("ShortestPath:");
+            new dp.ShortestPath().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
