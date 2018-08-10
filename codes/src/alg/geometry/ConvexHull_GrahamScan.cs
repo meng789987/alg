@@ -34,14 +34,11 @@ namespace alg.geometry
             stack.Push(ps[2]);
             for (int i = 3; i < ps.Length; i++)
             {
-                Point a, b, c = ps[i];
-                do
-                {
-                    b = stack.Pop();
-                    a = stack.Peek();
-                } while (GeoCommon.Orientation(a, b, c) <= 0);
-                stack.Push(b);
-                stack.Push(c);
+                var top = stack.Pop();
+                while (GeoCommon.Orientation(stack.Peek(), top, ps[i]) <= 0)
+                    top = stack.Pop();
+                stack.Push(top);
+                stack.Push(ps[i]);
             }
 
             return stack.ToArray().Reverse().ToArray();
@@ -66,7 +63,8 @@ namespace alg.geometry
             for (int i = 1; i < points.Length; i++)
             {
                 if (sortedPoints.TryGetValue(points[i], out tmpPoint) &&
-                        tmpPoint.x * tmpPoint.x + tmpPoint.y * tmpPoint.y < points[i].x * points[i].x + points[i].y * points[i].y)
+                        (tmpPoint.x - p.x) * (tmpPoint.x - p.x) + (tmpPoint.y - p.y) * (tmpPoint.y - p.y) <
+                        (points[i].x - p.x) * (points[i].x - p.x) + (points[i].y - p.y) * (points[i].y - p.y))
                     sortedPoints.Remove(tmpPoint);
                 sortedPoints.Add(points[i]);
             }
@@ -79,7 +77,8 @@ namespace alg.geometry
 
         public void Test()
         {
-            var points = new Point[] { new Point( 0, 3), new Point( 1, 1), new Point(2, 2), new Point(4, 4),
+            var points = new Point[] {
+                new Point( 0, 3), new Point( 1, 1), new Point(2, 2), new Point(4, 4),
                 new Point(0, 0 ), new Point(1, 2), new Point(3, 1 ), new Point(3, 3 ) };
             var exp = new Point[] { new Point(0, 0), new Point(3, 1), new Point(4, 4), new Point(0, 3) };
             Console.WriteLine(exp.SequenceEqual(ConvexHull(points)));
