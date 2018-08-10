@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc828_Unique_Letter_String:");
-            new leetcode.Lc828_Unique_Letter_String().Test();
+            Console.WriteLine("ConvexHull_GrahamScan:");
+            new geometry.ConvexHull_GrahamScan().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

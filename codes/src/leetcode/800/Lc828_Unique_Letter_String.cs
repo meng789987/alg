@@ -9,7 +9,7 @@ using alg;
  * tags: dp
  * Time(n), Space(1)
  * dp[i] is sum of unique char in all substring ending at i, then the answer is sum(dp[i]), i=[0..n-1]
- * dp[i] = dp[i-1] + i - s.Substring(0, i).IndexOf(s[i])
+ * dp[i] = dp[i-1] + (i - first_from_i(s[i])) - (first_from_i(s[i]) - second_from_i(s[i]))
  */
 namespace leetcode
 {
@@ -19,25 +19,19 @@ namespace leetcode
         {
             const int MOD = 1000000007;
             int res = 0, dp = 0;
-            var indice = new int[26];
-            Array.Fill(indice, -1);
+            var indice = new int[26, 2];
 
             for (int i = 0; i < s.Length; i++)
             {
-                dp = (dp + i - indice[s[i] - 'A']) % MOD;
+                int ci = s[i] - 'A';
+                dp = dp + 1 + i - indice[ci, 0] * 2 + indice[ci, 1];
                 res = (res + dp) % MOD;
-                indice[s[i] - 'A'] = i + 1;
+
+                indice[ci, 1] = indice[ci, 0];
+                indice[ci, 0] = i + 1;
             }
 
             return res;
-        }
-
-        long Mirror(long n)
-        {
-            var cs = n.ToString().ToCharArray();
-            for (int i = 0, j = cs.Length - 1; i < j; i++, j--)
-                cs[j] = cs[i];
-            return long.Parse(new string(cs));
         }
 
 
