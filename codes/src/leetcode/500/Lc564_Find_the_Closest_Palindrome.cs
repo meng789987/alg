@@ -6,8 +6,8 @@ using System.Numerics;
 using alg;
 
 /*
- * tags: array
- * Time(n), Space(n)
+ * tags: math
+ * Time(n), Space(1)
  */
 namespace leetcode
 {
@@ -15,136 +15,28 @@ namespace leetcode
     {
         public string NearestPalindromic(string n)
         {
-            var pcs = n.ToCharArray();
-            for (int i = 0, j = pcs.Length - 1; i < j; i++, j--)
-                pcs[j] = pcs[i];
-            var ps = new string(pcs);
-            if (ps == n)
-            {
-                if (pcs.Length % 2 == 1)
-                {
-                    char c = pcs[pcs.Length / 2];
-                    pcs[pcs.Length / 2] = c == '0' ? '1' : (char)(c - 1);
-                }
-                else
-                {
-                    char c = pcs[pcs.Length / 2];
-                    pcs[pcs.Length / 2] = pcs[pcs.Length / 2 - 1] = c == '0' ? '1' : (char)(c - 1);
-                }
-                ps = new string(pcs);
-            }
+            int halfOrder = (int)Math.Pow(10, n.Length / 2);
+            long num = long.Parse(n);
 
-            char[] pcs2;
-            if (n[0] == '9')
-            {
-                pcs2 = new char[n.Length + 1];
-                Array.Fill(pcs2, '0');
-                pcs2[0] = pcs2[pcs2.Length - 1] = '1';
-            }
-            else
-            {
-                pcs2 = new char[n.Length];
-                Array.Fill(pcs2, '0');
-                pcs2[0] = pcs2[pcs2.Length - 1] = (char)(n[0] + 1);
-            }
-            var ps2 = new string(pcs2);
+            long a = Mirror(num);
+            long larger = Mirror(num / halfOrder * halfOrder + halfOrder + 1);
+            long smaller = Mirror(num / halfOrder * halfOrder - 1);
 
-            var pcs3 = new char[n.Length - 1];
-            Array.Fill(pcs3, '9');
-            var ps3 = new string(pcs3);
-            if (ps3 == "") ps3 = "99";
+            if (a > num)
+                larger = Math.Min(a, larger);
+            else if (a < num)
+                smaller = Math.Max(a, smaller);
 
-            //var bn = BigInteger.Parse(n);
-            //var b = BigInteger.Parse(ps);
-            //var b2 = BigInteger.Parse(ps2);
-            //return BigInteger.Abs(b - bn) > BigInteger.Abs(b2 - bn) ? ps2 : ps;
-            string smallerps, smallerdiff;
-            var diff = Diff(ps, n);
-            var diff2 = Diff(ps2, n);
-            int c12 = CompareTo(diff, diff2);
-            if (c12 < 0 || (c12 == 0 && CompareTo(ps, ps2) < 0))
-            {
-                smallerdiff = diff;
-                smallerps = ps;
-            }
-            else
-            {
-                smallerdiff = diff2;
-                smallerps = ps2;
-            }
-
-
-            var diff3 = Diff(ps3, n);
-            int c3 = CompareTo(smallerdiff, diff3);
-            return c3 < 0 || (c3 == 0 && CompareTo(smallerps, ps3) < 0) ? smallerps : ps3;
+            var res = num - smaller <= larger - num ? smaller : larger;
+            return res.ToString();
         }
 
-        string Diff(string a, string b)
+        long Mirror(long n)
         {
-            string big = "", small = "";
-            if (a.Length != b.Length)
-            {
-                if (a.Length > b.Length)
-                {
-                    big = a;
-                    small = b;
-                }
-                else
-                {
-                    big = b;
-                    small = a;
-                }
-            }
-            else
-            {
-                for (int i = 0; i < a.Length; i++)
-                {
-                    if (a[i] != b[i])
-                    {
-                        if (a[i] > b[i])
-                        {
-                            big = a;
-                            small = b;
-                        }
-                        else
-                        {
-                            big = b;
-                            small = a;
-                        }
-                        break;
-                    }
-                }
-            }
-
-            var diff = new char[big.Length];
-            int idx = diff.Length;
-            for (int carry = 0, i = big.Length - 1, j = small.Length - 1; i >= 0; i--, j--)
-            {
-                int val = big[i] - (j >= 0 ? small[j] : '0') - carry;
-                if (val < 0)
-                {
-                    val += 10;
-                    carry = 1;
-                }
-                else
-                {
-                    carry = 0;
-                }
-
-                diff[--idx] = (char)(val + '0');
-            }
-
-            while (idx < diff.Length && diff[idx] == '0') idx++;
-
-            return new string(diff, idx, diff.Length - idx);
-        }
-
-        int CompareTo(string a, string b)
-        {
-            if (a.Length != b.Length) return a.Length - b.Length;
-            for (int i = 0; i < a.Length; i++)
-                if (a[i] != b[i]) return a[i] - b[i];
-            return 0;
+            var cs = n.ToString().ToCharArray();
+            for (int i = 0, j = cs.Length - 1; i < j; i++, j--)
+                cs[j] = cs[i];
+            return long.Parse(new string(cs));
         }
 
 

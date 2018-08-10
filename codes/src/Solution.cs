@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("ShortestPath:");
-            new dp.ShortestPath().Test();
+            Console.WriteLine("Lc828_Unique_Letter_String:");
+            new leetcode.Lc828_Unique_Letter_String().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

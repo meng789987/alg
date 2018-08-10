@@ -5,12 +5,9 @@ using System.Linq;
 
 /*
  * tags: shortest path, dp, greedy, heap
- * Time(nlogn), Space(n)
- * dp[i] is the length of longest increasing subsequence ending with nums[i].
- * dp[i] = max(dp[k] + 1), where k=[0..i-1] and nums[k] < nums[i].
- * Since dp is ordered, so we can binary search nums[i] in dp 
- * to replace (dp[k] if nums[i]<dp[k], so dp[i] only contains the smallest tail number of all increasing subsequence with same length) 
- * or insert (nums[i] if nums[i]>dp[i-1]).
+ * BellmanFord: Time(VE), Space(V); can detect negative cycle; can return shortest paths from vertex 0 to all other vertice.
+ * FloydWarshall: Time(V^3), Space(V^2); can detect negative cycle; can return shortest paths between any two vertice.
+ * Dijkstra: Time((V+E)logV), Space(V); can't handle negative distances; can return shortest paths from vertex 0 to all other vertice.
  */
 namespace alg.dp
 {
@@ -48,12 +45,13 @@ namespace alg.dp
         /*
          * Time(V^3), Space(V^2)
          * can detect negative cycle; can return shortest paths between any two vertice.
-         * loop n times to 'relax' all two vertice.
+         * loop n times to 'relax' all pairs of two vertice.
          */
         int[] FloydWarshall(int n, int[,] matrix)
         {
             var dist = new int[n, n];
             Array.Copy(matrix, dist, n * n);
+            dist[0, 0] = 0;
 
             for (int k = 0; k < n; k++)
             {
@@ -159,14 +157,9 @@ namespace alg.dp
             Console.WriteLine(exp.SequenceEqual(BellmanFord(5, Edge.MatrixToFlatEdges(matrix))));
             Console.WriteLine(exp.SequenceEqual(FloydWarshall(5, matrix)));
 
-            matrix = new int[,]
-            {
-                {INF, 1, 4, INF, INF },
-                {INF, INF, 3, INF, 2 },
-                {INF, INF, INF, INF, INF },
-                {INF, 1, 5, INF, INF },
-                {INF, INF, INF, 3, INF },
-            };
+            for (int i = 0; i < matrix.GetLength(0); i++)
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                    matrix[i, j] = Math.Abs(matrix[i, j]);
             exp = new int[] { 0, 1, 4, 6, 3 };
             Console.WriteLine(exp.SequenceEqual(Dijkstra(5, Edge.MatrixToAdjEdges(matrix))));
 
