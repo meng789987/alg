@@ -127,8 +127,8 @@ namespace leetcode
         {
             var strings = new string[] { "bat", "tab", "cat" };
             var exp = new List<IList<int>> { new List<int> { 0, 1 }, new List<int> { 1, 0 } };
-            Console.WriteLine(exp.SameSet(PalindromePairs(strings)));
-            Console.WriteLine(exp.SameSet(PalindromePairsTrie(strings)));
+            Console.WriteLine(exp.SameSet2(PalindromePairs(strings)));
+            Console.WriteLine(exp.SameSet2(PalindromePairsTrie(strings)));
 
             strings = new string[] { "abcd", "dcba", "lls", "s", "sssll" };
             exp = new List<IList<int>> {
@@ -136,8 +136,8 @@ namespace leetcode
                 new List<int> { 1, 0 },
                 new List<int> { 3, 2 },
                 new List<int> { 2, 4 }};
-            Console.WriteLine(exp.SameSet(PalindromePairs(strings)));
-            Console.WriteLine(exp.SameSet(PalindromePairsTrie(strings)));
+            Console.WriteLine(exp.SameSet2(PalindromePairs(strings)));
+            Console.WriteLine(exp.SameSet2(PalindromePairsTrie(strings)));
         }
     }
 }

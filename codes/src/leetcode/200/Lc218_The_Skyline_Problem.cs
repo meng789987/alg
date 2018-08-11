@@ -105,7 +105,7 @@ namespace leetcode
                 new int[] { 20, 8 },
                 new int[] { 24, 0 }
             };
-            Console.WriteLine(exp.SameSet(GetSkyline(b)));
+            Console.WriteLine(exp.SameSet2(GetSkyline(b)));
 
             b = new int[,]
             {
@@ -114,7 +114,7 @@ namespace leetcode
             exp = new List<int[]> {
                 new int[] { 0, 2147483647 },
                 new int[] { 2147483647, 0 } };
-            Console.WriteLine(exp.SameSet(GetSkyline(b)));
+            Console.WriteLine(exp.SameSet2(GetSkyline(b)));
         }
     }
 }

@@ -16,27 +16,28 @@ namespace alg
             return watch.ElapsedMilliseconds;
         }
 
-        public static bool SameSet(this IEnumerable<int> a, IEnumerable<int> b)
+        public static bool SameSet<T>(this IEnumerable<T> a, IEnumerable<T> b)
         {
-            return SameSet(a, b, Comparer<int>.Default);
+            if (a == null && b == null) return true;
+            if (a == null || b == null) return false;
+
+            var dict = new Dictionary<T, int>();
+            foreach (var t in a)
+            {
+                if (!dict.ContainsKey(t)) dict.Add(t, 1);
+                else dict[t]++;
+            }
+
+            foreach (var t in b)
+            {
+                if (!dict.ContainsKey(t)) return false;
+                if (--dict[t] == 0) dict.Remove(t);
+            }
+
+            return dict.Count == 0;
         }
 
-        public static bool SameSet(this IEnumerable<double> a, IEnumerable<double> b)
-        {
-            return SameSet(a, b, Comparer<double>.Default);
-        }
-
-        public static bool SameSet(this IEnumerable<char> a, IEnumerable<char> b)
-        {
-            return SameSet(a, b, Comparer<char>.Default);
-        }
-
-        public static bool SameSet(this IEnumerable<string> a, IEnumerable<string> b)
-        {
-            return SameSet(a, b, Comparer<string>.Default);
-        }
-
-        public static bool SameSet<T>(this IEnumerable<IEnumerable<T>> a, IEnumerable<IEnumerable<T>> b)
+        public static bool SameSet2<T>(this IEnumerable<IEnumerable<T>> a, IEnumerable<IEnumerable<T>> b)
         {
             if (a == null && b == null) return true;
             if (a == null || b == null) return false;
@@ -87,19 +88,6 @@ namespace alg
                 }
                 return ib.MoveNext() ? -1 : 0;
             }
-        }
-
-        private static bool SameSet<T>(IEnumerable<T> a, IEnumerable<T> b, IComparer<T> comparer)
-        {
-            if (a == null && b == null) return true;
-            if (a == null || b == null) return false;
-
-            var al = a.ToList();
-            var bl = b.ToList();
-            al.Sort(comparer);
-            bl.Sort(comparer);
-
-            return al.SequenceEqual(bl);
         }
     }
 }

@@ -63,10 +63,15 @@ namespace alg.geometry
          * distance formula from point c to line (a, b)
          * https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
          */
-        public static double Distance(Point a, Point b, Point c)
+        public static double DistanceSquare(Point a, Point b, Point c)
         {
-            return Math.Abs((b.y - a.y) * c.x - (b.x - a.x) * c.y + b.x * a.y - b.y * a.x) /
-                    Math.Sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y));
+            double dist = (b.y - a.y) * c.x - (b.x - a.x) * c.y + b.x * a.y - b.y * a.x;
+            return dist * dist / DistanceSquare(a, b);
+        }
+
+        public static int DistanceSquare(Point a, Point b)
+        {
+            return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
         }
 
         public static void Test()

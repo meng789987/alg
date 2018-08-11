@@ -19,16 +19,18 @@ namespace leetcode
         {
             const int MOD = 1000000007;
             int res = 0, dp = 0;
-            var indice = new int[26, 2];
+            int[] first = new int[26], second = new int[26];
+            Array.Fill(first, -1);
+            Array.Fill(second, -1);
 
             for (int i = 0; i < s.Length; i++)
             {
                 int ci = s[i] - 'A';
-                dp = dp + 1 + i - indice[ci, 0] * 2 + indice[ci, 1];
+                dp = dp + i - first[ci] * 2 + second[ci];
                 res = (res + dp) % MOD;
 
-                indice[ci, 1] = indice[ci, 0];
-                indice[ci, 0] = i + 1;
+                second[ci] = first[ci];
+                first[ci] = i;
             }
 
             return res;

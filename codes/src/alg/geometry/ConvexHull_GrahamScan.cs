@@ -7,7 +7,7 @@ using System.Linq;
  * Time(nlogn), Space(n)
  * Graham Scan to construct the convex hull
  * 1. select the bottom-most point as p0
- * 2. sort the other points based on its polar angle from p0, if two points have same angle, only leave the further one
+ * 2. sort the other points based on its polar angle from p0, if two points have same angle, only leave the farther one
  * 3. put p0, p1, p2 into a stack, loop the remain points from p3 to pn and then p0,
  * 4. extract top until (2ndTop, top, pi) is in counter clockwise (left turn), put pi into stack.
  */
@@ -15,73 +15,59 @@ namespace alg.geometry
 {
     public class ConvexHull_GrahamScan
     {
-        public Point[] ConvexHull(Point[] points)
+        public IList<Point> ConvexHull(Point[] points)
         {
+            if (points.Length <= 3) return points;
+
             // 1. select the bottom-most point as p0
-            int idx = 0;
-            for (int i = 1; i < points.Length; i++)
-                if (points[i].y < points[idx].y) idx = i;
+            var bm = points[0];
+            foreach (var p in points)
+                if (p.y < bm.y || (p.y == bm.y && p.x < bm.x)) bm = p;
 
-            // 2. sort the other points based on its polar angle from p0, if two points have same angle, only leave the further one
-            var ps = Sort(points, idx);
-            if (ps.Length <= 3) return ps;
-
-            // 3. put p0, p1, p2 into a stack, loop the remain points from p3 to pn and then p0,
-            // 4. extract top until (2ndTop, top, pi) is in counter clockwise (left turn), put pi into stack.
-            var stack = new Stack<Point>();
-            stack.Push(ps[0]);
-            stack.Push(ps[1]);
-            stack.Push(ps[2]);
-            for (int i = 3; i < ps.Length; i++)
-            {
-                var top = stack.Pop();
-                while (GeoCommon.Orientation(stack.Peek(), top, ps[i]) <= 0)
-                    top = stack.Pop();
-                stack.Push(top);
-                stack.Push(ps[i]);
-            }
-
-            return stack.ToArray().Reverse().ToArray();
-        }
-
-        Point[] Sort(Point[] points, int bottomMostIdex)
-        {
-            var p = points[bottomMostIdex];
-            points[bottomMostIdex] = points[0];
-            points[0] = p;
-
-            var sortedPoints = new SortedSet<Point>(Comparer<Point>.Create((a, b) =>
+            // 2. sort the other points based on its polar angle from p0
+            Array.Sort(points, (a, b) =>
             {
                 int aq = GeoCommon.Quadrant(a);
                 int bq = GeoCommon.Quadrant(b);
                 if (aq != bq) return aq - bq;
 
-                return (a.y - p.y) * (b.x - p.x) - (b.y - p.y) * (a.x - p.x);
-            }));
+                var ori = GeoCommon.Orientation(bm, a, b);
+                if (ori != 0) return -ori;
 
-            Point tmpPoint;
-            for (int i = 1; i < points.Length; i++)
+                return GeoCommon.DistanceSquare(bm, a) - GeoCommon.DistanceSquare(bm, b);
+            });
+
+            // 3. put p0, p1 into a stack, loop the remain points from p2 to pn and then p0,
+            // 4. extract top until (2ndTop, top, pi) is in counter clockwise (left turn), put pi into stack.
+            var stack = new Stack<Point>();
+            stack.Push(points[0]);
+            stack.Push(points[1]);
+            for (int i = 2; i < points.Length; i++)
             {
-                if (sortedPoints.TryGetValue(points[i], out tmpPoint) &&
-                        (tmpPoint.x - p.x) * (tmpPoint.x - p.x) + (tmpPoint.y - p.y) * (tmpPoint.y - p.y) <
-                        (points[i].x - p.x) * (points[i].x - p.x) + (points[i].y - p.y) * (points[i].y - p.y))
-                    sortedPoints.Remove(tmpPoint);
-                sortedPoints.Add(points[i]);
+                // if two points have same angle, only leave the farther one
+                if (i < points.Length - 1 && GeoCommon.Orientation(bm, points[i], points[i + 1]) == 0)
+                    continue;
+
+                var top = stack.Pop();
+                while (stack.Count > 0 && GeoCommon.Orientation(stack.Peek(), top, points[i]) <= 0)
+                    top = stack.Pop();
+                stack.Push(top);
+                stack.Push(points[i]);
             }
 
-            var res = new List<Point>(sortedPoints.Count + 1);
-            res.Add(p);
-            res.AddRange(sortedPoints);
-            return res.ToArray();
+            return stack.ToList();
         }
 
         public void Test()
         {
-            var points = new Point[] {
-                new Point( 0, 3), new Point( 1, 1), new Point(2, 2), new Point(4, 4),
-                new Point(0, 0 ), new Point(1, 2), new Point(3, 1 ), new Point(3, 3 ) };
-            var exp = new Point[] { new Point(0, 0), new Point(3, 1), new Point(4, 4), new Point(0, 3) };
-            Console.WriteLine(exp.SequenceEqual(ConvexHull(points)));
+            var points = Point.FromMatrix(new int[,] { { 0, 3 }, { 1, 1 }, { 2, 2 }, { 4, 4 }, { 0, 0 }, { 1, 2 }, { 3, 1 }, { 3, 3 } });
+            var exp = Point.FromMatrix(new int[,] { { 0, 0 }, { 3, 1 }, { 4, 4 }, { 0, 3 } });
+            Console.WriteLine(exp.SameSet(ConvexHull(points)));
+
+            points = Point.FromMatrix(new int[,] { { 4, 0 }, { 3, 0 }, { 5, 0 }, { 6, 1 }, { 7, 2 }, { 7, 3 }, { 7, 4 }, { 6, 5 }, { 5, 5 },
+                { 4, 5 }, { 3, 5 }, { 2, 5 }, { 1, 4 }, { 1, 3 }, { 1, 2 }, { 2, 1 }, { 4, 2 }, { 0, 3 } });
+            exp = Point.FromMatrix(new int[,] { { 0, 3 }, { 3, 0 }, { 5, 0 }, { 7, 2 }, { 7, 4 }, { 6, 5 }, { 2, 5 } });
+            Console.WriteLine(exp.SameSet(ConvexHull(points)));
         }
     }
 }
