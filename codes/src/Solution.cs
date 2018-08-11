@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("ConvexHull_GrahamScan:");
-            new geometry.ConvexHull_GrahamScan().Test();
+            Console.WriteLine("Lc741_Cherry_Pickup:");
+            new leetcode.Lc741_Cherry_Pickup().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
