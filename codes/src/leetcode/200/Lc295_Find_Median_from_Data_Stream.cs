@@ -25,6 +25,22 @@ namespace leetcode
                 _lo.Add(_hi.Poll());
         }
 
+        public void AddNum2(int num)
+        {
+            if (_lo.Count == 0 || num <= _lo.Peek())
+            {
+                _lo.Add(num);
+                if (_lo.Count > _hi.Count + 1)
+                    _hi.Add(_lo.Poll());
+            }
+            else
+            {
+                _hi.Add(num);
+                if (_lo.Count < _hi.Count)
+                    _lo.Add(_hi.Poll());
+            }
+        }
+
         public double FindMedian()
         {
             if (_lo.Count > _hi.Count)
