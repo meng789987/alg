@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc630_Course_ScheduleIII:");
-            new leetcode.Lc630_Course_ScheduleIII().Test();
+            Console.WriteLine("Lc753_Cracking_the_Safe:");
+            new leetcode.Lc753_Cracking_the_Safe().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
