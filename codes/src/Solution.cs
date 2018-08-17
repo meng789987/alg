@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc753_Cracking_the_Safe:");
-            new leetcode.Lc753_Cracking_the_Safe().Test();
+            Console.WriteLine("Lc632_Smallest_Range:");
+            new leetcode.Lc632_Smallest_Range().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
