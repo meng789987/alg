@@ -7,6 +7,7 @@ using alg;
 /*
  * tags: sort
  * Time(n), Space(n), n is the count of all elements in k list.
+ * sort and then count the sliding window
  */
 namespace leetcode
 {
@@ -15,23 +16,31 @@ namespace leetcode
         public int[] SmallestRange(IList<IList<int>> nums)
         {
             int k = nums.Count;
-            var lss = new List<IList<int[]>>(k);
+            var data = new List<IList<int[]>>(k);
             for (int i = 0; i < nums.Count; i++)
             {
                 var list = new List<int[]>(nums[i].Count);
                 foreach (var n in nums[i]) list.Add(new int[] { n, i });
-                lss.Add(list);
+                data.Add(list);
             }
 
-            MergeSort(lss, 0, k - 1);
-            var ls = lss[0];
+            MergeSort(data, 0, k - 1);
+            var ls = data[0];
 
+            int min = ls[0][0], max = ls.Last()[0], cnt = 0;
             var counts = new int[k];
-            int p = 0, q = int.MaxValue, cnt = 0;
-            for (int i = 0, j=0; j<ls.Count; j++)
+            for (int i = 0, j = 0; j < ls.Count; j++)
             {
-                counts[ls[j][1]]++;
+                if (++counts[ls[j][1]] == 1) cnt++;
+                while (cnt >= k && i < j)
+                {
+                    if (max - min > ls[j][0] - ls[i][0])
+                        (max, min) = (ls[j][0], ls[i][0]);
+                    if (--counts[ls[i++][1]] == 0) cnt--;
+                }
             }
+
+            return new int[] { min, max };
         }
 
         void MergeSort(IList<IList<int[]>> nums, int lo, int hi)
@@ -44,11 +53,11 @@ namespace leetcode
 
             IList<int[]> lc = nums[lo], rc = nums[mid + 1];
             var aux = new List<int[]>(lc.Count + rc.Count);
-            for (int i = 0,j=0, k=0; k < aux.Count; k++)
+            for (int i = 0, j = 0; aux.Count < lc.Count + rc.Count;)
             {
                 if (j >= rc.Count || (i < lc.Count && lc[i][0] < rc[j][0]))
-                    aux[k] = lc[i++];
-                else aux[k] = rc[j++];
+                    aux.Add(lc[i++]);
+                else aux.Add(rc[j++]);
             }
 
             nums[lo] = aux;

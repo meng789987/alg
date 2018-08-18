@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc632_Smallest_Range:");
-            new leetcode.Lc632_Smallest_Range().Test();
+            Console.WriteLine("Lc757_Set_Intersection_Size_At_Least_Two:");
+            new leetcode.Lc757_Set_Intersection_Size_At_Least_Two().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
@@ -28,18 +28,6 @@ namespace alg
             var (a, b) = (3, 4);
             var ss = new SortedSet<int>();
             Console.WriteLine(ss.Min);
-
-            var list = new backtracking.Standard_Backtracking().Permutation("123456");
-            var ps = new List<string>[20];
-            for (int i = 0; i < ps.Length; i++) ps[i] = new List<string>();
-            foreach (var s in list)
-            {
-                var nums = s.Select(c => c - '1').ToArray();
-                var count = new leetcode.Lc315_Count_of_Smaller_Numbers_After_Self().CountSmallerMergeSort(nums).Sum();
-                ps[count].Add(s);
-            }
-            foreach (var p in ps)
-                Console.WriteLine(p);
         }
     }
 }
