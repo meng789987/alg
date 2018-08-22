@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc757_Set_Intersection_Size_At_Least_Two:");
-            new leetcode.Lc757_Set_Intersection_Size_At_Least_Two().Test();
+            Console.WriteLine("Lc639_Decode_WaysII:");
+            new leetcode.Lc639_Decode_WaysII().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
