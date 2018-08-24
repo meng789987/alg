@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc679_24Game:");
-            new leetcode.Lc679_24Game().Test();
+            Console.WriteLine("Lc675_Cut_Off_Trees_for_Golf_Event:");
+            new leetcode.Lc675_Cut_Off_Trees_for_Golf_Event().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
