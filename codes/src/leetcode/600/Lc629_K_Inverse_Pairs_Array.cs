@@ -7,7 +7,7 @@ using alg;
 
 /*
  * tags: dp
- * Time(n), Space(n)
+ * Time(kn), Space(k)
  * dp[i, k] is list of arrays consist of number [1..i], each of which has k inverse pairs.
  * dp[i, k] can be constructed from dp[i-1, s] by inserting a[i] in the proper position
  * dp[i, k] = sum(dp[i-1, k-j]), j=[0..min(k,i-1)]
