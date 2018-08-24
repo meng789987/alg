@@ -11,6 +11,8 @@ using alg;
  * Operator in 3 positions: 4*4*4;
  * Parentheses, sequence of 3 op: 3*2*1
  * total: 24*64*6=9216
+ * count of all possible 4 digits: 9^4=6561
+ * There are really only 495 possible sorted inputs, of which 404 are solvable and 91 aren't.
  */
 namespace leetcode
 {
@@ -18,48 +20,37 @@ namespace leetcode
     {
         public bool JudgePoint24(int[] nums)
         {
-            Array.Sort(nums);
-            return DfsPermutation(nums, new List<int>(), new bool[4]);
+            return Dfs(nums.Select(n => (double)n).ToArray());
         }
 
-        bool DfsPermutation(int[] nums, List<int> selected, bool[] visited)
+        bool Dfs(double[] nums)
         {
-            if (selected.Count == nums.Length)
-                return DfsOperator(selected.ToArray(), 0, new List<int>());
+            if (nums.Length == 1)
+                return Math.Abs(nums[0] - 24) < 1e-6;
+
+            var nums2 = nums.ToArray();
+            Array.Sort(nums2);
+            nums = nums2;
 
             for (int i = 0; i < nums.Length; i++)
             {
                 if (i > 0 && nums[i - 1] == nums[i]) continue; // dup
-                if (!visited[i])
+                for (int j = i + 1; j < nums.Length; j++)
                 {
-                    visited[i] = true;
-                    selected.Add(nums[i]);
-                    if (DfsPermutation(nums, selected, visited)) return true;
-                    selected.RemoveAt(selected.Count - 1);
-                    visited[i] = false;
+                    var ns = new double[nums.Length - 1];
+                    int ni = 0;
+                    for (int k = 0; k < nums.Length; k++)
+                        if (k != i && k != j) ns[ni++] = nums[k];
+
+                    double a = nums[i], b = nums[j];
+                    var opres = new double[] { a + b, a - b, b - a, a * b, a / b, b / a };
+                    foreach (var r in opres)
+                    {
+                        ns[ni] = r;
+                        if (Dfs(ns)) return true;
+                    }
                 }
             }
-
-            return false;
-        }
-
-        bool DfsOperator(int[] nums, int start, List<int> selected)
-        {
-            if (selected.Count == nums.Length - 1)
-                return Calc(nums, selected.ToArray());
-
-            for (int i = 0; i < 4; i++)
-            {
-                    selected.Add(i);
-                    if (DfsOperator(nums,start +1, selected)) return true;
-                    selected.RemoveAt(selected.Count - 1);
-            }
-
-            return false;
-        }
-
-        bool Calc(int[] nums, int[] ops)
-        {
 
             return false;
         }
@@ -68,6 +59,11 @@ namespace leetcode
         {
             Console.WriteLine(JudgePoint24(new int[] { 4, 1, 8, 7 }) == true);
             Console.WriteLine(JudgePoint24(new int[] { 1, 2, 1, 2 }) == false);
+            Console.WriteLine(JudgePoint24(new int[] { 1, 4, 6, 1 }) == true);
+            Console.WriteLine(JudgePoint24(new int[] { 3, 9, 7, 7 }) == true);
+            Console.WriteLine(JudgePoint24(new int[] { 3, 3, 8, 8 }) == true);
+            Console.WriteLine(JudgePoint24(new int[] { 7, 6, 7, 5 }) == true);
+            Console.WriteLine(JudgePoint24(new int[] { 1, 9, 1, 2 }) == true);
         }
     }
 }

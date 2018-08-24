@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc726_Number_of_Atoms:");
-            new leetcode.Lc726_Number_of_Atoms().Test();
+            Console.WriteLine("Lc679_24Game:");
+            new leetcode.Lc679_24Game().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
