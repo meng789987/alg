@@ -53,8 +53,8 @@ namespace alg.dp
                 }
 
                 idx[lo] = i;
+                if (lo == len) len++;
                 if (lo > 0) pre[i] = idx[lo - 1];
-                if (lo >= len) len = lo + 1;
             }
 
             var res = new int[len];
