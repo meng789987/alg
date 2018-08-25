@@ -4,9 +4,9 @@ using System.Text;
 
 namespace alg
 {
-    public class DisjoinSet
+    public class DisjointSet
     {
-        public DisjoinSet(int n)
+        public DisjointSet(int n)
         {
             _parents = new int[n];
             for (int i = 0; i < n; i++)
@@ -23,11 +23,13 @@ namespace alg
             return _parents[i];
         }
 
-        public void Union(int i, int j)
+        public bool Union(int i, int j)
         {
-            var ip = _parents[i];
-            var jp = _parents[j];
-            _parents[ip] = jp; // can also set _parents[jp] = ip, depends on what it needs
+            var pi = Find(i);
+            var pj = Find(j);
+            if (pi == pj) return false;
+            _parents[pi] = pj; // can also set _parents[jp] = ip, depends on what it needs
+            return true;
 
             // use ranks to improve efficiency
             //if (ip == jp) return;

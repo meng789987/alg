@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Kmp:");
-            new strings.Kmp().Test();
+            Console.WriteLine("Lc685_Redundant_ConnectionII:");
+            new leetcode.Lc685_Redundant_ConnectionII().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
