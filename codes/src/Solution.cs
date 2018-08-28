@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc685_Redundant_ConnectionII:");
-            new leetcode.Lc685_Redundant_ConnectionII().Test();
+            Console.WriteLine("Lc699_Falling_Squares:");
+            new leetcode.Lc699_Falling_Squares().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

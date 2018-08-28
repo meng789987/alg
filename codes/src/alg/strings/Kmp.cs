@@ -5,32 +5,32 @@ using System.Linq;
 /*
  * tags: kmp
  * Time(n), Space(n)
- * kmp[j] is the length of longest same prefix within the pattern, so we don't need to restart matching from the begin,
+ * kmp[j] is the length of longest substring of the pattern ending at j matched the prefix of pattern, so we don't need to restart matching from the beginning,
  * if str[i] != pattern[j], we can reset j=kmp[j-1] instead of j=0, because pattern[0..len] == pattern[j-len..j] where len=kmp[j]-1.
  */
 namespace alg.strings
 {
     public class Kmp
     {
-        public int Find(string str, string substr)
+        public int Find(string str, string pattern)
         {
             // build kmp of substr
-            var kmp = new int[substr.Length];
-            for (int p = 0, k = 1; k < substr.Length; k++)
+            var kmp = new int[pattern.Length];
+            int i, j;
+            for (i = 1, j = 0; i < pattern.Length; i++)
             {
-                while (p > 0 && substr[k] != substr[p]) p = kmp[p-1];
-                if (substr[k] == substr[p]) kmp[k] = ++p;
+                while (j > 0 && pattern[i] != pattern[j]) j = kmp[j - 1];
+                if (pattern[i] == pattern[j]) kmp[i] = ++j;
             }
 
             // match
-            int i = 0, j = 0;
-            for (; i < str.Length && j < substr.Length; i++)
+            for (i = j = 0; i < str.Length && j < pattern.Length; i++)
             {
-                while (j > 0 && str[i] != substr[j]) j = kmp[j - 1];
-                if (str[i] == substr[j]) j++;
+                while (j > 0 && str[i] != pattern[j]) j = kmp[j - 1];
+                if (str[i] == pattern[j]) j++;
             }
 
-            return j == substr.Length ? i - j : -1;
+            return j == pattern.Length ? i - j : -1;
         }
 
         public void Test()
