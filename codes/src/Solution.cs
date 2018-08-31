@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc699_Falling_Squares:");
-            new leetcode.Lc699_Falling_Squares().Test();
+            Console.WriteLine("MinimumSpanningTree:");
+            new greedy.MinimumSpanningTree().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
