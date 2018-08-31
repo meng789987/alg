@@ -1,4 +1,5 @@
-﻿using System;
+﻿using alg.graph;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -105,43 +106,7 @@ namespace alg.dp
             return dist;
         }
 
-        const int INF = int.MaxValue / 2;
-
-        class Edge
-        {
-            public int src, dst, w; // source vertex, destination vertex, weight of the edge
-            public Edge(int src, int dst, int weight)
-            {
-                this.src = src;
-                this.dst = dst;
-                this.w = weight;
-            }
-
-            public static IList<Edge> MatrixToFlatEdges(int[,] matrx)
-            {
-                int n = matrx.GetLength(0);
-                var edges = new List<Edge>();
-                for (int i = 0; i < n; i++)
-                    for (int j = 0; j < n; j++)
-                        if (matrx[i, j] != INF)
-                            edges.Add(new Edge(i, j, matrx[i, j]));
-                return edges;
-            }
-
-            public static LinkedList<Edge>[] MatrixToAdjEdges(int[,] matrx)
-            {
-                int n = matrx.GetLength(0);
-                var edges = new LinkedList<Edge>[n];
-                for (int i = 0; i < n; i++)
-                {
-                    edges[i] = new LinkedList<Edge>();
-                    for (int j = 0; j < n; j++)
-                        if (matrx[i, j] != INF)
-                            edges[i].AddLast(new Edge(i, j, matrx[i, j]));
-                }
-                return edges;
-            }
-        }
+        const int INF = Edge.INF;
 
         public void Test()
         {

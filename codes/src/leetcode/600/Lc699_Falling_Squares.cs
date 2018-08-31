@@ -15,38 +15,39 @@ namespace alg.leetcode
         public IList<int> FallingSquares(int[,] positions)
         {
             int n = positions.GetLength(0);
-            var sqs = new List<int[]>(n * 2); // {position, height}
+            var sqs = new List<int[]>(); // {position, height}
+            sqs.Add(new int[] { 0, 0 });
             var comp = Comparer<int[]>.Create((a, b) => a[0].CompareTo(b[0]));
 
-            var res = new int[n];
+            int max = 0;
+            var res = new List<int>();
             for (int i = 0; i < n; i++)
             {
-                int[] ps = new int[] { positions[i, 0], 0 }, pt = new int[] { positions[i, 0] + positions[i, 1], 0 }; // entering/leaving point
+                int s = positions[i, 0], t = s + positions[i, 1];
 
-                // insert entering point
-                var s = sqs.BinarySearch(ps, comp);
-                var t = sqs.BinarySearch(pt, comp);
-                if (s < 0) s = ~s;
-                if (t < 0) t = ~t;
-                int prevh = s == 0 ? 0 : sqs[s - 1][1];
-                int s = 0, h = 0;
-                for (; s < sqs.Count && (sqs[s][0] < ps || (sqs[s][0] == ps && sqs[s][1] == 1)); s++)
+                var si = sqs.BinarySearch(new int[] { s, 0 }, comp);
+                var ti = sqs.BinarySearch(new int[] { t, 0 }, comp);
+                if (ti < 0)
                 {
+                    ti = ~ti;
+                    sqs.Insert(ti, new int[] { t, sqs[ti - 1][1] });
                 }
-                sqs.Insert(s, new int[] { ps, 0, 0 });
 
-                // insert leaving point
-                int t = s + 1;
-                for (; t < sqs.Count && (sqs[t][0] < pt || (sqs[t][0] == pt && sqs[t][1] == 1)); t++)
-                    h = Math.Max(h, sqs[t][2]);
-                sqs.Insert(t, new int[] { pt, 1, 0 });
+                int curh = 0;
+                if (si < 0)
+                {
+                    si = ~si;
+                    curh = sqs[si - 1][1];
+                }
+                for (int j = si; j < ti; j++)
+                    curh = Math.Max(curh, sqs[j][1]);
+                curh += positions[i, 1];
 
-                // update heights between two points
-                h += positions[i, 1];
-                for (int k = s; k <= t; k++)
-                    sqs[k][2] = h;
+                sqs.RemoveRange(si, ti - si);
+                sqs.Insert(si, new int[] { s, curh });
 
-                res[i] = i == 0 ? h : Math.Max(res[i - 1], h);
+                max = Math.Max(max, curh);
+                res.Add(max);
             }
 
             return res;
