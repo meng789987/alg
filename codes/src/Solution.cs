@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("MinimumSpanningTree:");
-            new greedy.MinimumSpanningTree().Test();
+            Console.WriteLine("Lc761_Special_Binary_String:");
+            new leetcode.Lc761_Special_Binary_String().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

@@ -8,7 +8,7 @@ using System.Linq;
  * kmp[j] is the length of longest substring of the pattern ending at j matched the prefix of pattern, so we don't need to restart matching from the beginning,
  * if str[i] != pattern[j], we can reset j=kmp[j-1] instead of j=0, because pattern[0..len] == pattern[j-len..j] where len=kmp[j]-1.
  */
-namespace alg.leetcode
+namespace leetcode
 {
     public class Lc699_Falling_Squares
     {
