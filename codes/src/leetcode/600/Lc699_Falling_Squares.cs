@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 /*
- * tags: kmp
- * Time(n), Space(n)
- * kmp[j] is the length of longest substring of the pattern ending at j matched the prefix of pattern, so we don't need to restart matching from the beginning,
- * if str[i] != pattern[j], we can reset j=kmp[j-1] instead of j=0, because pattern[0..len] == pattern[j-len..j] where len=kmp[j]-1.
+ * tags: segment tree, binary search
+ * Time(nlogn), Space(n)
+ * segment range max tree
  */
 namespace leetcode
 {

@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc730_Count_Different_Palindromic_Subsequences:");
-            new leetcode.Lc730_Count_Different_Palindromic_Subsequences().Test();
+            Console.WriteLine("Lc736_Parse_Lisp_Expression:");
+            new leetcode.Lc736_Parse_Lisp_Expression().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
