@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc765_Couples_Holding_Hands:");
-            new leetcode.Lc765_Couples_Holding_Hands().Test();
+            Console.WriteLine("Lc773_Sliding_Puzzle:");
+            new leetcode.Lc773_Sliding_Puzzle().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
