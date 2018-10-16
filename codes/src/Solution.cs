@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc773_Sliding_Puzzle:");
-            new leetcode.Lc773_Sliding_Puzzle().Test();
+            Console.WriteLine("Lc770_Basic_CalculatorIV:");
+            new leetcode.Lc770_Basic_CalculatorIV().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
