@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc770_Basic_CalculatorIV:");
-            new leetcode.Lc770_Basic_CalculatorIV().Test();
+            Console.WriteLine("Lc780_Reaching_Points:");
+            new leetcode.Lc780_Reaching_Points().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
