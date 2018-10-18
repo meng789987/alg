@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc780_Reaching_Points:");
-            new leetcode.Lc780_Reaching_Points().Test();
+            Console.WriteLine("Lc782_Transform_to_Chessboard:");
+            new leetcode.Lc782_Transform_to_Chessboard().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
@@ -28,6 +28,11 @@ namespace alg
             var (a, b) = (3, 4);
             var ss = new SortedSet<int>();
             Console.WriteLine(ss.Min);
+
+            var m = new int[,] { { 1, 2 }, { 3, 4 } };
+            var n = new int[2, 2];
+            Array.Copy(m, n, 3);
+            Console.WriteLine(n);
         }
     }
 }
