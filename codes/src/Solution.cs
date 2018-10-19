@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc782_Transform_to_Chessboard:");
-            new leetcode.Lc782_Transform_to_Chessboard().Test();
+            Console.WriteLine("Lc803_Bricks_Falling_When_Hit:");
+            new leetcode.Lc803_Bricks_Falling_When_Hit().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
