@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc803_Bricks_Falling_When_Hit:");
-            new leetcode.Lc803_Bricks_Falling_When_Hit().Test();
+            Console.WriteLine("Lc862_Shortest_Subarray_with_Sum_at_Least_K:");
+            new leetcode.Lc862_Shortest_Subarray_with_Sum_at_Least_K().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
