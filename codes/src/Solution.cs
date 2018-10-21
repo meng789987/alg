@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc862_Shortest_Subarray_with_Sum_at_Least_K:");
-            new leetcode.Lc862_Shortest_Subarray_with_Sum_at_Least_K().Test();
+            Console.WriteLine("Lc793_Preimage_Size_of_Factorial_Zeroes_Function:");
+            new leetcode.Lc793_Preimage_Size_of_Factorial_Zeroes_Function().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

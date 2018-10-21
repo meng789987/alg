@@ -8,6 +8,7 @@ using alg;
  * tags: queue
  * 1. enqueue every pre-sum [index], dequeue all same or bigger item before pushing
  * 2. from the low end, compare the subarray length and dequeue if current_presum - lowest_presum
+ * deque or two stacks are similar to sliding window
  */
 namespace leetcode
 {
@@ -42,6 +43,7 @@ namespace leetcode
             Console.WriteLine(ShortestSubarray(new int[] { 1, 2 }, 4) == -1);
             Console.WriteLine(ShortestSubarray(new int[] { 2, -1, 2 }, 3) == 3);
             Console.WriteLine(ShortestSubarray(new int[] { 56, -21, 56, 35, -9 }, 61) == 2);
+            Console.WriteLine(ShortestSubarray(new int[] { -1, 10, 5, 1, -4, -10, 20, 100, -10 }, 120) == 2);
         }
     }
 }
