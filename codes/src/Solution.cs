@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc793_Preimage_Size_of_Factorial_Zeroes_Function:");
-            new leetcode.Lc793_Preimage_Size_of_Factorial_Zeroes_Function().Test();
+            Console.WriteLine("Lc798_Smallest_Rotation_with_Highest_Score:");
+            new leetcode.Lc798_Smallest_Rotation_with_Highest_Score().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
