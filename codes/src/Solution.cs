@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc798_Smallest_Rotation_with_Highest_Score:");
-            new leetcode.Lc798_Smallest_Rotation_with_Highest_Score().Test();
+            Console.WriteLine("Lc818_Race_Car:");
+            new leetcode.Lc818_Race_Car().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
@@ -32,7 +32,9 @@ namespace alg
             var m = new int[,] { { 1, 2 }, { 3, 4 } };
             var n = new int[2, 2];
             Array.Copy(m, n, 3);
-            Console.WriteLine(n);
+
+            int x = 3;
+            Console.WriteLine(Convert.ToString(x, 2));
         }
     }
 }
