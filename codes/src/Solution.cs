@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc818_Race_Car:");
-            new leetcode.Lc818_Race_Car().Test();
+            Console.WriteLine("Lc857_Minimum_Cost_to_Hire_K_Workers:");
+            new leetcode.Lc857_Minimum_Cost_to_Hire_K_Workers().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
