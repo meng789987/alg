@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc847_Shortest_Path_Visiting_All_Nodes:");
-            new leetcode.Lc847_Shortest_Path_Visiting_All_Nodes().Test();
+            Console.WriteLine("Lc805_Split_Array_With_Same_Average:");
+            new leetcode.Lc805_Split_Array_With_Same_Average().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
