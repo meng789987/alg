@@ -23,8 +23,8 @@ namespace leetcode
 
                 dist[i, i] = 0;
 
-                for (int j = 0; j < graph[i].Length; j++)
-                    dist[i, graph[i][j]] = 1;
+                foreach (var j in graph[i])
+                    dist[i, j] = 1;
             }
 
             FloydWarshall(dist);

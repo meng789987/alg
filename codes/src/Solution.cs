@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc805_Split_Array_With_Same_Average:");
-            new leetcode.Lc805_Split_Array_With_Same_Average().Test();
+            Console.WriteLine("Permutation:");
+            new math.Permutation().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

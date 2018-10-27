@@ -6,6 +6,7 @@ using alg;
 
 /*
  * tags: bs
+ * Time(logn), Space(1)
  * actually, the anwser must be 0 or 5.
  */
 namespace leetcode
@@ -13,6 +14,20 @@ namespace leetcode
     public class Lc793_Preimage_Size_of_Factorial_Zeroes_Function
     {
         public int PreimageSizeFZF(int K)
+        {
+            int last = 1;
+            while (last < K) last = last * 5 + 1;
+            while (last > 1)
+            {
+                K %= last;
+                if (last - 1 == K) return 0;
+                last = (last - 1) / 5;
+            }
+
+            return 5;
+        }
+
+        public int PreimageSizeFZF2(int K)
         {
             return (int)(LowerBound(K + 1) - LowerBound(K));
         }
@@ -23,8 +38,7 @@ namespace leetcode
             while (lo <= hi)
             {
                 long mid = lo + (hi - lo) / 2;
-                long cnt = ZeroCount(mid);
-                if (cnt >= K) hi = mid - 1;
+                if (ZeroCount(mid) >= K) hi = mid - 1;
                 else lo = mid + 1;
             }
 

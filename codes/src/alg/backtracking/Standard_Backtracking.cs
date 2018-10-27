@@ -78,10 +78,9 @@ namespace alg.backtracking
 
             for (int i = pos; i < path.Length; i++)
             {
-                if (i > pos && path[i] == path[pos]) continue; // skip dup when sorted
-                Swap(path, pos, i);
-                PermutationDupBt(pos + 1, path, res);
-                Swap(path, pos, i);
+                if (i > pos && path[pos] == path[i]) continue; // dedup
+                Swap(path, pos, i); // transit to next permutation
+                PermutationDupBt(pos + 1, path.ToArray(), res); // make a copy of path
             }
         }
 
@@ -125,7 +124,12 @@ namespace alg.backtracking
             Console.WriteLine(Permutation("abcd").Count == 1 * 2 * 3 * 4);
             Console.WriteLine(Permutation("abcde").Count == 1 * 2 * 3 * 4 * 5);
 
+            Console.WriteLine(PermutationDup("abc").Count == 1 * 2 * 3);
+            Console.WriteLine(PermutationDup("abab").Count == 1 * 2 * 3 * 4 / (1 * 2) / (1 * 2));
             Console.WriteLine(PermutationDup("abcaa").Count == 1 * 2 * 3 * 4 * 5 / (1 * 2 * 3));
+            Console.WriteLine(PermutationDup("abcaab").Count == 1 * 2 * 3 * 4 * 5 * 6 / (1 * 2 * 3) / (1 * 2));
+            Console.WriteLine(PermutationDup("acacbacb").Count == 1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 / (1 * 2 * 3) / (1 * 2 * 3) / (1 * 2));
+            Console.WriteLine(PermutationDup("adbacbc").Count == 1 * 2 * 3 * 4 * 5 * 6 * 7 / 2 / 2 / 2);
 
             var nums = new int[] { 1, 2, 3, 4, 5 };
             Console.WriteLine(Subset(nums, 3).Count == 1 * 2 * 3 * 4 * 5 / (1 * 2) / (1 * 2 * 3));
