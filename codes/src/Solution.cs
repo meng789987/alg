@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Permutation:");
-            new math.Permutation().Test();
+            Console.WriteLine("Lc847_Shortest_Path_Visiting_All_Nodes:");
+            new leetcode.Lc847_Shortest_Path_Visiting_All_Nodes().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

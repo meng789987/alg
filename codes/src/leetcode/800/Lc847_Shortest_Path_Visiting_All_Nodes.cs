@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 
 /*
- * tags: shortest path, FloydWarshall/bfs, permutation/dp
- * Time(2^nn^3), Space(n^2)
- * for each permutation of all nodes, sum the distances of any two continuous nodes.
+ * tags: bfs/dp
+ * Time(n2^n), Space(n2^n)
+ * dp(state|next, next) = min(dp(state|next, next), dp(state, head) + 1), for each edge (head -> next)
+ * the state can be a bitwise integer. 
+ * Relax/tighten the distance from state with head vertex to state|next with head next vertex until we get the final state(2^n-1)
  */
 namespace leetcode
 {
@@ -14,73 +16,48 @@ namespace leetcode
         public int ShortestPathLength(int[][] graph)
         {
             int n = graph.Length;
+            int INF = n * n;
+            int finalState = (1 << n) - 1;
 
-            var dist = new int[n, n];
-            for (int i = 0; i < n; i++)
+            var dist = new int[1 << n, n];
+            var q = new LinkedList<State>();
+
+            for (int v = 0; v < n; v++)
             {
-                for (int j = 0; j < n; j++)
-                    dist[i, j] = INF;
-
-                dist[i, i] = 0;
-
-                foreach (var j in graph[i])
-                    dist[i, j] = 1;
+                for (int s = 0; s < dist.GetLength(0); s++)
+                    dist[s, v] = INF;
+                dist[1 << v, v] = 0;
+                q.AddLast(new State(1 << v, v));
             }
 
-            FloydWarshall(dist);
-
-            int ret = int.MaxValue;
-            var perm = Enumerable.Range(0, n).ToArray();
-            int fac = 1;
-            for (int i = 1; i <= n; i++) fac *= i;
-
-            for (int p = 0;p<fac ; p++)
+            while (q.Count > 0)
             {
-                int d = 0;
-                for (int i = 1; i < n; i++)
-                    d += dist[i - 1, i];
+                var currState = q.First.Value;
+                q.RemoveFirst();
+                if (currState.Cover == finalState)
+                    return dist[currState.Cover, currState.Head];
 
-                ret = Math.Min(ret, d);
-                NextPermutation(perm);
+                foreach (var next in graph[currState.Head])
+                {
+                    var nextState = new State(currState.Cover | (1 << next), next);
+                    if (dist[nextState.Cover, nextState.Head] > dist[currState.Cover, currState.Head] + 1)
+                    {
+                        dist[nextState.Cover, nextState.Head] = dist[currState.Cover, currState.Head] + 1;
+                        q.AddLast(nextState);
+                    }
+                }
             }
 
-            return ret;
+            return -1;
         }
 
-        // 3 loops of all nodes to tighten the distance.
-        void FloydWarshall(int[,] dist)
+        class State
         {
-            var n = dist.GetLength(0);
-            for (int k = 0; k < n; k++)
-                for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
-                        dist[i, j] = Math.Min(dist[i, j], dist[i, k] + dist[k, j]);
+            public int Cover;
+            public int Head;
+            public State(int cover, int head)
+            { Cover = cover; Head = head; }
         }
-
-        void NextPermutation(int[] a)
-        {
-            int n = a.Length;
-
-            // find the last one in ascending order
-            int i = n - 1;
-            while (i > 0 && a[i - 1] >= a[i]) i--;
-
-            // swap it with a[n-1]
-            if (i > 0) Swap(ref a[i - 1], ref a[n - 1]);
-
-            // reorder a[i..n-1] in ascending order
-            for (int j = n - 1; i < j; i++, j--)
-                Swap(ref a[i], ref a[j]);
-        }
-
-        void Swap(ref int a, ref int b)
-        {
-            int t = a;
-            a = b;
-            b = t;
-        }
-
-        const int INF = 100;
 
         public void Test()
         {
@@ -89,6 +66,9 @@ namespace leetcode
 
             grap = new int[][] { new int[] { 1 }, new int[] { 0, 2, 4 }, new int[] { 1, 3, 4 }, new int[] { 2 }, new int[] { 1, 2 } };
             Console.WriteLine(ShortestPathLength(grap) == 4);
+
+            grap = new int[][] { new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }, new int[] { 0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }, new int[] { 0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11 }, new int[] { 0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11 }, new int[] { 0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11 }, new int[] { 0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11 }, new int[] { 0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11 }, new int[] { 0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11 }, new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11 }, new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11 }, new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11 }, new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 } };
+            Console.WriteLine(ShortestPathLength(grap) == 11);
         }
     }
 }
