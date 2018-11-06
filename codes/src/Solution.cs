@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc810_Chalkboard_XOR_Game:");
-            new leetcode.Lc810_Chalkboard_XOR_Game().Test();
+            Console.WriteLine("Lc878_Nth_Magical_Number:");
+            new leetcode.Lc878_Nth_Magical_Number().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

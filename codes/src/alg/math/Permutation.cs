@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 /*
- * tags: permutation
+ * tags: permutation, backtracking
  */
 namespace alg.math
 {
