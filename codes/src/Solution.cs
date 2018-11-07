@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc878_Nth_Magical_Number:");
-            new leetcode.Lc878_Nth_Magical_Number().Test();
+            Console.WriteLine("Lc834_Sum_of_Distances_in_Tree:");
+            new leetcode.Lc834_Sum_of_Distances_in_Tree().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
