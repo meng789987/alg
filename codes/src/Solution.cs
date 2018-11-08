@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc834_Sum_of_Distances_in_Tree:");
-            new leetcode.Lc834_Sum_of_Distances_in_Tree().Test();
+            Console.WriteLine("Lc850_Rectangle_AreaII:");
+            new leetcode.Lc850_Rectangle_AreaII().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
