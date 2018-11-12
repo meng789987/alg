@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc850_Rectangle_AreaII:");
-            new leetcode.Lc850_Rectangle_AreaII().Test();
+            Console.WriteLine("Lc829_Consecutive_Numbers_Sum:");
+            new leetcode.Lc829_Consecutive_Numbers_Sum().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
