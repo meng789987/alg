@@ -10,6 +10,7 @@ using System.Linq;
  * unbounded: each item can be selected as many as you can.
  * fractional knapsack: can select a part of an item;     => greedy O(nlogn)
  * 0-1 knapsack: must select an item as a whole;          => dp O(nW) for int, backtracking O(2^n)
+ * 0-1 knapsack decision problem is NP-Complete, the optimization problem is NP-Hard.
  */
 namespace alg.dp
 {
