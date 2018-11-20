@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc829_Consecutive_Numbers_Sum:");
-            new leetcode.Lc829_Consecutive_Numbers_Sum().Test();
+            Console.WriteLine("Lc943_Find_the_Shortest_Superstring:");
+            new leetcode.Lc943_Find_the_Shortest_Superstring().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
