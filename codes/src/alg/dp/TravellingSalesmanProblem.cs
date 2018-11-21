@@ -30,16 +30,15 @@ namespace alg.dp
                     if (((S >> i) & 1) == 0) continue;
                     int nS = S ^ (1 << i);
                     if (nS == 1)
-                    {
                         dp[S, i] = graph[0, i];
-                        continue;
-                    }
-
-                    dp[S, i] = int.MaxValue;
-                    for (int j = 1; j < n; j++)
+                    else
                     {
-                        if (((nS >> j) & 1) == 0) continue;
-                        dp[S, i] = Math.Min(dp[S, i], dp[nS, j] + graph[j, i]);
+                        dp[S, i] = int.MaxValue;
+                        for (int j = 1; j < n; j++)
+                        {
+                            if (((nS >> j) & 1) == 0) continue;
+                            dp[S, i] = Math.Min(dp[S, i], dp[nS, j] + graph[j, i]);
+                        }
                     }
                 }
             }
