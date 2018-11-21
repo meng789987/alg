@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc943_Find_the_Shortest_Superstring:");
-            new leetcode.Lc943_Find_the_Shortest_Superstring().Test();
+            Console.WriteLine("Lc913_Cat_and_Mouse:");
+            new leetcode.Lc913_Cat_and_Mouse().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
