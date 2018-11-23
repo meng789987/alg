@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc913_Cat_and_Mouse:");
-            new leetcode.Lc913_Cat_and_Mouse().Test();
+            Console.WriteLine("Lc887_Super_Egg_Drop:");
+            new leetcode.Lc887_Super_Egg_Drop().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
