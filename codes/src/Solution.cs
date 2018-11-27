@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc887_Super_Egg_Drop:");
-            new leetcode.Lc887_Super_Egg_Drop().Test();
+            Console.WriteLine("Lc882_Reachable_Nodes_In_Subdivided_Graph:");
+            new leetcode.Lc882_Reachable_Nodes_In_Subdivided_Graph().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
