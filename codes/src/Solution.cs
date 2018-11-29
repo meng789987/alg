@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc882_Reachable_Nodes_In_Subdivided_Graph:");
-            new leetcode.Lc882_Reachable_Nodes_In_Subdivided_Graph().Test();
+            Console.WriteLine("Lc906_Super_Palindromes:");
+            new leetcode.Lc906_Super_Palindromes().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

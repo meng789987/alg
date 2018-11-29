@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 /*
- * tags: graph, bfs
- * Time(E), Space(N)
- * From a heap of reachable nodes, extract the one with biggest remained move, then follow its edges to add the connected nodes to the heap.
+ * tags: Dijkstra
+ * Time(ElogN), Space(E)
+ * Extract the closest one in the heap, then follow its edges to add the connected nodes to the heap.
  */
 namespace leetcode
 {
@@ -15,50 +15,35 @@ namespace leetcode
         {
             var nodes = new Node[N];
             for (int i = 0; i < N; i++)
-                nodes[i] = new Node(i);
+                nodes[i] = new Node(i, M + 1);
             foreach (var e in edges)
             {
-                int s = e[0], t = e[1], d = e[2];
-                nodes[s].Vertice.Add(t);
-                nodes[s].Edges[t] = d;
-                nodes[t].Vertice.Add(s);
-                nodes[t].Edges[s] = d;
+                int u = e[0], v = e[1], d = e[2];
+                nodes[u].Edges[v] = d;
+                nodes[v].Edges[u] = d;
             }
 
             int res = 0;
-            var h = new SortedSet<Node>(Comparer<Node>.Create((a, b) => a.Move != b.Move ? b.Move - a.Move : a.Id - b.Id));
-            nodes[0].Move = M;
+            var h = new SortedSet<Node>(Comparer<Node>.Create((a, b) => a.Dist != b.Dist ? a.Dist - b.Dist : a.Id - b.Id));
+            nodes[0].Dist = 0;
             h.Add(nodes[0]);
 
             while (h.Count > 0)
             {
-                var node = h.Min;
+                var cur = h.Min;
                 h.Remove(h.Min);
-                res++;
+                res++; // reachable nodes
 
-                foreach (var t in node.Vertice)
+                foreach (var kv in cur.Edges)
                 {
-                    if (!node.Edges.ContainsKey(t)) continue; // cur has no edge to t.
-                    if (nodes[t].Edges.ContainsKey(node.Id)) // they are still connected.
+                    int v = kv.Key, d = kv.Value;
+                    nodes[v].Edges[cur.Id] -= Math.Min(d, M - cur.Dist); // shorten edge v->cur
+                    res += Math.Min(d, M - cur.Dist);
+                    if (nodes[v].Dist > cur.Dist + d + 1)
                     {
-                        if (node.Move > node.Edges[t])
-                        {
-                            res += node.Edges[t];
-                            h.Remove(nodes[t]);
-                            nodes[t].Move = Math.Max(nodes[t].Move, node.Move - node.Edges[t] - 1);
-                            nodes[t].Edges.Remove(node.Id); // cut the edge t->cur to avoid cycle.
-                            h.Add(nodes[t]);
-                        }
-                        else // unable to reach t
-                        {
-                            res += node.Move;
-                            nodes[t].Edges[node.Id] -= node.Move; // shrink the edge
-                            node.Edges.Remove(t); // cut the edge cur->t to avoid duplicate
-                        }
-                    }
-                    else // t has no edge back to cur
-                    {
-                        res += Math.Min(node.Move, node.Edges[t]);
+                        h.Remove(nodes[v]);
+                        nodes[v].Dist = cur.Dist + d + 1;
+                        h.Add(nodes[v]);
                     }
                 }
             }
@@ -68,10 +53,9 @@ namespace leetcode
 
         class Node
         {
-            public int Move, Id;
-            public List<int> Vertice = new List<int>();
-            public Dictionary<int, int> Edges = new Dictionary<int, int>(); // [dest node id, distance(new node count)]
-            public Node(int id) { Id = id; }
+            public int Id, Dist;
+            public Dictionary<int, int> Edges = new Dictionary<int, int>(); // key: dest node id, value: weight(new node count)
+            public Node(int id, int dist) { Id = id; Dist = dist; }
         }
 
         public void Test()
