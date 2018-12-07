@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc906_Super_Palindromes:");
-            new leetcode.Lc906_Super_Palindromes().Test();
+            Console.WriteLine("Lc952_Largest_Component_Size_by_Common_Factor:");
+            new leetcode.Lc952_Largest_Component_Size_by_Common_Factor().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
