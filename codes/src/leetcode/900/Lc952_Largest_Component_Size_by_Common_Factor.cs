@@ -108,19 +108,55 @@ namespace leetcode
             int[] _sizes;
         }
 
+        public int LargestComponentSize2(int[] A)
+        {
+            var n = A.Length;
+            var ds = new DisjointSet(n);
+            var values = new Dictionary<int, int>();
+            for (int i = 0; i < n; i++)
+                values[A[i]] = i;
+
+            // sieve the primes
+            var isPrimes = new bool[A.Max() + 1];
+            Array.Fill(isPrimes, true);
+            for (int p = 2; p < isPrimes.Length; p++)
+            {
+                if (!isPrimes[p]) continue;
+                for (int i = p + p; i < isPrimes.Length; i += p)
+                {
+                    isPrimes[i] = false;
+                    if (values.ContainsKey(i))
+                    {
+                        if (!values.ContainsKey(p)) values[p] = values[i];
+                        else ds.Union(values[i], values[p]);
+                    }
+                }
+            }
+
+            int res = 0;
+            for (int i = 0; i < n; i++)
+                res = Math.Max(res, ds.Size(i));
+
+            return res;
+        }
+
         public void Test()
         {
             var a = new int[] { 4, 6, 15, 35 };
             Console.WriteLine(LargestComponentSize(a) == 4);
+            Console.WriteLine(LargestComponentSize2(a) == 4);
 
             a = new int[] { 20, 50, 9, 63 };
             Console.WriteLine(LargestComponentSize(a) == 2);
+            Console.WriteLine(LargestComponentSize2(a) == 2);
 
             a = new int[] { 2, 3, 6, 7, 4, 12, 21, 39 };
             Console.WriteLine(LargestComponentSize(a) == 8);
+            Console.WriteLine(LargestComponentSize2(a) == 8);
 
             a = new int[] { 2, 7, 522, 526, 535, 26, 944, 35, 519, 45, 48, 567, 266, 68, 74, 591, 81, 86, 602, 93, 610, 621, 111, 114, 629, 641, 131, 651, 142, 659, 669, 161, 674, 163, 180, 187, 190, 194, 195, 206, 207, 218, 737, 229, 240, 757, 770, 260, 778, 270, 272, 785, 274, 290, 291, 292, 296, 810, 816, 314, 829, 833, 841, 349, 880, 369, 147, 897, 387, 390, 905, 405, 406, 407, 414, 416, 417, 425, 938, 429, 432, 926, 959, 960, 449, 963, 966, 929, 457, 463, 981, 985, 79, 487, 1000, 494, 508 };
             Console.WriteLine(LargestComponentSize(a) == 84);
+            Console.WriteLine(LargestComponentSize2(a) == 84);
         }
     }
 }
