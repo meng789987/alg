@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc906_Super_Palindromes:");
-            new leetcode.Lc906_Super_Palindromes().Test();
+            Console.WriteLine("Lc924_Minimize_Malware_Spread:");
+            new leetcode.Lc924_Minimize_Malware_Spread().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

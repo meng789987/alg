@@ -1,4 +1,5 @@
-﻿using System;
+﻿using alg;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -45,7 +46,7 @@ namespace leetcode
                 int r = hits[i][0], c = hits[i][1];
                 if (grid[r][c] == 0) continue;
 
-                int preTopSize = ds.TopSize;
+                int preTopSize = ds.Size(m * n);
                 copy[hits[i][0]][hits[i][1]] = 1; // recover the brick
                 if (r == 0) ds.Union(r * n + c, m * n);
 
@@ -57,51 +58,10 @@ namespace leetcode
                         ds.Union(r * n + c, nr * n + nc);
                 }
 
-                ret[i] = Math.Max(0, ds.TopSize - preTopSize - 1);
+                ret[i] = Math.Max(0, ds.Size(m * n) - preTopSize - 1);
             }
 
             return ret;
-        }
-
-
-        class DisjointSet
-        {
-            public DisjointSet(int n)
-            {
-                _parents = new int[n];
-                _sizes = new int[n];
-                for (int i = 0; i < n; i++)
-                {
-                    _parents[i] = i;
-                    _sizes[i] = 1;
-                }
-            }
-
-            public void Union(int i, int j)
-            {
-                int pi = Find(i);
-                int pj = Find(j);
-                if (pi != pj)
-                {
-                    _parents[pi] = pj;
-                    _sizes[pj] += _sizes[pi];
-                }
-            }
-
-            public int TopSize
-            {
-                get { return _sizes[Find(_sizes.Length - 1)]; }
-            }
-
-            int Find(int i)
-            {
-                if (_parents[i] != i)
-                    _parents[i] = Find(_parents[i]);
-                return _parents[i];
-            }
-
-            int[] _parents;
-            int[] _sizes;
         }
 
         public void Test()

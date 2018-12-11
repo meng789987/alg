@@ -9,8 +9,12 @@ namespace alg
         public DisjointSet(int n)
         {
             _parents = new int[n];
+            _sizes = new int[n];
             for (int i = 0; i < n; i++)
+            {
                 _parents[i] = i;
+                _sizes[i] = 1;
+            }
 
             //_ranks = new int[n];
             //Array.Fill(_ranks, 1);
@@ -29,6 +33,7 @@ namespace alg
             var pj = Find(j);
             if (pi == pj) return false;
             _parents[pi] = pj; // can also set _parents[jp] = ip, depends on what it needs
+            _sizes[pj] += _sizes[pi];
             return true;
 
             // use ranks to improve efficiency
@@ -42,7 +47,13 @@ namespace alg
             //}
         }
 
+        public int Size(int i)
+        {
+            return _sizes[Find(i)];
+        }
+
         private int[] _parents;
         //private int[] _ranks;
+        private int[] _sizes;
     }
 }

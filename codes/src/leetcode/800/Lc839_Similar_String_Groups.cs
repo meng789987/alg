@@ -1,4 +1,5 @@
-﻿using System;
+﻿using alg;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -113,32 +114,6 @@ namespace leetcode
             }
 
             return ret;
-        }
-
-        class DisjointSet
-        {
-            public DisjointSet(int n)
-            {
-                _parents = Enumerable.Range(0, n).ToArray();
-            }
-
-            public int Find(int i)
-            {
-                if (_parents[i] != i)
-                    _parents[i] = Find(_parents[i]);
-                return _parents[i];
-            }
-
-            public bool Union(int i, int j)
-            {
-                int pi = Find(i);
-                int pj = Find(j);
-                if (pi == pj) return false;
-                _parents[pi] = pj;
-                return true;
-            }
-
-            int[] _parents;
         }
 
         public void Test()
