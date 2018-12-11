@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc924_Minimize_Malware_Spread:");
-            new leetcode.Lc924_Minimize_Malware_Spread().Test();
+            Console.WriteLine("Lc952_Largest_Component_Size_by_Common_Factor:");
+            new leetcode.Lc952_Largest_Component_Size_by_Common_Factor().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
