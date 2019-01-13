@@ -67,14 +67,14 @@ namespace alg.dp
         public void Test()
         {
             var nums = new int[] { 5, 2, 7, 4, 3, 8 };
-            var exp = new int[] { 2, 3, 8 };
             Console.WriteLine(Lis(nums) == 3);
-            Console.WriteLine(exp.SequenceEqual(LisPath(nums)));
+            var path = LisPath(nums);
+            Console.WriteLine(path.Count == 3 && path.AllIndex(i => i == 0 || path[i-1] < path[i]));
 
             nums = new int[] { 15, 27, 14, 38, 26, 55, 46, 65, 85 };
-            exp = new int[] { 15, 27, 38, 46, 65, 85 };
             Console.WriteLine(Lis(nums) == 6);
-            Console.WriteLine(exp.SequenceEqual(LisPath(nums)));
+            path = LisPath(nums);
+            Console.WriteLine(path.Count == 6 && path.AllIndex(i => i == 0 || path[i - 1] < path[i]));
         }
     }
 }

@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc952_Largest_Component_Size_by_Common_Factor:");
-            new leetcode.Lc952_Largest_Component_Size_by_Common_Factor().Test();
+            Console.WriteLine("Lc960_Delete_Columns_to_Make_SortedIII:");
+            new leetcode.Lc960_Delete_Columns_to_Make_SortedIII().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
