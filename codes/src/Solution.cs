@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc960_Delete_Columns_to_Make_SortedIII:");
-            new leetcode.Lc960_Delete_Columns_to_Make_SortedIII().Test();
+            Console.WriteLine("Lc956_Tallest_Billboard:");
+            new leetcode.Lc956_Tallest_Billboard().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
