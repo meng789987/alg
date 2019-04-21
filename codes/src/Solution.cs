@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc956_Tallest_Billboard:");
-            new leetcode.Lc956_Tallest_Billboard().Test();
+            Console.WriteLine("Lc87_Scramble_String:");
+            new leetcode.Lc87_Scramble_String().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
