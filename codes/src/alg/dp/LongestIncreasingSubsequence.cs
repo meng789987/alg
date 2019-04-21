@@ -58,8 +58,8 @@ namespace alg.dp
             }
 
             var res = new int[len];
-            for (int p = idx[len - 1], i = len - 1; i >= 0; i--, p = pre[p])
-                res[i] = nums[p];
+            for (int i = idx[len - 1], k = len - 1; k >= 0; k--, i = pre[i])
+                res[k] = nums[i];
 
             return res.ToList();
         }

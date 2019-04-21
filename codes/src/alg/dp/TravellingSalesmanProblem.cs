@@ -15,7 +15,7 @@ namespace alg.dp
     {
         /*
          * Time(2^nn^2), Space(2^nn)
-         * dp[S, i] is the shortest path from 0 to i for node set S, which is a subset of graph and always has node 0.
+         * dp[S, i] is the shortest path from 0 to i while travaling node subset S, which includes node 0 and i.
          * dp[S, i] = min(dp[S-{i}, j] + dist[j, i]), j is in S-{i}.
          */
         int Tsp_Dp(int[,] graph)

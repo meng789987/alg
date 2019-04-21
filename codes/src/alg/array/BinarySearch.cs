@@ -126,7 +126,7 @@ namespace alg.array
 
         // return k-th smallest number in an unsorted list
         // use median-of-medians [quicksort] partition function to complete within strict O(n)
-        // or use n-way merge sort as each row is sorted to complete within strict O(n)
+        // here use n-way merge sort to mimic
         int Pick(int[][] data, int k, ref bool hasMerged)
         {
             if (!hasMerged)

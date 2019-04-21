@@ -113,6 +113,13 @@ namespace alg.backtracking
             a[j] = tmp;
         }
 
+        int Fac(int n)
+        {
+            int res = 1;
+            while (n > 1) res *= n--;
+            return res;
+        }
+
         public void Test()
         {
             Console.WriteLine(SolveQueens(4).Count == 2);
@@ -120,19 +127,19 @@ namespace alg.backtracking
             Console.WriteLine(SolveQueens(8).Count == 92);
             Console.WriteLine(SolveQueens(10).Count == 724);
 
-            Console.WriteLine(Permutation("abc").Count == 1 * 2 * 3);
-            Console.WriteLine(Permutation("abcd").Count == 1 * 2 * 3 * 4);
-            Console.WriteLine(Permutation("abcde").Count == 1 * 2 * 3 * 4 * 5);
+            Console.WriteLine(Permutation("abc").Count == Fac(3));
+            Console.WriteLine(Permutation("abcd").Count == Fac(4));
+            Console.WriteLine(Permutation("abcde").Count == Fac(5));
 
-            Console.WriteLine(PermutationDup("abc").Count == 1 * 2 * 3);
-            Console.WriteLine(PermutationDup("abab").Count == 1 * 2 * 3 * 4 / (1 * 2) / (1 * 2));
-            Console.WriteLine(PermutationDup("abcaa").Count == 1 * 2 * 3 * 4 * 5 / (1 * 2 * 3));
-            Console.WriteLine(PermutationDup("abcaab").Count == 1 * 2 * 3 * 4 * 5 * 6 / (1 * 2 * 3) / (1 * 2));
-            Console.WriteLine(PermutationDup("acacbacb").Count == 1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 / (1 * 2 * 3) / (1 * 2 * 3) / (1 * 2));
-            Console.WriteLine(PermutationDup("adbacbc").Count == 1 * 2 * 3 * 4 * 5 * 6 * 7 / 2 / 2 / 2);
+            Console.WriteLine(PermutationDup("abc").Count == Fac(3));
+            Console.WriteLine(PermutationDup("abab").Count == Fac(4) / Fac(2) / Fac(2));
+            Console.WriteLine(PermutationDup("abcaa").Count == Fac(5) / Fac(3));
+            Console.WriteLine(PermutationDup("abcaab").Count == Fac(6) / Fac(3) / Fac(2));
+            Console.WriteLine(PermutationDup("acacbacb").Count == Fac(8) / Fac(3) / Fac(3) / Fac(2));
+            Console.WriteLine(PermutationDup("adbacbc").Count == Fac(7) / Fac(2) / Fac(2) / Fac(2));
 
             var nums = new int[] { 1, 2, 3, 4, 5 };
-            Console.WriteLine(Subset(nums, 3).Count == 1 * 2 * 3 * 4 * 5 / (1 * 2) / (1 * 2 * 3));
+            Console.WriteLine(Subset(nums, 3).Count == Fac(5) / Fac(2) / Fac(3));
         }
     }
 }

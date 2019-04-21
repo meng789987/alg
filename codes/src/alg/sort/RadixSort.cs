@@ -16,7 +16,7 @@ namespace alg.sort
             int max = a.Max();
             var aux = new int[a.Length];
 
-            for (int exp = 1; max >= exp; exp *= b)
+            for (int exp = 1; exp <= max; exp *= b)
             {
                 // list to buckets
                 var counts = new int[b];

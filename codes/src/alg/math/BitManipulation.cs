@@ -3,6 +3,8 @@
 /*
  * tags: bit
  * see: http://graphics.stanford.edu/~seander/bithacks.html
+ * n&(0-n) will clear all set bits except the least one
+ * n&(n-1) will clear the least signaficant 1-bit (last set bit) of n
  */
 namespace alg.math
 {

@@ -19,7 +19,8 @@ namespace alg.array
             for (int cnt = 0, start = 0; cnt < n; start++)
             {
                 int tmp = a[start];
-                for (int j = start; ;)
+                int j = start;
+                while (true)
                 {
                     cnt++;
                     var jn = j - k;

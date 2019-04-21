@@ -23,14 +23,15 @@ namespace alg.strings
             int maxc = 1;
             for (int i = 2; i < lens.Length; i++)
             {
-                lens[i] = r < i ? 0 : Math.Min(r - i, lens[2 * c - i]);
-                while ((i + lens[i]) % 2 == 1 || (i > lens[i] && (i + lens[i] + 1) / 2 < s.Length
-                    && s[(i - lens[i] - 1) / 2] == s[(i + lens[i] + 1) / 2])) lens[i]++;
-                if (r < i + lens[i])
+                int k = r < i ? 0 : Math.Min(r - i, lens[2 * c - i]);
+                while ((i + k) % 2 == 1 || (i > k && (i + k + 1) / 2 < s.Length
+                    && s[(i - k - 1) / 2] == s[(i + k + 1) / 2])) k++;
+                if (r < i + k)
                 {
-                    r = i + lens[i];
+                    r = i + k;
                     c = i;
                 }
+                lens[i] = k;
                 if (lens[i] > lens[maxc]) maxc = i;
             }
             return s.Substring((maxc - lens[maxc]) / 2, lens[maxc]);

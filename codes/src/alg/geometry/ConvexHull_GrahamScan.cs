@@ -27,10 +27,6 @@ namespace alg.geometry
             // 2. sort the other points based on its polar angle from p0
             Array.Sort(points, (a, b) =>
             {
-                int aq = GeoCommon.Quadrant(a);
-                int bq = GeoCommon.Quadrant(b);
-                if (aq != bq) return aq - bq;
-
                 var ori = GeoCommon.Orientation(bm, a, b);
                 if (ori != 0) return -ori;
 
