@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc87_Scramble_String:");
-            new leetcode.Lc87_Scramble_String().Test();
+            Console.WriteLine("Lc044_Wildcard_Matching:");
+            new leetcode.Lc044_Wildcard_Matching().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
