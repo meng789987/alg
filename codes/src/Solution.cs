@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Lc044_Wildcard_Matching:");
-            new leetcode.Lc044_Wildcard_Matching().Test();
+            Console.WriteLine("Largest_Rectangle_in_Histogram");
+            new stack.Largest_Rectangle_in_Histogram().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

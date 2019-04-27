@@ -24,7 +24,7 @@ namespace alg.dp
             var dist = new int[n];
             Array.Fill(dist, INF);
             dist[0] = 0;
-            var prev = new int[n];
+            var prev = new int[n];  // used for recovering the path
 
             for (int i = 0; i < n; i++)
             {
@@ -79,31 +79,51 @@ namespace alg.dp
          */
         int[] Dijkstra(int n, LinkedList<Edge>[] adj)
         {
-            var dist = new int[n];
-            Array.Fill(dist, INF);
-            dist[0] = 0;
-            var prev = new int[n];
+            var prev = new int[n]; // used to recover path
+            var heap = new Heap(n);
+            heap.Update(0, 0);
 
-            var q = new SortedSet<Edge>(Comparer<Edge>.Create((a, b) => a.w != b.w ? a.w - b.w : a.dst - b.dst));
-            q.Add(new Edge(0, 0, 0));
-            for (int i = 1; i < n; i++)
-                q.Add(new Edge(0, i, INF));
-
-            while (q.Count > 0)
+            for (int i = 0; i < n-1; i++)
             {
-                var min = q.Min; q.Remove(min);
-                foreach (var e in adj[min.dst])
+                var min = heap.ExtractMin();
+                foreach (var e in adj[min])
                 {
-                    if (dist[e.dst] > dist[e.src] + e.w)
+                    if (heap.Dist[e.dst] > heap.Dist[e.src] + e.w)
                     {
-                        q.Remove(new Edge(0, e.dst, dist[e.dst])); q.Add(new Edge(0, e.dst, dist[e.src] + e.w));
-                        dist[e.dst] = dist[e.src] + e.w;
+                        heap.Update(e.dst, heap.Dist[e.src] + e.w);
                         prev[e.dst] = e.src;
                     }
                 }
             }
 
-            return dist;
+            return heap.Dist;
+        }
+
+        class Heap
+        {
+            public Heap(int n)
+            {
+                Dist = new int[n];
+                Array.Fill(Dist, INF);
+                Nodes = new SortedSet<int>(Comparer<int>.Create((i, j) => Dist[i] != Dist[j] ? Dist[i] - Dist[j] : i - j));
+            }
+
+            public int ExtractMin()
+            {
+                int min = Nodes.Min;
+                Nodes.Remove(min);
+                return min;
+            }
+
+            public void Update(int i, int value)
+            {
+                Nodes.Remove(i);
+                Dist[i] = value;
+                Nodes.Add(i);
+            }
+
+            public int[] Dist;
+            private SortedSet<int> Nodes;
         }
 
         const int INF = Edge.INF;

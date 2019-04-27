@@ -20,7 +20,7 @@ using System.Text;
  *
  * e.g3. formula F[i] = F[i-1]*4 + G[i-1]*2, G[i] = G[i-1]*3 + 2^i, can be reduce to
  * {F[i]}   { 4, 2, 0 }   {F[i-1] }                   {S[1]}
- * {G[i]} = { 0, 3, 1 } * {G[i-1] } = ... = M^(i-1) * {F[1]}
+ * {G[i]} = { 0, 3, 2 } * {G[i-1] } = ... = M^(i-1) * {F[1]}
  * {2^i }   { 0, 0, 2 }   {2^(i-1)}                   {F[0]}
  *                                                    
  * generally, F[i] = c[1]*F[i-1] + ... + c[k]*F[i-k], then M is a kxk matrix

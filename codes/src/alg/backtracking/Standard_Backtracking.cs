@@ -13,13 +13,13 @@ namespace alg.backtracking
         public IList<int[]> SolveQueens(int n)
         {
             var ret = new List<int[]>();
-            SolveQueensBt(n, 0, new int[n], new bool[n], new bool[n], new bool[2 * n], new bool[2 * n], ret);
+            SolveQueensBt(n, 0, new bool[n], new bool[2 * n], new bool[2 * n], new int[n], ret);
             return ret;
         }
 
-        void SolveQueensBt(int n, int pos, int[] path, bool[] rows, bool[] cols, bool[] diagf, bool[] diagb, IList<int[]> res)
+        void SolveQueensBt(int n, int row, bool[] cols, bool[] diagf, bool[] diagb, int[] path, IList<int[]> res)
         {
-            if (pos == n)
+            if (row == n)
             {
                 res.Add(path.ToArray());
                 return;
@@ -27,11 +27,11 @@ namespace alg.backtracking
 
             for (int j = 0; j < n; j++)
             {
-                if (rows[pos] || cols[j] || diagf[pos + j] || diagb[n + pos - j]) continue;
-                path[pos] = j;
-                rows[pos] = cols[j] = diagf[pos + j] = diagb[n + pos - j] = true;
-                SolveQueensBt(n, pos + 1, path, rows, cols, diagf, diagb, res);
-                rows[pos] = cols[j] = diagf[pos + j] = diagb[n + pos - j] = false;
+                if (cols[j] || diagf[row + j] || diagb[row - j + n]) continue;
+                path[row] = j;
+                cols[j] = diagf[row + j] = diagb[row - j + n] = true;
+                SolveQueensBt(n, row + 1, cols, diagf, diagb, path, res);
+                cols[j] = diagf[row + j] = diagb[row - j + n] = false;
             }
         }
 
@@ -87,11 +87,11 @@ namespace alg.backtracking
         public IList<int[]> Subset(int[] nums, int k)
         {
             var ret = new List<int[]>();
-            SubsetBt(nums, 0, new int[k], 0, ret);
+            SubsetBt(nums, 0, 0, new int[k], ret);
             return ret;
         }
 
-        void SubsetBt(int[] nums, int pos, int[] path, int start, IList<int[]> res)
+        void SubsetBt(int[] nums, int start, int pos, int[] path, IList<int[]> res)
         {
             if (pos == path.Length)
             {
@@ -102,7 +102,7 @@ namespace alg.backtracking
             for (int i = start; i < nums.Length; i++)
             {
                 path[pos] = nums[i];
-                SubsetBt(nums, pos + 1, path, i + 1, res);
+                SubsetBt(nums, i + 1, pos + 1, path, res);
             }
         }
 

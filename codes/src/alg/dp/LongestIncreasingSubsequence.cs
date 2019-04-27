@@ -6,8 +6,9 @@ using System.Linq;
 /*
  * tags: dp
  * Time(nlogn), Space(n)
- * dp[i] is the length of longest increasing subsequence ending with nums[i].
+ * dp[i] is the length of LIS ending with nums[i].
  * dp[i] = max(dp[k] + 1), where k=[0..i-1] and nums[k] < nums[i].
+ * base case: dp[0]=1
  * Since dp is ordered, so we can binary search nums[i] in dp 
  * to replace (dp[k] if nums[i]<dp[k], so dp[i] only contains the smallest tail number of all increasing subsequence with same length) 
  * or insert (nums[i] if nums[i]>dp[i-1]).
