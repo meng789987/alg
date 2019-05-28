@@ -1,10 +1,14 @@
+#include "pch.h"
 
 /*
  * tags: topology sort, bfs/dfs
  * Time(N+E), Space(N)
+ * Each letter stands for a node in a graph. The edge stands for the order. 
+ * So we can start from the node without in-edges which means the smallest letter. 
+ * Get the order of two letters between two adjacent words if possible, then convert it to the graph edge.
  */
 
-class Solution {
+class lc0269 {
 public:
     string alienOrder(vector<string>& words) {
         unordered_map<char, int> degrees;
@@ -41,5 +45,17 @@ public:
         if (res.size() != degrees.size()) return "";
         return string(res.begin(), res.end());
     }
+
+	void test()
+	{
+		vector<string> words = { "wrt", "wrf", "er", "ett", "rftt" };
+		cout << (alienOrder(words) == "wertf") << endl;
+
+		words = { "z", "x" };
+		cout << (alienOrder(words) == "zx") << endl;
+
+		words = { "z", "x", "z" };
+		cout << (alienOrder(words) == "") << endl;
+	}
 };
 

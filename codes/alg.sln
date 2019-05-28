@@ -5,20 +5,16 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "alg", "alg.csproj", "{FC638D97-295C-4F48-87E1-73EC19E8B997}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lc", "src\lc\lc.vcxproj", "{795E7E2E-F365-4E47-9540-A96C6EC8EEDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
-		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FC638D97-295C-4F48-87E1-73EC19E8B997}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC638D97-295C-4F48-87E1-73EC19E8B997}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC638D97-295C-4F48-87E1-73EC19E8B997}.Debug|x64.ActiveCfg = Debug|x64
 		{FC638D97-295C-4F48-87E1-73EC19E8B997}.Debug|x64.Build.0 = Debug|x64
-		{FC638D97-295C-4F48-87E1-73EC19E8B997}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC638D97-295C-4F48-87E1-73EC19E8B997}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FC638D97-295C-4F48-87E1-73EC19E8B997}.Release|x64.ActiveCfg = Release|x64
 		{FC638D97-295C-4F48-87E1-73EC19E8B997}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection

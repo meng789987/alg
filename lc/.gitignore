@@ -1,0 +1,9 @@
+/bin/
+/**/*.class
+/obj/
+/out/
+/.idea/
+/.vs/
+/x64/
+/Debug/
+/Release/

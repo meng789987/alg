@@ -122,7 +122,7 @@ namespace alg.tree
                 int sum = 0;
                 lo += _segtree.Length / 2;
                 hi += _segtree.Length / 2;
-                for (; lo <= hi; lo /= 2, hi/= 2)
+                for (; 0 < lo && lo <= hi; lo /= 2, hi/= 2)
                 {
                     if (lo % 2 == 1) // node i is right child, add itself instead of its parent
                         sum += _segtree[lo++]; // move to parent sibling
