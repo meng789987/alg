@@ -4,19 +4,10 @@ using System.Linq;
 
 /*
  * tags: binary index tree
- * Space(n); Build: Time(nlogn), Query/Update: Time(logn)
- * use an array, the i-th element holding the sum of some data is based on the 1-bit of i.
- * e.g. for data [10, 13, 12, 15, 16, 18], it would be:
- *                84[0..5]
- *         35[0..2]            49[3..5]
- *   23[0..1]             31[3..4]    
- * 10[0]  13[1]  12[2]  15[3]  16[4]  18[5]
- * 
- * use an array, for node i its left is 2*i and right is 2*i+1. root is a[1]
- *                84[0..7]
- *          50[0..3]
- *   23[0..1]      27[2..3]      34[4..5]
- * 10[0]  13[1]  12[2]  15[3]  16[4]  18[5]  0[6]  0[7]
+ * Space(n); Build: Time(n), Query/Update: Time(logn)
+ * use an array, tree[i] = sum(data[i-(i&-i)..i-1]); 
+ * tree index 0 is not used, tree index is 1 more than data index;
+ * e.g. for data [10, 13, 12, 15, 16, 18], it would be [0, 10, 23, 12, 50, 16, 34]
  */
 namespace alg.tree
 {
@@ -25,11 +16,20 @@ namespace alg.tree
         public BinaryIndexTree() { }
         public BinaryIndexTree(int[] data)
         {
-            _data = data.ToArray();
+            _data = new int[data.Length];
             _bitree = new int[data.Length + 1];
 
-            for (int i = 0; i < data.Length; i++)
-                AddBit(i + 1, data[i]);
+            // this also works and is simple, but time takes O(nlogn)
+            //for (int i = 0; i < data.Length; i++)
+            //    Update(i, data[i]);
+
+            for (int i = 1; i <= data.Length; i++)
+            {
+                _data[i - 1] = data[i - 1];
+                _bitree[i] += data[i - 1];
+                if (i + (i & (-i)) < _bitree.Length)
+                    _bitree[i + (i & (-i))] += _bitree[i];
+            }
         }
 
         // sum of data[i..j]
@@ -43,20 +43,16 @@ namespace alg.tree
         {
             var diff = newValue - _data[pos];
             _data[pos] = newValue;
-            AddBit(pos + 1, diff);
+
+            for (int i = pos + 1; i < _bitree.Length;)
+            {
+                _bitree[i] += diff;
+                i += i & (-i); // double the last set bit
+            }
         }
 
         private int[] _data;
         private int[] _bitree;
-
-        private void AddBit(int pos, int diff)
-        {
-            while (pos < _bitree.Length)
-            {
-                _bitree[pos] += diff;
-                pos += pos & (-pos); // double the last set bit
-            }
-        }
 
         private int SumBit(int pos)
         {
@@ -99,10 +95,27 @@ namespace alg.tree
             _n = data.GetLength(1);
             _data = new int[_m, _n];
             _tree = new int[_m + 1, _n + 1];
-            for (int i = 0; i < _m; i++)
+
+            // this also works and is simple, but time takes O(mnlogmlogn)
+            //for (int i = 0; i < _m; i++)
+            //{
+            //    for (int j = 0; j < _n; j++)
+            //        Update(i, j, data[i, j]);
+            //}
+
+            for (int i = 1; i <= _m; i++)
             {
-                for (int j = 0; j < _n; j++)
-                    Update(i, j, data[i, j]);
+                var row = new int[_n + 1];
+                for (int j = 1; j <= _n; j++)
+                {
+                    _data[i - 1, j - 1] = data[i - 1, j - 1];
+                    row[j] += data[i - 1, j - 1];
+                    if (j + (j & -j) <= _n)
+                        row[j + (j & -j)] += row[j]; // accumulate this row
+                    _tree[i, j] += row[j];
+                    if (i + (i & -i) <= _m)
+                        _tree[i + (i & -i), j] += _tree[i, j];
+                }
             }
         }
 
@@ -110,7 +123,7 @@ namespace alg.tree
         {
             int diff = value - _data[row, col];
             _data[row, col] = value;
-            // go up to update sum
+            // go forward to update
             for (int i = row + 1; i <= _m; i += i & (-i))
             {
                 for (int j = col + 1; j <= _n; j += j & (-j))
@@ -126,7 +139,7 @@ namespace alg.tree
         private int Sum(int row, int col)
         {
             int sum = 0;
-            // go down to sum
+            // go back to sum
             for (int i = row; i > 0; i -= i & (-i))
             {
                 for (int j = col; j > 0; j -= j & (-j))

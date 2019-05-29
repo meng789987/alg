@@ -1,9 +1,8 @@
 #include "pch.h"
 
 /*
- * tags: binary index tree, segment tree
- * Time(logm+logn), Space(mn)
- * 2D binary index tree
+ * tags: disjoint set
+ * Time(klogk), Space(k)
  */
 
 class lc0305 {

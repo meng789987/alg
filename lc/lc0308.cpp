@@ -2,28 +2,36 @@
 
 /*
  * tags: binary index tree, segment tree
- * Time(logm+logn), Space(mn)
+ * Build(mn), Query/Update: Time(logmlogn), Space(mn)
  * 2D binary index tree
  */
 
 class lc0308 {
 public:
 	void init(vector<vector<int>>& matrix) {
+		if (matrix.size() == 0) return;
 		int m = matrix.size();
 		int n = matrix[0].size();
 		data.resize(m, vector<int>(n, 0));
-		tree.resize(m + 1, vector<int>(n+1, 0));
-		tree = vector<vector<int>>(m + 1, vector<int>(n + 1, 0));
-		for (int i = 0; i < m; i++) {
-			for (int j = 0; j < n; j++)
-				update(i, j, matrix[i][j]);
+		tree.resize(m + 1, vector<int>(n + 1, 0));
+
+		for (int i = 1; i <= m; i++) {
+			for (int j = 1; j <= n; j++) {
+				data[i - 1][j - 1] += matrix[i - 1][j - 1];
+				if (j + (j&-j) <= n)
+					data[i - 1][j + (j&-j) - 1] += data[i - 1][j - 1];
+				tree[i][j] += data[i - 1][j - 1];
+				if (i + (i&-i) <= m)
+					tree[i + (i&-i)][j] += tree[i][j];
+				data[i - 1][j - 1] = matrix[i - 1][j - 1];
+			}
 		}
 	}
 
 	void update(int row, int col, int val) {
 		int diff = val - data[row][col];
 		data[row][col] = val;
-		// go up to update sum
+		// go forward to update
 		for (int i = row + 1; i < tree.size(); i += i & (-i)) {
 			for (int j = col + 1; j < tree[0].size(); j += j & (-j))
 				tree[i][j] += diff;
@@ -36,7 +44,7 @@ public:
 
 	int sum(int row, int col) {
 		int s = 0;
-		// go down to sum
+		// go back to sum
 		for (int i = row; i > 0; i -= i & (-i)) {
 			for (int j = col; j > 0; j -= j & (-j))
 				s += tree[i][j];

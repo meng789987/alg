@@ -9,10 +9,23 @@
 #include "lc0302.cpp"
 #include "lc0308.cpp"
 
+
+void LocalTest()
+{
+	if (true) {
+		vector<int> v(10, 5);
+		v[4] = 300;
+	}
+	vector<int> v(10);
+	v[20] = 4;
+	cout << v.size() << endl;
+}
+
 void RunLeetCodeTest()
 {
 	cout << "lc0308" << endl;
 	lc0308().test();
+	//LocalTest();
 }
 
 #endif //LEETCODE_H
