@@ -20,10 +20,11 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{5445113B-F35F-411B-8EE9-59B74C5CE543}</ProjectGuid>
+    <ProjectGuid>{4B8D0530-83C7-4F37-ADFF-6AF0AF3451AF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>lc</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <ProjectName>one</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -156,6 +157,8 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="lc0158.cpp" />
+    <ClCompile Include="lc0269.cpp" />
     <ClCompile Include="lc0272.cpp" />
     <ClCompile Include="lc0291.cpp" />
     <ClCompile Include="lc0296.cpp" />
@@ -163,8 +166,6 @@
     <ClCompile Include="lc0305.cpp" />
     <ClCompile Include="lc0308.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="lc0158.cpp" />
-    <ClCompile Include="lc0269.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

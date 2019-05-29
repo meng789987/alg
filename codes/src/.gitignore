@@ -1,0 +1,6 @@
+/bin/
+/**/*.class
+/obj/
+/out/
+/.idea/
+/.vs/
