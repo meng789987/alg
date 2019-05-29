@@ -156,7 +156,11 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lc.cpp" />
+    <ClCompile Include="lc0272.cpp" />
+    <ClCompile Include="lc0291.cpp" />
+    <ClCompile Include="lc0296.cpp" />
+    <ClCompile Include="lc0302.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="lc0158.cpp" />
     <ClCompile Include="lc0269.cpp" />
     <ClCompile Include="pch.cpp">
@@ -169,6 +173,10 @@
   <ItemGroup>
     <Text Include="lc0158_Read_N_Characters_Given_Read4II.txt" />
     <Text Include="lc0269_Alien_Dictionary.txt" />
+    <Text Include="lc0272_Closest_Binary_Search_Tree_ValueII.txt" />
+    <Text Include="lc0291_Word_PatternII.txt" />
+    <Text Include="lc0296_Best_Meeting_Point.txt" />
+    <Text Include="lc0302_Smallest_Rectangle_Enclosing_Black_Pixels.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
