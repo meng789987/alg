@@ -7,11 +7,12 @@
 #include "lc0291.cpp"
 #include "lc0296.cpp"
 #include "lc0302.cpp"
+#include "lc0308.cpp"
 
 void RunLeetCodeTest()
 {
-	cout << "lc0302" << endl;
-	lc0302().test();
+	cout << "lc0308" << endl;
+	lc0308().test();
 }
 
 #endif //LEETCODE_H

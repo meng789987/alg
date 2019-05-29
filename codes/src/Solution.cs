@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Largest_Rectangle_in_Histogram");
-            new stack.Largest_Rectangle_in_Histogram().Test();
+            Console.WriteLine("BinaryIndexTree");
+            new tree.BinaryIndexTree().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
@@ -21,20 +21,10 @@ namespace alg
 
         static void Test()
         {
-            var table = new System.Data.DataTable();
-            Console.WriteLine(table.Compute("(1+2)*(4+3)", null));
-            Console.WriteLine(table.Compute("(1+2)*(4+3)", null));
-
-            var (a, b) = (3, 4);
-            var ss = new SortedSet<int>();
-            Console.WriteLine(ss.Min);
-
-            var m = new int[,] { { 1, 2 }, { 3, 4 } };
-            var n = new int[2, 2];
-            Array.Copy(m, n, 3);
-
-            int x = 3;
-            Console.WriteLine(Convert.ToString(x, 2));
+            long res = 0;
+            for (long i = 1; i < 10000; i++)
+                res += i * i * i * i * i * i * i * i * i;
+            Console.WriteLine(res);
         }
     }
 }

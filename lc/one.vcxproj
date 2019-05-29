@@ -160,6 +160,8 @@
     <ClCompile Include="lc0291.cpp" />
     <ClCompile Include="lc0296.cpp" />
     <ClCompile Include="lc0302.cpp" />
+    <ClCompile Include="lc0305.cpp" />
+    <ClCompile Include="lc0308.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="lc0158.cpp" />
     <ClCompile Include="lc0269.cpp" />
@@ -177,6 +179,8 @@
     <Text Include="lc0291_Word_PatternII.txt" />
     <Text Include="lc0296_Best_Meeting_Point.txt" />
     <Text Include="lc0302_Smallest_Rectangle_Enclosing_Black_Pixels.txt" />
+    <Text Include="lc0305_Number_of_IslandsII.txt" />
+    <Text Include="lc0308_Range_Sum_Query_2D_Mutable.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
