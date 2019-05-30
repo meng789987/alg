@@ -2,7 +2,7 @@
 
 /*
  * tags: binary index tree, segment tree
- * Build(mn), Query/Update: Time(logmlogn), Space(mn)
+ * Build: Time(mn); Query/Update: Time(logmlogn), Space(mn)
  * 2D binary index tree
  */
 
@@ -12,18 +12,18 @@ public:
 		if (matrix.size() == 0) return;
 		int m = matrix.size();
 		int n = matrix[0].size();
-		data.resize(m, vector<int>(n, 0));
+		data = matrix;
 		tree.resize(m + 1, vector<int>(n + 1, 0));
 
 		for (int i = 1; i <= m; i++) {
+			vector<int> row(n + 1, 0);
 			for (int j = 1; j <= n; j++) {
-				data[i - 1][j - 1] += matrix[i - 1][j - 1];
+				row[j] += matrix[i - 1][j - 1];
 				if (j + (j&-j) <= n)
-					data[i - 1][j + (j&-j) - 1] += data[i - 1][j - 1];
-				tree[i][j] += data[i - 1][j - 1];
+					row[j + (j&-j)] += row[j];
+				tree[i][j] += row[j];
 				if (i + (i&-i) <= m)
 					tree[i + (i&-i)][j] += tree[i][j];
-				data[i - 1][j - 1] = matrix[i - 1][j - 1];
 			}
 		}
 	}
@@ -55,6 +55,7 @@ public:
 
 	vector<vector<int>> data;
 	vector<vector<int>> tree;
+
 
 	void test()
 	{
