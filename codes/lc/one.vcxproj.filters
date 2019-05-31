@@ -59,6 +59,9 @@
     <ClCompile Include="lc0425.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lc0428.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="lc0158_Read_N_Characters_Given_Read4II.txt">
@@ -86,6 +89,9 @@
       <Filter>Source Files</Filter>
     </Text>
     <Text Include="lc0425_Word_Squares.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="lc0428_Serialize_and_Deserialize_N-ary_Tree.txt">
       <Filter>Source Files</Filter>
     </Text>
   </ItemGroup>

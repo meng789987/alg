@@ -9,24 +9,24 @@
 #include "lc0302.cpp"
 #include "lc0308.cpp"
 #include "lc0425.cpp"
+#include "lc0428.cpp"
 
 
 void LocalTest()
 {
-	if (true) {
-		vector<int> v(10, 5);
-		v[4] = 300;
-	}
-	vector<int> v(10);
-	v[20] = 4;
-	cout << v.size() << endl;
+	string a = "12;234;2;4;";
+	vector<int> values;
+	for (char *p = (char*)a.c_str(); *p; ++p)
+		values.push_back(strtol(p, &p, 10));
+	for (size_t last = 0, next; (next = a.find(';', last)) != string::npos; last = next + 1)
+		values.push_back(strtol(a.c_str() + last, NULL, 10));
 }
 
 void RunLeetCodeTest()
 {
-	cout << "lc0425" << endl;
-	lc0425().test();
-	//LocalTest();
+	cout << "lc0428" << endl;
+	//lc0428().test();
+	LocalTest();
 }
 
 #endif //LEETCODE_H
