@@ -1,3 +1,5 @@
+291. Word Pattern II
+https://leetcode.com/problems/word-pattern-ii/
 
 Given a pattern and a string str, find if str follows the same pattern.
 

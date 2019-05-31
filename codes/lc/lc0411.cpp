@@ -20,37 +20,6 @@ public:
 		string res = target;
 		int reslen = n;
 
-		for (int totalcnt = 1; totalcnt < n; totalcnt++) {
-			vector<bool> sel(n, false);
-			if (bt(target, dict, 0, totalcnt, 0, sel)) {
-				string r;
-				int rlen = 0, num = 0;
-				for (int i = 0; i < n; i++) {
-					if (sel[i]) {
-						if (num > 0) {
-							r += num;
-							rlen++;
-						}
-						r += target[i];
-						rlen++;
-						num = 0;
-					}
-					else {
-						num++;
-					}
-				}
-
-				if (num > 0) {
-					r += num;
-					rlen++;
-				}
-
-				if (reslen > rlen) {
-					reslen = rlen;
-					res = r;
-				}
-			}
-		}
 
 		return res;
 	}

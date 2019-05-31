@@ -171,6 +171,7 @@
     <ClCompile Include="lc0411.cpp" />
     <ClCompile Include="lc0425.cpp" />
     <ClCompile Include="lc0428.cpp" />
+    <ClCompile Include="lc0431.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -194,6 +195,7 @@
     <Text Include="lc0411_Minimum_Unique_Word_Abbreviation.txt" />
     <Text Include="lc0425_Word_Squares.txt" />
     <Text Include="lc0428_Serialize_and_Deserialize_N-ary_Tree.txt" />
+    <Text Include="lc0431_Encode_N-ary_Tree_to_Binary_Tree.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

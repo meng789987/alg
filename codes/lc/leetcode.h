@@ -14,6 +14,7 @@
 #include "lc0411.cpp"
 #include "lc0425.cpp"
 #include "lc0428.cpp"
+#include "lc0431.cpp"
 
 void LocalTest();
 void RunLeetCodeTest()

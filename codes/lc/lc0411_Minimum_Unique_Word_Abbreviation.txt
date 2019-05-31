@@ -1,4 +1,5 @@
 ﻿411. Minimum Unique Word Abbreviation
+https://leetcode.com/problems/minimum-unique-word-abbreviation/
 
 A string such as "word" contains the following abbreviations:
 
