@@ -71,13 +71,6 @@ namespace leetcode
             return value;
         }
 
-        class Exp
-        {
-            public int Op;
-            public int Value;
-            public List<Exp> Operands = new List<Exp>();
-        }
-
         public void Test()
         {
             Console.WriteLine(Evaluate("(add 1 2)") == 3);

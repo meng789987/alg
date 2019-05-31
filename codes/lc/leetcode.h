@@ -12,6 +12,8 @@
 #include "lc0340.cpp"
 #include "lc0358.cpp"
 #include "lc0411.cpp"
+#include "lc0425.cpp"
+#include "lc0428.cpp"
 
 void LocalTest();
 void RunLeetCodeTest()
@@ -23,13 +25,12 @@ void RunLeetCodeTest()
 
 void LocalTest()
 {
-	if (true) {
-		vector<int> v(10, 5);
-		v[4] = 300;
-	}
-	vector<int> v(10);
-	v[20] = 4;
-	cout << v.size() << endl;
+	string a = "12;234;2;4;";
+	vector<int> values;
+	for (char *p = (char*)a.c_str(); *p; ++p)
+		values.push_back(strtol(p, &p, 10));
+	for (size_t last = 0, next; (next = a.find(';', last)) != string::npos; last = next + 1)
+		values.push_back(strtol(a.c_str() + last, NULL, 10));
 }
 
 #endif //LEETCODE_H
