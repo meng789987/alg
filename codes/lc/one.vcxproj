@@ -165,6 +165,7 @@
     <ClCompile Include="lc0302.cpp" />
     <ClCompile Include="lc0305.cpp" />
     <ClCompile Include="lc0308.cpp" />
+    <ClCompile Include="lc0425.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -182,6 +183,7 @@
     <Text Include="lc0302_Smallest_Rectangle_Enclosing_Black_Pixels.txt" />
     <Text Include="lc0305_Number_of_IslandsII.txt" />
     <Text Include="lc0308_Range_Sum_Query_2D_Mutable.txt" />
+    <Text Include="lc0425_Word_Squares.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

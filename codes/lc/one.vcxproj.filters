@@ -56,6 +56,9 @@
     <ClCompile Include="lc0308.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lc0425.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="lc0158_Read_N_Characters_Given_Read4II.txt">
@@ -80,6 +83,9 @@
       <Filter>Source Files</Filter>
     </Text>
     <Text Include="lc0308_Range_Sum_Query_2D_Mutable.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="lc0425_Word_Squares.txt">
       <Filter>Source Files</Filter>
     </Text>
   </ItemGroup>

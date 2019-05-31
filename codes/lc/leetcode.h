@@ -8,6 +8,7 @@
 #include "lc0296.cpp"
 #include "lc0302.cpp"
 #include "lc0308.cpp"
+#include "lc0425.cpp"
 
 
 void LocalTest()
@@ -23,8 +24,8 @@ void LocalTest()
 
 void RunLeetCodeTest()
 {
-	cout << "lc0308" << endl;
-	lc0308().test();
+	cout << "lc0425" << endl;
+	lc0425().test();
 	//LocalTest();
 }
 
