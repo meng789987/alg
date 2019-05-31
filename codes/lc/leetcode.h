@@ -8,7 +8,18 @@
 #include "lc0296.cpp"
 #include "lc0302.cpp"
 #include "lc0308.cpp"
+#include "lc0317.cpp"
+#include "lc0340.cpp"
+#include "lc0358.cpp"
+#include "lc0411.cpp"
 
+void LocalTest();
+void RunLeetCodeTest()
+{
+	cout << "lc0411" << endl;
+	lc0411().test();
+	//LocalTest();
+}
 
 void LocalTest()
 {
@@ -19,13 +30,6 @@ void LocalTest()
 	vector<int> v(10);
 	v[20] = 4;
 	cout << v.size() << endl;
-}
-
-void RunLeetCodeTest()
-{
-	cout << "lc0308" << endl;
-	lc0308().test();
-	//LocalTest();
 }
 
 #endif //LEETCODE_H

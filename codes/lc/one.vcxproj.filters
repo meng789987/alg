@@ -56,6 +56,18 @@
     <ClCompile Include="lc0308.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lc0317.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lc0340.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lc0358.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lc0411.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="lc0158_Read_N_Characters_Given_Read4II.txt">
@@ -80,6 +92,18 @@
       <Filter>Source Files</Filter>
     </Text>
     <Text Include="lc0308_Range_Sum_Query_2D_Mutable.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="lc0317_Shortest_Distance_from_All_Buildings.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="lc0340_Longest_Substring_with_At_Most_K_Distinct_Characters.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="lc0358_Rearrange_String_k_Distance_Apart.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="lc0411_Minimum_Unique_Word_Abbreviation.txt">
       <Filter>Source Files</Filter>
     </Text>
   </ItemGroup>
