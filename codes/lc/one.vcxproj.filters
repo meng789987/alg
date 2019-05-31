@@ -18,6 +18,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="lc0431.cpp" />
+    <ClCompile Include="lc0465.cpp" />
+    <ClCompile Include="lc0471.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commonstd.h" />
@@ -40,5 +42,7 @@
     <Text Include="lc0425_Word_Squares.txt" />
     <Text Include="lc0428_Serialize_and_Deserialize_N-ary_Tree.txt" />
     <Text Include="lc0431_Encode_N-ary_Tree_to_Binary_Tree.txt" />
+    <Text Include="lc0465_Optimal_Account_Balancing.txt" />
+    <Text Include="lc0471_Encode_String_with_Shortest_Length.txt" />
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 #define COMMONSTD_H
 
 #include <algorithm>
+#include <iterator>
 #include <ios>
 #include <istream>
 #include <ostream>

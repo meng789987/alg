@@ -15,23 +15,20 @@
 #include "lc0425.cpp"
 #include "lc0428.cpp"
 #include "lc0431.cpp"
+#include "lc0465.cpp"
+#include "lc0471.cpp"
 
 void LocalTest();
 void RunLeetCodeTest()
 {
-	cout << "lc0411" << endl;
-	lc0411().test();
+	cout << "lc0471" << endl;
+	lc0471().test();
 	//LocalTest();
 }
 
 void LocalTest()
 {
-	string a = "12;234;2;4;";
-	vector<int> values;
-	for (char *p = (char*)a.c_str(); *p; ++p)
-		values.push_back(strtol(p, &p, 10));
-	for (size_t last = 0, next; (next = a.find(';', last)) != string::npos; last = next + 1)
-		values.push_back(strtol(a.c_str() + last, NULL, 10));
+	cout << ((-3) & 1) << endl;
 }
 
 #endif //LEETCODE_H
