@@ -4,6 +4,7 @@
  * tags: two pointers, sliding windows
  * Time(n), Space(1)
  * count the entering and leaving char, if the count is 0 then the total number of distinct chars increment.
+ * ref: lc159
  */
 
 class lc0340 {

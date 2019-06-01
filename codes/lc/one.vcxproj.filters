@@ -20,6 +20,11 @@
     <ClCompile Include="lc0431.cpp" />
     <ClCompile Include="lc0465.cpp" />
     <ClCompile Include="lc0471.cpp" />
+    <ClCompile Include="lc0159.cpp" />
+    <ClCompile Include="lc0248.cpp" />
+    <ClCompile Include="lc0265.cpp" />
+    <ClCompile Include="lc0489.cpp" />
+    <ClCompile Include="lc0499.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commonstd.h" />
@@ -44,5 +49,10 @@
     <Text Include="lc0431_Encode_N-ary_Tree_to_Binary_Tree.txt" />
     <Text Include="lc0465_Optimal_Account_Balancing.txt" />
     <Text Include="lc0471_Encode_String_with_Shortest_Length.txt" />
+    <Text Include="lc0159_Longest_Substring_with_At_Most_Two_Distinct_Characters.txt" />
+    <Text Include="lc0248_Strobogrammatic_NumberIII.txt" />
+    <Text Include="lc0265_Paint_HouseII.txt" />
+    <Text Include="lc0489_Robot_Room_Cleaner.txt" />
+    <Text Include="lc0499_The_MazeIII.txt" />
   </ItemGroup>
 </Project>

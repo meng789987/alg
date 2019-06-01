@@ -2,6 +2,9 @@
 #define LEETCODE_H
 
 #include "lc0158.cpp"
+#include "lc0159.cpp"
+#include "lc0248.cpp"
+#include "lc0265.cpp"
 #include "lc0269.cpp"
 #include "lc0272.cpp"
 #include "lc0291.cpp"
@@ -17,12 +20,13 @@
 #include "lc0431.cpp"
 #include "lc0465.cpp"
 #include "lc0471.cpp"
+#include "lc0499.cpp"
 
 void LocalTest();
 void RunLeetCodeTest()
 {
-	cout << "lc0471" << endl;
-	lc0471().test();
+	cout << "lc0499" << endl;
+	lc0499().test();
 	//LocalTest();
 }
 

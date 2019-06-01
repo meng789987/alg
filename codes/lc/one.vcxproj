@@ -158,6 +158,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lc0158.cpp" />
+    <ClCompile Include="lc0159.cpp" />
+    <ClCompile Include="lc0248.cpp" />
+    <ClCompile Include="lc0265.cpp" />
     <ClCompile Include="lc0269.cpp" />
     <ClCompile Include="lc0272.cpp" />
     <ClCompile Include="lc0291.cpp" />
@@ -174,6 +177,8 @@
     <ClCompile Include="lc0431.cpp" />
     <ClCompile Include="lc0465.cpp" />
     <ClCompile Include="lc0471.cpp" />
+    <ClCompile Include="lc0489.cpp" />
+    <ClCompile Include="lc0499.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -184,6 +189,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="lc0158_Read_N_Characters_Given_Read4II.txt" />
+    <Text Include="lc0159_Longest_Substring_with_At_Most_Two_Distinct_Characters.txt" />
+    <Text Include="lc0248_Strobogrammatic_NumberIII.txt" />
+    <Text Include="lc0265_Paint_HouseII.txt" />
     <Text Include="lc0269_Alien_Dictionary.txt" />
     <Text Include="lc0272_Closest_Binary_Search_Tree_ValueII.txt" />
     <Text Include="lc0291_Word_PatternII.txt" />
@@ -200,6 +208,8 @@
     <Text Include="lc0431_Encode_N-ary_Tree_to_Binary_Tree.txt" />
     <Text Include="lc0465_Optimal_Account_Balancing.txt" />
     <Text Include="lc0471_Encode_String_with_Shortest_Length.txt" />
+    <Text Include="lc0489_Robot_Room_Cleaner.txt" />
+    <Text Include="lc0499_The_MazeIII.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
