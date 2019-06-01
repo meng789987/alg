@@ -21,12 +21,13 @@
 #include "lc0465.cpp"
 #include "lc0471.cpp"
 #include "lc0499.cpp"
+#include "lc0527.cpp"
 
 void LocalTest();
 void RunLeetCodeTest()
 {
-	cout << "lc0499" << endl;
-	lc0499().test();
+	cout << "lc0527" << endl;
+	lc0527().test();
 	//LocalTest();
 }
 

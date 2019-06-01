@@ -3,33 +3,50 @@
 /*
  * tags: bfs, dfs
  * Time(mn), Space(mn)
- * dp[h, c] is the min cost to paint house[0..h] and house[h] is painted with color[c]
- * dp[h, c] = min(dp[h-1, i], i!=c) + costs[h][c]
- * base case: dp[0, c] = costs[0][c]
+ * just search using bfs by lexicographical order "dlru"
  */
 
 class lc0499 {
+	struct cell {
+		int x, y, d;
+		string path;
+		cell(int x, int y, int d, string path)
+			: x(x), y(y), d(d), path(path) {}
+	};
+
 public:
 	string findShortestWay(vector<vector<int>>& maze, vector<int>& ball, vector<int>& hole) {
-		int min = 0, sec = 0, minIdx = -1;
-		for (auto& cost : costs) {
-			int preMin = min, preSec = sec, preIdx = minIdx;
-			min = INT_MAX; sec = 0; minIdx = -1;
+		const string DIR = "dlru";
+		int DIRX[4] = { 1, 0, 0, -1 }; // order by dlru
+		int DIRY[4] = { 0, -1, 1, 0 };
+		int MASK[4] = { 2, 4, 8, 16 };
 
-			for (int c = 0; c < cost.size(); c++) {
-				int cur = cost[c] + (c != preIdx ? preMin : preSec);
-				if (cur <= min) {
-					sec = min;
-					min = cur;
-					minIdx = c;
-				}
-				else if (cur < sec) {
-					sec = cur;
+		size_t m = maze.size(), n = maze[0].size();
+		queue<cell> q;
+		for (int d = 0; d < 4; d++) {
+			maze[ball[0]][ball[1]] |= MASK[d];
+			q.emplace(ball[0], ball[1], d, "");
+		}
+
+		while (!q.empty()) {
+			cell node = q.front(); q.pop();
+			if (node.x == hole[0] && node.y == hole[1]) return node.path;
+
+			for (int i = 0; i < 4; i++) {
+				int d = (node.d + i) % 4;
+				cell next(node.x + DIRX[d], node.y + DIRY[d], d, node.path);
+				if (node.d != d || next.path.empty()) next.path += DIR[d];
+				if (0 <= next.x && next.x < m && 0 <= next.y && next.y < n && maze[next.x][next.y] != 1) {
+					if ((maze[next.x][next.y] & MASK[d]) == 0) { // not visited
+						maze[next.x][next.y] |= MASK[d];
+						q.push(next);
+					}
+					if (node.d == d) break;
 				}
 			}
 		}
 
-		return min;
+		return "impossible";
 	}
 
 	void test()

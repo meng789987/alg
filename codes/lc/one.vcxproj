@@ -179,6 +179,7 @@
     <ClCompile Include="lc0471.cpp" />
     <ClCompile Include="lc0489.cpp" />
     <ClCompile Include="lc0499.cpp" />
+    <ClCompile Include="lc0527.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -210,6 +211,7 @@
     <Text Include="lc0471_Encode_String_with_Shortest_Length.txt" />
     <Text Include="lc0489_Robot_Room_Cleaner.txt" />
     <Text Include="lc0499_The_MazeIII.txt" />
+    <Text Include="lc0527_Word_Abbreviation.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

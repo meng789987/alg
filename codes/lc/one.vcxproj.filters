@@ -25,6 +25,7 @@
     <ClCompile Include="lc0265.cpp" />
     <ClCompile Include="lc0489.cpp" />
     <ClCompile Include="lc0499.cpp" />
+    <ClCompile Include="lc0527.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commonstd.h" />
@@ -54,5 +55,6 @@
     <Text Include="lc0265_Paint_HouseII.txt" />
     <Text Include="lc0489_Robot_Room_Cleaner.txt" />
     <Text Include="lc0499_The_MazeIII.txt" />
+    <Text Include="lc0527_Word_Abbreviation.txt" />
   </ItemGroup>
 </Project>
