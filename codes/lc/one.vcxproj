@@ -180,6 +180,7 @@
     <ClCompile Include="lc0489.cpp" />
     <ClCompile Include="lc0499.cpp" />
     <ClCompile Include="lc0527.cpp" />
+    <ClCompile Include="lc0631.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -212,6 +213,10 @@
     <Text Include="lc0489_Robot_Room_Cleaner.txt" />
     <Text Include="lc0499_The_MazeIII.txt" />
     <Text Include="lc0527_Word_Abbreviation.txt" />
+    <Text Include="lc0579_Find_Cumulative_Salary_of_an_Employee.sql.txt" />
+    <Text Include="lc0615_Average_Salary_Departments_VS_Company.sql.txt" />
+    <Text Include="lc0618_Students_Report_By_Geography.sql.txt" />
+    <Text Include="lc0631_Design_Excel_Sum_Formula.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
