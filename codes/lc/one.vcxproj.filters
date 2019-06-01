@@ -26,6 +26,8 @@
     <ClCompile Include="lc0489.cpp" />
     <ClCompile Include="lc0499.cpp" />
     <ClCompile Include="lc0527.cpp" />
+    <ClCompile Include="lc0568.cpp" />
+    <ClCompile Include="lc0588.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commonstd.h" />
@@ -56,5 +58,9 @@
     <Text Include="lc0489_Robot_Room_Cleaner.txt" />
     <Text Include="lc0499_The_MazeIII.txt" />
     <Text Include="lc0527_Word_Abbreviation.txt" />
+    <Text Include="lc0568_Maximum_Vacation_Days.txt" />
+    <Text Include="lc0588_Design_In-Memory_File_System.txt" />
+    <Text Include="lc0569_Median_Employee_Salary.sql.txt" />
+    <Text Include="lc0571_Find_Median_Given_Frequency_of_Numbers.sql.txt" />
   </ItemGroup>
 </Project>
