@@ -29,6 +29,7 @@
     <ClCompile Include="lc0631.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="lc0642.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commonstd.h" />
@@ -67,5 +68,6 @@
     <Text Include="lc0615_Average_Salary_Departments_VS_Company.sql.txt" />
     <Text Include="lc0618_Students_Report_By_Geography.sql.txt" />
     <Text Include="lc0631_Design_Excel_Sum_Formula.txt" />
+    <Text Include="lc0642_Design_Search_Autocomplete_System.txt" />
   </ItemGroup>
 </Project>

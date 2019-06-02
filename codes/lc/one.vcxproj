@@ -183,6 +183,7 @@
     <ClCompile Include="lc0568.cpp" />
     <ClCompile Include="lc0588.cpp" />
     <ClCompile Include="lc0631.cpp" />
+    <ClCompile Include="lc0642.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -223,6 +224,7 @@
     <Text Include="lc0615_Average_Salary_Departments_VS_Company.sql.txt" />
     <Text Include="lc0618_Students_Report_By_Geography.sql.txt" />
     <Text Include="lc0631_Design_Excel_Sum_Formula.txt" />
+    <Text Include="lc0642_Design_Search_Autocomplete_System.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

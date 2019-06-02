@@ -1,12 +1,12 @@
 #ifndef COMMONSTD_H
 #define COMMONSTD_H
 
-#include <algorithm>
 #include <iterator>
 #include <ios>
 #include <istream>
 #include <ostream>
 #include <iostream>
+
 #include <string>
 #include <vector>
 #include <list>
@@ -16,9 +16,12 @@
 #include <set>
 #include <unordered_map>
 #include <unordered_set>
+
+#include <algorithm>
 #include <new>
 #include <tuple>
 #include <utility>
+#include <functional>
 
 using namespace std;
 

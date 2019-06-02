@@ -8,9 +8,9 @@
 // Forward declaration of the read4 API.
 int read4(char *buf);
 
-class Solution {
+class lc0158_Solution {
 public:
-    Solution() : _cnt(0), _pos(0) {}
+	lc0158_Solution() : _cnt(0), _pos(0) {}
     
     /**
      * @param buf Destination buffer
