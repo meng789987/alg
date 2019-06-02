@@ -49,13 +49,13 @@ public:
 	void test()
 	{
 		vector<string> words = { "wrt", "wrf", "er", "ett", "rftt" };
-		cout << (alienOrder(words) == "wertf") << endl;
+		cout << ("wertf" == alienOrder(words)) << endl;
 
 		words = { "z", "x" };
-		cout << (alienOrder(words) == "zx") << endl;
+		cout << ("zx" == alienOrder(words)) << endl;
 
 		words = { "z", "x", "z" };
-		cout << (alienOrder(words) == "") << endl;
+		cout << ("" == alienOrder(words)) << endl;
 	}
 };
 
