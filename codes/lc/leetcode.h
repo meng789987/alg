@@ -24,12 +24,15 @@
 #include "lc0527.cpp"
 #include "lc0568.cpp"
 #include "lc0644.cpp"
+#include "lc0656.cpp"
+#include "lc0660.cpp"
+#include "lc0683.cpp"
 
 void LocalTest();
 void RunLeetCodeTest()
 {
-	cout << "lc0644" << endl;
-	lc0644().test();
+	cout << "lc0683" << endl;
+	lc0683().test();
 	//LocalTest();
 }
 
@@ -37,5 +40,18 @@ void LocalTest()
 {
 	cout << ((-3) & 1) << endl;
 }
+
+/*
+// trick: putting this in the head of the codes in leetcode will make it much faster.
+
+#pragma GCC optimize("O3")
+static const auto __ = [](){
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(nullptr);
+	std::cout.tie(nullptr);
+	return nullptr;
+}();
+
+*/
 
 #endif //LEETCODE_H

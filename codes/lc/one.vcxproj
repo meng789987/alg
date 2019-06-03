@@ -185,6 +185,9 @@
     <ClCompile Include="lc0631.cpp" />
     <ClCompile Include="lc0642.cpp" />
     <ClCompile Include="lc0644.cpp" />
+    <ClCompile Include="lc0656.cpp" />
+    <ClCompile Include="lc0660.cpp" />
+    <ClCompile Include="lc0683.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -227,6 +230,9 @@
     <Text Include="lc0631_Design_Excel_Sum_Formula.txt" />
     <Text Include="lc0642_Design_Search_Autocomplete_System.txt" />
     <Text Include="lc0644_Maximum_Average_SubarrayII.txt" />
+    <Text Include="lc0656_Coin_Path.txt" />
+    <Text Include="lc0660_Remove9.txt" />
+    <Text Include="lc0683_K_Empty_Slots.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

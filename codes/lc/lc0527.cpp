@@ -17,7 +17,7 @@ public:
 		unordered_map<string, Node*> nodes;
 		for (size_t i = 0; i < dict.size(); i++) {
 			string word = dict[i];
-			string key = to_string(word.size()) + word[word.size() - 1];
+			string key = to_string(word.size()) + word.back();
 			if (!nodes[key]) nodes[key] = new Node();
 			Node* node = nodes[key];
 			for (char c : word) {
@@ -42,7 +42,7 @@ public:
 			if (word.size() - j < 4)
 				res.push_back(word);
 			else
-				res.push_back(word.substr(0, j+1) + to_string(word.size() - j - 2) + word[word.size() - 1]);
+				res.push_back(word.substr(0, j+1) + to_string(word.size() - j - 2) + word.back());
 		}
 
 		return res;
@@ -50,7 +50,7 @@ public:
 
 	string makeAbbr(string& s, int prefixlen) {
 		if (prefixlen + 2 >= s.size()) return s;
-		return s.substr(0, prefixlen) + to_string(s.size() - prefixlen - 1) + s[s.size() - 1];
+		return s.substr(0, prefixlen) + to_string(s.size() - prefixlen - 1) + s.back();
 	}
 
 	vector<string> wordsAbbreviation(vector<string>& dict) {
