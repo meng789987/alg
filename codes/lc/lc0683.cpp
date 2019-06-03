@@ -12,7 +12,7 @@
 
 class lc0683 {
 public:
-	int kEmptySlots(vector<int>& bulbs, int K) {
+	int kEmptySlots2(vector<int>& bulbs, int K) {
 		int n = bulbs.size();
 		vector<int> days(n);
 		for (int d = 0; d < n; d++) days[bulbs[d] - 1] = d + 1;
@@ -29,6 +29,28 @@ public:
 			// slide the window
 			left = b;
 			right = b + K + 1;
+		}
+
+		return res == INT_MAX ? -1 : res;
+	}
+
+	int kEmptySlots(vector<int>& bulbs, int K) {
+		size_t n = bulbs.size();
+		vector<int> days(n); // ith bulbs is turned on on (days[i])th day.
+		for (int i = 0; i < n; i++)
+			days[bulbs[i] - 1] = i + 1;
+
+		int res = INT_MAX;
+		deque<int> win;
+		win.push_front(0);
+
+		for (int b = 1; b < n; b++) {
+			if (win.front() + K + 1 < b) win.pop_front();
+			int f = win.front();
+			while (win.size() && days[b] < days[win.back()]) win.pop_back();
+			if (f + K + 1 == b && win.size() <= 1)
+				res = min(res, max(days[f], days[b]));
+			win.push_back(b);
 		}
 
 		return res == INT_MAX ? -1 : res;
