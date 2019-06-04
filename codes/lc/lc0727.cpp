@@ -37,7 +37,7 @@ public:
 		return minlen == INT_MAX ? "" : s.substr(minidx, minlen);
 	}
 
-	string minWindow(string s, string t) {
+	string minWindow1(string s, string t) {
 		int m = s.size(), n = t.size();
 		vector<vector<int>> dp(m, vector<int>(n, -1));
 		dp[0][0] = s[0] == t[0] ? 0 : -1;
