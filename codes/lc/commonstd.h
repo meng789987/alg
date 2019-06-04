@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include <string>
+#include <stack>
 #include <vector>
 #include <list>
 #include <queue>
