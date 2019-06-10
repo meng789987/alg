@@ -36,8 +36,8 @@
 void LocalTest();
 void RunLeetCodeTest()
 {
-	cout << "lc1063" << endl;
-	lc1063().test();
+	cout << "lc1067" << endl;
+	lc1067().test();
 	//LocalTest();
 }
 

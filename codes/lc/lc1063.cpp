@@ -22,10 +22,12 @@ public:
 
 	void test()
 	{
-		vector<int> nums
-		cout << (1 == validSubarrays(0, 1, 10)) << endl;
-		cout << (22 == digitsCount(0, 1, 123)) << endl;
-		cout << (35 == digitsCount(3, 100, 250)) << endl;
+		vector<int> nums{ 1,4,2,5,3 };
+		cout << (11 == validSubarrays(nums)) << endl;
+		nums = vector<int>{ 3,2,1 };
+		cout << (3 == validSubarrays(nums)) << endl;
+		nums = vector<int>{ 2,2,2 };
+		cout << (6 == validSubarrays(nums)) << endl;
 	}
 };
 
