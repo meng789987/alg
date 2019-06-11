@@ -10,9 +10,10 @@ class lc0358 {
 public:
 	string rearrangeString(string s, int k) {
 		vector<char> res;
-		int counts[26] = { 0 }, positions[26] = { 0 };
+		int counts[26] = { 0 };
+		size_t positions[26] = { 0 };
 		for (char c : s) counts[c - 'a']++;
-		for (int i = 0; i < s.size(); i++) {
+		for (size_t i = 0; i < s.size(); i++) {
 			int maxi = -1, max = 0;
 			for (int ci = 0; ci < 26; ci++) {
 				if (positions[ci] <= i && max < counts[ci])

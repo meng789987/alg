@@ -15,7 +15,8 @@ public:
 		sort(times.begin(), times.end());
 
 		vector<vector<int>> res;
-		for (int i = 1, pre = times[0][1]; i < times.size(); i++) {
+		int pre = times[0][1];
+		for (size_t i = 1; i < times.size(); i++) {
 			if (pre < times[i][0]) res.push_back({ pre, times[i][0] });
 			pre = max(pre, times[i][1]);
 		}
@@ -27,7 +28,7 @@ public:
 		merge(schedule, 0, schedule.size() - 1);
 		auto& time = schedule[0];
 		vector<vector<int>> res;
-		for (int i = 1; i < time.size(); i++)
+		for (size_t i = 1; i < time.size(); i++)
 			res.push_back({ time[i - 1][1], time[i][0] });
 		return res;
 	}
@@ -43,7 +44,7 @@ public:
 		auto& vlo = times[lo];
 		auto& vhi = times[mi + 1];
 		vector<vector<int>> res;
-		for (int i = 0, j = 0; i < vlo.size() || j < vhi.size(); ) {
+		for (size_t i = 0, j = 0; i < vlo.size() || j < vhi.size(); ) {
 			vector<int> min;
 			if (j == vhi.size() || (i < vlo.size() && vlo[i][0] < vhi[j][0]))
 				min = vlo[i++];

@@ -10,9 +10,9 @@
 class lc0340 {
 public:
 	int lengthOfLongestSubstringKDistinct(string s, int k) {
-		int res = 0;
-		int counts[256] = { 0 };
-		for (int i = 0, j = 0, cnt = 0; j < s.size(); j++) {
+		size_t res = 0;
+		int counts[256] = { 0 }, cnt = 0;
+		for (size_t i = 0, j = 0; j < s.size(); j++) {
 			if (++counts[s[j]] == 1) cnt++;
 			if (cnt > k && --counts[s[i++]] == 0) cnt--;
 			res = max(res, j - i + 1);

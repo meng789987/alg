@@ -18,9 +18,9 @@ public:
         }
         
         unordered_map<char, unordered_set<char>> dag;
-        for (int i = 1; i < words.size(); i++) {
+        for (size_t i = 1; i < words.size(); i++) {
             string& wa = words[i-1], wb = words[i];
-            for (int j = 0; j < wa.size() && j < wb.size(); j++) {
+            for (size_t j = 0; j < wa.size() && j < wb.size(); j++) {
                 if (wa[j] != wb[j]) {
                     if (dag[wa[j]].insert(wb[j]).second) degrees[wb[j]]++;
                     break;

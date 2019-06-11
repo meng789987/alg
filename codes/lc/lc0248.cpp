@@ -11,7 +11,7 @@ public:
 	vector<vector<char>> pairs{ {'0','0'}, {'1','1'}, {'8','8'}, {'6','9'}, {'9','6'} };
 	int strobogrammaticInRange(string low, string high) {
 		int res = 0;
-		for (int len = low.size(); len <= high.size(); len++) {
+		for (size_t len = low.size(); len <= high.size(); len++) {
 			string path(len, ' ');
 			res += dfs(low, high, 0, path);
 		}

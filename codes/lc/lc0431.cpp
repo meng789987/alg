@@ -1,7 +1,7 @@
 #include "pch.h"
 
 /*
- * tags: tree
+ * tags: tree, design
  * Time(n), Space(n)
  * first child is encoded to its left, the other children are encoded to its left's right, and right, and so on.
  */
@@ -31,7 +31,7 @@ public:
 		if (!root->children.empty())
 			tree->left = encode(root->children[0]);
 		auto tnode = tree->left;
-		for (int i = 1; i < root->children.size(); i++) {
+		for (size_t i = 1; i < root->children.size(); i++) {
 			tnode->right = encode(root->children[i]);
 			tnode = tnode->right;
 		}

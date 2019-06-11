@@ -192,6 +192,7 @@
     <ClCompile Include="lc0727.cpp" />
     <ClCompile Include="lc0759.cpp" />
     <ClCompile Include="lc0772.cpp" />
+    <ClCompile Include="lc0774.cpp" />
     <ClCompile Include="lc1063.cpp" />
     <ClCompile Include="lc1067.cpp" />
     <ClCompile Include="main.cpp" />
@@ -243,6 +244,7 @@
     <Text Include="lc0727_Minimum_Window_Subsequence.txt" />
     <Text Include="lc0759_Employee_Free_Time.txt" />
     <Text Include="lc0772_Basic_CalculatorIII.txt" />
+    <Text Include="lc0774_Minimize_Max_Distance_to_Gas_Station.txt" />
     <Text Include="lc1063_Number_of_Valid_Subarrays.txt" />
     <Text Include="lc1067_Digit_Count_in_Range.txt" />
   </ItemGroup>

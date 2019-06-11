@@ -13,7 +13,7 @@ public:
 		long num = 0;
 		s += '+'; // make things easy
 
-		for (int i = 0; i < s.size(); i++) {
+		for (size_t i = 0; i < s.size(); i++) {
 			char c = s[i];
 			if (c == ' ') continue;
 			if (c == '(' || c == '*' || c == '/') res.push({ num, c });

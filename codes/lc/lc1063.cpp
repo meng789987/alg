@@ -11,7 +11,7 @@ public:
 	int validSubarrays(vector<int>& nums) {
 		int res = 0;
 		stack<int> stack;
-		for (int i = 0; i < nums.size(); i++) {
+		for (size_t i = 0; i < nums.size(); i++) {
 			while (!stack.empty() && nums[stack.top()] > nums[i]) stack.pop();
 			stack.push(i);
 			res += stack.size();

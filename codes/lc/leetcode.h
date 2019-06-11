@@ -30,20 +30,22 @@
 #include "lc0711.cpp"
 #include "lc0727.cpp"
 #include "lc0772.cpp"
+#include "lc0774.cpp"
 #include "lc1063.cpp"
 #include "lc1067.cpp"
 
 void LocalTest();
 void RunLeetCodeTest()
 {
-	cout << "lc1067" << endl;
-	lc1067().test();
+	cout << "lc0308" << endl;
+	lc0159().test();
 	//LocalTest();
 }
 
 void LocalTest()
 {
-	cout << ((-3) & 1) << endl;
+	size_t i = 7;
+	cout << (i&(i)) << endl;
 }
 
 /*

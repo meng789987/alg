@@ -12,8 +12,8 @@ public:
 	int shortestDistance(vector<vector<int>> grid) {
 		int res = -1, label = 0;
 		auto dist = grid;
-		for (int i = 0; i < grid.size(); i++) {
-			for (int j = 0; j < grid[0].size(); j++) {
+		for (size_t i = 0; i < grid.size(); i++) {
+			for (size_t j = 0; j < grid[0].size(); j++) {
 				if (grid[i][j] == 1) {
 					int cur = minDist(grid, i, j, label--, dist);
 					if (cur == -1) return -1;

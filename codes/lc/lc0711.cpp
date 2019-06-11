@@ -11,8 +11,8 @@ class lc0711 {
 public:
 	int numDistinctIslands2(vector<vector<int>>& grid) {
 		set<vector<int>> lands;
-		for (int i = 0; i < grid.size(); i++) {
-			for (int j = 0; j < grid[0].size(); j++) {
+		for (int i = 0; i < (int)grid.size(); i++) {
+			for (int j = 0; j < (int)grid[0].size(); j++) {
 				if (grid[i][j] == 1) {
 					vector<pair<int, int>> land;
 					dfs(grid, i, j, land);
@@ -31,7 +31,7 @@ public:
 		int dirs[] = { 1,0,-1,0,1 };
 		for (int d = 0; d < 4; d++) {
 			int r = row + dirs[d], c = col + dirs[d + 1];
-			if (0 <= r && r < grid.size() && 0 <= c && c < grid[0].size() && grid[r][c] == 1)
+			if (0 <= r && r < (int)grid.size() && 0 <= c && c < (int)grid[0].size() && grid[r][c] == 1)
 				dfs(grid, r, c, land);
 		}
 	}
@@ -52,7 +52,7 @@ public:
 
 		for (auto& v : all) {
 			sort(v.begin(), v.end());
-			for (int i = 1; i < v.size(); i++) v[i] -= v[0];
+			for (size_t i = 1; i < v.size(); i++) v[i] -= v[0];
 			v[0] = 0;
 		}
 

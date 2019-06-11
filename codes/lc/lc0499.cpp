@@ -21,7 +21,7 @@ public:
 		int DIRY[4] = { 0, -1, 1, 0 };
 		int MASK[4] = { 2, 4, 8, 16 };
 
-		size_t m = maze.size(), n = maze[0].size();
+		int m = (int)maze.size(), n = (int)maze[0].size();
 		queue<cell> q;
 		for (int d = 0; d < 4; d++) {
 			maze[ball[0]][ball[1]] |= MASK[d];

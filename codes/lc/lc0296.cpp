@@ -10,15 +10,15 @@ class lc0296 {
 public:
 	int minTotalDistance(vector<vector<int>>& grid) {
 		vector<int> rows;
-		for (int i = 0; i < grid.size(); ++i) {
-			for (int j = 0; j < grid[i].size(); ++j) {
+		for (int i = 0; i < (int)grid.size(); ++i) {
+			for (int j = 0; j < (int)grid[i].size(); ++j) {
 				if (grid[i][j]) rows.push_back(i);
 			}
 		}
 
 		vector<int> cols;
-		for (int j = 0; j < grid[0].size(); ++j) {
-			for (int i = 0; i < grid.size(); ++i) {
+		for (int j = 0; j < (int)grid[0].size(); ++j) {
+			for (int i = 0; i < (int)grid.size(); ++i) {
 				if (grid[i][j]) cols.push_back(j);
 			}
 		}

@@ -10,11 +10,11 @@
 class lc0159 {
 public:
 	int lengthOfLongestSubstringTwoDistinct(string s) {
-		int res = 0, counts[256] = { 0 };
-		for (int i = 0, j = 0, cnt = 0; i < s.size(); i++) {
+		int res = 0, counts[256] = { 0 }, cnt = 0;
+		for (size_t i = 0, j = 0; i < s.size(); i++) {
 			if (++counts[s[i]] == 1) cnt++;
 			if (cnt > 2 && --counts[s[j++]] == 0) cnt--;
-			res = max(res, i - j + 1);
+			res = max(res, (int)(i - j + 1));
 		}
 
 		return res;

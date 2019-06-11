@@ -1,7 +1,7 @@
 #include "pch.h"
 
 /*
- * tags: tree
+ * tags: tree, design
  * Time(n), Space(n)
  * 1. serialize each node as "val;children count;"
  * 2. serialize each node as "level;val;"
@@ -47,7 +47,7 @@ public:
 	Node* deserialize(vector<int>& values, int& idx) {
 		int val = values[idx++];
 		vector<Node*> children(values[idx++]);
-		for (int i = 0; i < children.size(); i++)
+		for (size_t i = 0; i < children.size(); i++)
 			children[i] = deserialize(values, idx);
 		return new Node(val, children);
 	}
