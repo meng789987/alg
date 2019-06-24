@@ -1,7 +1,7 @@
 #include "pch.h"
 
 /*
- * tags: bs
+ * tags: binary search
  * Time(nlogn), Space(1)
  * when looking for a value in an error epsilon range, we can think about binary search.
  * here we try average from the min to max step by epsilon.

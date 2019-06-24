@@ -16,7 +16,15 @@ public:
 		for (int i = 0; i < s.size(); i++) {
 			char c = s[i];
 			if (c == ' ') continue;
-			if (c == '(' || c == '*' || c == '/') res.push({ num, c });
+			if (c == '(') res.push({ num, c });
+			else if(c == '*' || c == '/') {
+				if (!res.empty() && (res.top().second == '*' || res.top().second == '/')) {
+					long a = res.top().first, op = res.top().second;
+					res.pop();
+					num = EvalExp(a, op, num);
+				}
+				res.push({ num, c });
+			}
 			else if (c == ')' || c == '+' || c == '-') {
 				while (!res.empty() && res.top().second != '(') {
 					long a = res.top().first, op = res.top().second;
