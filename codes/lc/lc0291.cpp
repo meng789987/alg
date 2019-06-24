@@ -26,7 +26,7 @@ public:
 				&& bt(pattern, pi + 1, str, si + mp.size(), map, used, counts);
 		}
 
-		for (int i = si; i < str.size(); i++) {
+		for (size_t i = si; i < str.size(); i++) {
 			string sub = str.substr(si, i - si + 1);
 			if (used.find(sub) != used.end()) continue;
 			if (si + counts[pci] * sub.size() > str.size()) continue; // prune

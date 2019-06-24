@@ -33,13 +33,13 @@ public:
 			string word = dict[i];
 			string key = to_string(word.size()) + word[word.size() - 1];
 			Node* node = nodes[key];
-			int j = 0;
+			size_t j = 0;
 			for (; j < word.size(); j++) {
 				int ci = word[j] - 'a';
 				node = node->children[ci];
 				if (node->words.size() == 1) break;
 			}
-			if (word.size() - j < 4)
+			if (word.size() <= j + 3)
 				res.push_back(word);
 			else
 				res.push_back(word.substr(0, j+1) + to_string(word.size() - j - 2) + word.back());
@@ -48,7 +48,7 @@ public:
 		return res;
 	}
 
-	string makeAbbr(string& s, int prefixlen) {
+	string makeAbbr(string& s, size_t prefixlen) {
 		if (prefixlen + 2 >= s.size()) return s;
 		return s.substr(0, prefixlen) + to_string(s.size() - prefixlen - 1) + s.back();
 	}
@@ -57,7 +57,7 @@ public:
 		size_t n = dict.size();
 		vector<string> res(n);
 		vector<bool> done(n);
-		for (int prefixlen = 1, cnt = 0; cnt < n; prefixlen++) {
+		for (size_t prefixlen = 1, cnt = 0; cnt < n; prefixlen++) {
 			unordered_map<string, vector<int>> dup;
 			for (size_t i = 0; i < n; i++) {
 				if (done[i]) continue;

@@ -49,7 +49,7 @@ public:
 		texts = sentences;
 		this->times = times;
 		root = curr = new Node<decltype(comp)>(comp);
-		for (int i = 0; i < texts.size(); i++) {
+		for (int i = 0; i < (int)texts.size(); i++) {
 			insertText(i);
 		}
 	}

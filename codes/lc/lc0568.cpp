@@ -14,10 +14,10 @@ public:
 		size_t C = days.size(), W = days[0].size();
 		vector<vector<int>> dp(C, vector<int>(W + 1, -1));
 		dp[0][0] = 0;
-		for (int w = 1; w <= W; w++) {
-			for (int from = 0; from < C; from++) {
+		for (size_t w = 1; w <= W; w++) {
+			for (size_t from = 0; from < C; from++) {
 				if (dp[from][w - 1] == -1) continue;
-				for (int to = 0; to < C; to++) {
+				for (size_t to = 0; to < C; to++) {
 					if (from == to || flights[from][to])
 						dp[to][w] = max(dp[to][w], dp[from][w - 1] + days[to][w - 1]);
 				}
@@ -25,7 +25,7 @@ public:
 		}
 
 		int res = dp[0][W];
-		for (int c = 0; c < C; c++) res = max(res, dp[c][W]);
+		for (size_t c = 0; c < C; c++) res = max(res, dp[c][W]);
 		return res;
 	}
 

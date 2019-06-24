@@ -10,8 +10,7 @@ class lc0308 {
 public:
 	void init(vector<vector<int>>& matrix) {
 		if (matrix.size() == 0) return;
-		int m = matrix.size();
-		int n = matrix[0].size();
+		int m = (int)matrix.size(), n = (int)matrix[0].size();
 		data = matrix;
 		tree.resize(m + 1, vector<int>(n + 1, 0));
 
@@ -32,8 +31,8 @@ public:
 		int diff = val - data[row][col];
 		data[row][col] = val;
 		// go forward to update
-		for (int i = row + 1; i < tree.size(); i += i & (-i)) {
-			for (int j = col + 1; j < tree[0].size(); j += j & (-j))
+		for (int i = row + 1; i < (int)tree.size(); i += i & (-i)) {
+			for (int j = col + 1; j < (int)tree[0].size(); j += j & (-j))
 				tree[i][j] += diff;
 		}
 	}

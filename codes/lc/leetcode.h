@@ -31,25 +31,28 @@
 #include "lc0727.cpp"
 #include "lc0772.cpp"
 #include "lc0774.cpp"
+#include "lc1063.cpp"
+#include "lc1067.cpp"
 
 void LocalTest();
 void RunLeetCodeTest()
 {
-	cout << "lc0774" << endl;
-	lc0774().test();
+	cout << "lc0308" << endl;
+	lc0159().test();
 	//LocalTest();
 }
 
 void LocalTest()
 {
-	cout << ((-3) & 1) << endl;
+	size_t i = 7;
+	cout << (i&(i)) << endl;
 }
 
 /*
 // trick: putting this in the head of the codes in leetcode will make it much faster.
 
 #pragma GCC optimize("O3")
-static const auto __ = [](){
+static const auto _leetcode_speedup_ = [](){
 	std::ios::sync_with_stdio(false);
 	std::cin.tie(nullptr);
 	std::cout.tie(nullptr);

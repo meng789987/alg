@@ -16,7 +16,7 @@ public:
 			int preMin = min, preSec = sec, preIdx = minIdx;
 			min = INT_MAX; sec = 0; minIdx = -1;
 
-			for (int c = 0; c < cost.size(); c++) {
+			for (int c = 0; c < (int)cost.size(); c++) {
 				int cur = cost[c] + (c != preIdx ? preMin : preSec);
 				if (cur <= min) {
 					sec = min;

@@ -17,9 +17,9 @@ class lc0727 {
 public:
 	string minWindow(string s, string t) {
 		int minidx, minlen = INT_MAX;
-		for (int i = 0, j = 0; i < s.size(); i++) {
+		for (int i = 0, j = 0; i < (int)s.size(); i++) {
 			if (s[i] == t[j]) j++;
-			if (j < t.size()) continue;
+			if (j < (int)t.size()) continue;
 
 			// found a match, tighten the left bound
 			int end = i;
@@ -38,26 +38,26 @@ public:
 	}
 
 	string minWindow1(string s, string t) {
-		int m = s.size(), n = t.size();
+		size_t m = s.size(), n = t.size();
 		vector<vector<int>> dp(m, vector<int>(n, -1));
 		dp[0][0] = s[0] == t[0] ? 0 : -1;
-		for (int i = 1; i < m; i++)
+		for (size_t i = 1; i < m; i++)
 			dp[i][0] = s[i] == t[0] ? i : dp[i - 1][0];
 
-		for (int i = 1; i < m; i++) {
-			for (int j = 1; j < n; j++)
+		for (size_t i = 1; i < m; i++) {
+			for (size_t j = 1; j < n; j++)
 				dp[i][j] = s[i] == t[j] ? dp[i - 1][j - 1] : dp[i - 1][j];
 		}
 
-		int minidx, minlen = INT_MAX;
-		for (int i = 0; i < m; i++) {
+		size_t minidx, minlen = UINT_MAX;
+		for (size_t i = 0; i < m; i++) {
 			if (dp[i][n - 1] != -1 && minlen > i - dp[i][n - 1] + 1) {
 				minlen = i - dp[i][n - 1] + 1;
 				minidx = dp[i][n - 1];
 			}
 		}
 
-		return minlen == INT_MAX ? "" : s.substr(minidx, minlen);
+		return minlen == UINT_MAX ? "" : s.substr(minidx, minlen);
 	}
 
 	void test()

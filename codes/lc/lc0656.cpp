@@ -18,7 +18,7 @@ public:
 		int n = A.size();
 		if (n == 0 || A[n - 1] == -1) return vector<int>();
 		vector<int> costs(n), nexts(n);
-		deque<int> win; // index within sliding window
+		deque<int> win; // index of A within sliding window
 		nexts[n - 1] = n;
 		costs[n - 1] = A[n - 1];
 		win.push_front(n - 1);
@@ -43,7 +43,7 @@ public:
 
 	vector<int> cheapestJump2(vector<int>& A, int B) {
 		vector<vector<int>> dp; // item: [index, cost, next_index], order by cost
-		int n = A.size();
+		int n = (int)A.size();
 		if (n == 0 || A[n - 1] == -1) return vector<int>();
 		dp.push_back({ n - 1, A.back(), n });
 
@@ -51,10 +51,10 @@ public:
 		// b is the left index of the sliding window, so dp[b] is the min cost in the window
 		for (int i = n - 2, b = 0; i >= 0; i--) {
 			if (i + B < dp[b][0]) b++; // slide window
-			if (b == dp.size()) return vector<int>(); // unreachable
+			if (b == (int)dp.size()) return vector<int>(); // unreachable
 			if (A[i] == -1) continue;
 			int cost = dp[b][1] + A[i];
-			while (dp.size() > b + 1 && dp.back()[1] >= cost) dp.pop_back();
+			while ((int)dp.size() > b + 1 && dp.back()[1] >= cost) dp.pop_back();
 			dp.push_back({ i, cost, dp[b][0] });
 			if (A[i] == 0) b++;
 		}

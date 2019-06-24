@@ -10,7 +10,7 @@ class lc0425 {
 public:
 	vector<vector<string>> wordSquares(vector<string>& words) {
 		size_t n = words.size();
-		for (int i = 0; i < n; i++) {
+		for (size_t i = 0; i < n; i++) {
 			Node* node = &root;
 			node->words.push_back(i);
 			for (char c : words[i]) {
@@ -37,7 +37,7 @@ public:
 
 		Node* node = &root;
 		int col = path.size();
-		for (int i = 0; i < path.size() && node; i++) {
+		for (size_t i = 0; i < path.size() && node; i++) {
 			int ci = path[i][col] - 'a';
 			node = node->children[ci];
 		}
@@ -52,7 +52,7 @@ public:
 
 	struct Node {
 		vector<Node*> children;
-		vector<int> words;
+		vector<size_t> words;
 		Node() : children(26, NULL) {}
 		~Node() {
 			for (int i = 0; i < 26; i++)

@@ -22,7 +22,7 @@ public:
 
 	bool possible(vector<int>& nums, int k, double average) {
 		double sum = 0, sumBeforeK = 0;
-		for (int i = 0; i < nums.size(); i++) {
+		for (int i = 0; i < (int)nums.size(); i++) {
 			if (i >= k) {
 				sumBeforeK += nums[i - k] - average;
 				if (sumBeforeK <= 0) { // drop the useless part
@@ -30,8 +30,9 @@ public:
 					sumBeforeK = 0;
 				}
 			}
+
 			sum += nums[i] - average;
-			if (i >= k - 1 && sum >= 0) return true;
+			if (i + 1 >= k && sum >= 0) return true;
 		}
 
 		return false;
