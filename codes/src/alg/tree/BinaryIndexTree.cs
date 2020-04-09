@@ -5,9 +5,11 @@ using System.Linq;
 /*
  * tags: binary index tree
  * Space(n); Build: Time(n), Query/Update: Time(logn)
- * use an array, tree[i] = sum(data[i-(i&-i)..i-1]); 
- * tree index 0 is not used, tree index is 1 more than data index;
- * e.g. for data [10, 13, 12, 15, 16, 18], it would be [0, 10, 23, 12, 50, 16, 34]
+ * BIT is an updatable prefix sum, but every element stores partial prefix sum. bit[0] is unused.
+ * bit[i] = sum[i-leastbit(i)..i-1], that is sum of data ending at i-1 with length leastbit(i), where leastbit(i) = i&(-i)
+ * e.g. leastbit(6) = leastbit(110b) = 2; bit[8] = sum[0..7]; bit[6] = sum[4..5]
+ * when update i (i++ first as bit has offset 1), loop forward to add diff to bit[i] then add i by its least bit, until i is out of range;
+ * when query prefix sum[0..i], loop backward to sum of bit[i] then decrease i by its least bit, until i is 0.
  */
 namespace alg.tree
 {
@@ -27,8 +29,8 @@ namespace alg.tree
             {
                 _data[i - 1] = data[i - 1];
                 _bitree[i] += data[i - 1];
-                if (i + (i & (-i)) < _bitree.Length)
-                    _bitree[i + (i & (-i))] += _bitree[i];
+                if (i + LeastBit(i) < _bitree.Length)
+                    _bitree[i + LeastBit(i)] += _bitree[i];
             }
         }
 
@@ -38,32 +40,38 @@ namespace alg.tree
             return SumBit(j + 1) - SumBit(i);
         }
 
-        // set data[pos] = newValue
-        public void Update(int pos, int newValue)
+        // set data[i] = newValue
+        public void Update(int i, int newValue)
         {
-            var diff = newValue - _data[pos];
-            _data[pos] = newValue;
+            var diff = newValue - _data[i];
+            _data[i] = newValue;
 
-            for (int i = pos + 1; i < _bitree.Length;)
+            i++;
+            while (i < _bitree.Length)
             {
                 _bitree[i] += diff;
-                i += i & (-i); // double the last set bit
+                i += LeastBit(i); // double the last set bit
             }
+        }
+
+        private int SumBit(int i)
+        {
+            int sum = 0;
+            while (i > 0)
+            {
+                sum += _bitree[i];
+                i -= LeastBit(i); // clear the last set bit
+            }
+            return sum;
+        }
+
+        private int LeastBit(int n)
+        {
+            return n & (-n);
         }
 
         private int[] _data;
         private int[] _bitree;
-
-        private int SumBit(int pos)
-        {
-            int sum = 0;
-            while (pos > 0)
-            {
-                sum += _bitree[pos];
-                pos -= pos & (-pos); // clear the last set bit
-            }
-            return sum;
-        }
 
         public void Test()
         {
@@ -105,16 +113,16 @@ namespace alg.tree
 
             for (int i = 1; i <= _m; i++)
             {
-                var row = new int[_n + 1];
+                var row = new int[_n + 1]; // BIT tree of this row
                 for (int j = 1; j <= _n; j++)
                 {
                     _data[i - 1, j - 1] = data[i - 1, j - 1];
                     row[j] += data[i - 1, j - 1];
-                    if (j + (j & -j) <= _n)
-                        row[j + (j & -j)] += row[j]; // accumulate this row
+                    if (j + LeastBit(j) <= _n)
+                        row[j + LeastBit(j)] += row[j]; // accumulate this row
                     _tree[i, j] += row[j];
-                    if (i + (i & -i) <= _m)
-                        _tree[i + (i & -i), j] += _tree[i, j];
+                    if (i + LeastBit(i) <= _m)
+                        _tree[i + LeastBit(i), j] += _tree[i, j];
                 }
             }
         }
@@ -124,9 +132,9 @@ namespace alg.tree
             int diff = value - _data[row, col];
             _data[row, col] = value;
             // go forward to update
-            for (int i = row + 1; i <= _m; i += i & (-i))
+            for (int i = row + 1; i <= _m; i += LeastBit(i))
             {
-                for (int j = col + 1; j <= _n; j += j & (-j))
+                for (int j = col + 1; j <= _n; j += LeastBit(j))
                     _tree[i, j] += diff;
             }
         }
@@ -147,6 +155,11 @@ namespace alg.tree
             }
 
             return sum;
+        }
+
+        private int LeastBit(int n)
+        {
+            return n & (-n);
         }
 
         int _m, _n;

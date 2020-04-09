@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("BinaryIndexTree");
-            new tree.BinaryIndexTree().Test();
+            Console.WriteLine("Standard_Backtracking");
+            new alg.tree.BinaryIndexTree().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

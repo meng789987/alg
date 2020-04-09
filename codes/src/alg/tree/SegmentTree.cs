@@ -13,12 +13,14 @@ using System.Linq;
  *   23[0..1]             31[3..4]    
  * 10[0]  13[1]  12[2]  15[3]  16[4]  18[5]
  * 
- * use an array, for node i its left is 2*i and right is 2*i+1. 
- * leaf node[n+i]=data[i], while internal node[i] = node[2*i] + node[2*i+1].
+ * use an array with double length, for node i its left is 2*i and right is 2*i+1. 
+ * leaf node[n+i]=data[i]. internal node[i] = node[2*i] + node[2*i+1]. node[0] is unused.
  *                84[0..5]
  *                       50[2..5]
  *   23[0..1]      27[2..3]      34[4..5]
  * 10[0]  13[1]  12[2]  15[3]  16[4]  18[5]
+ * when update data[i], update from leaf node[i+n] to root;
+ * when query sum[i..j], sum node[i++] if node[i] is right child, and sum node[j--] if node[j] is left child, until i>j or i==0.
  */
 namespace alg.tree
 {
@@ -97,41 +99,40 @@ namespace alg.tree
         {
             public SegmentSumTreeArray(int[] data)
             {
-                int n = data.Length;
+                n = data.Length;
                 _segtree = new int[2 * n];
                 Array.Copy(data, 0, _segtree, n, n);
                 for (int i = n - 1; i > 0; i--)  // bottom up
                     _segtree[i] = _segtree[2 * i] + _segtree[2 * i + 1];
             }
 
-            // set data[pos] = newValue
-            public void Update(int pos, int newValue)
+            // set data[i] = newValue
+            public void Update(int i, int newValue)
             {
-                pos += _segtree.Length / 2;
-                _segtree[pos] = newValue;
-                while (pos > 0)
+                i += n;
+                _segtree[i] = newValue;
+                while (i > 0)
                 {
-                    pos /= 2;
-                    _segtree[pos] = _segtree[2 * pos] + _segtree[2 * pos + 1];
+                    i /= 2;
+                    _segtree[i] = _segtree[2 * i] + _segtree[2 * i + 1];
                 }
             }
 
-            // sum of data[lo..hi]
-            public int Query(int lo, int hi)
+            // sum of data[i..j]
+            public int Query(int i, int j)
             {
                 int sum = 0;
-                lo += _segtree.Length / 2;
-                hi += _segtree.Length / 2;
-                for (; 0 < lo && lo <= hi; lo /= 2, hi/= 2)
+                for (i += n, j += n; 0 < i && i <= j; i /= 2, j/= 2)
                 {
-                    if (lo % 2 == 1) // node i is right child, add itself instead of its parent
-                        sum += _segtree[lo++]; // move to parent sibling
-                    if (hi % 2 == 0) // node j is left child, add itself instead of its parent
-                        sum += _segtree[hi--]; // move to parent sibling
+                    if (i % 2 == 1) // node i is right child, add itself instead of its parent
+                        sum += _segtree[i++]; // move to parent sibling
+                    if (j % 2 == 0) // node j is left child, add itself instead of its parent
+                        sum += _segtree[j--]; // move to parent sibling
                 }
                 return sum;
             }
 
+            private int n;
             private int[] _segtree;
         }
 
