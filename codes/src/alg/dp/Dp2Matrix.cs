@@ -46,7 +46,7 @@ namespace alg.dp
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < n; j++)
                     for (int k = 0; k < n; k++)
-                        c[i, j] = ((c[i, j] + a[i, k]) % MOD + b[k, j]) % MOD;
+                        c[i, j] = (int)(((long)a[i, k] * b[k, j] + c[i, j]) % MOD);
             return c;
         }
 
@@ -66,6 +66,12 @@ namespace alg.dp
 
         public void Test()
         {
+            Console.WriteLine(Fibonacci(0) == 1);
+            Console.WriteLine(Fibonacci(1) == 1);
+            Console.WriteLine(Fibonacci(2) == 2);
+            Console.WriteLine(Fibonacci(3) == 3);
+            Console.WriteLine(Fibonacci(4) == 5);
+            Console.WriteLine(Fibonacci(5) == 8);
             Console.WriteLine(Extensions.ElapsedMilliseconds(() => Fibonacci(12345678901234567L), 100));
         }
     }

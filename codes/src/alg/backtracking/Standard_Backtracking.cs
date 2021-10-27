@@ -13,11 +13,11 @@ namespace alg.backtracking
         public IList<int[]> SolveQueens(int n)
         {
             var ret = new List<int[]>();
-            SolveQueensBt(n, 0, new bool[n], new bool[2 * n], new bool[2 * n], new int[n], ret);
+            SolveQueensBt(n, 0, new int[n], ret, new bool[n], new bool[2 * n], new bool[2 * n]);
             return ret;
         }
 
-        void SolveQueensBt(int n, int row, bool[] cols, bool[] diagf, bool[] diagb, int[] path, IList<int[]> res)
+        void SolveQueensBt(int n, int row, int[] path, IList<int[]> res, bool[] cols, bool[] diagf, bool[] diagb)
         {
             if (row == n)
             {
@@ -30,19 +30,77 @@ namespace alg.backtracking
                 if (cols[j] || diagf[row + j] || diagb[row - j + n]) continue;
                 path[row] = j;
                 cols[j] = diagf[row + j] = diagb[row - j + n] = true;
-                SolveQueensBt(n, row + 1, cols, diagf, diagb, path, res);
+                SolveQueensBt(n, row + 1, path, res, cols, diagf, diagb);
                 cols[j] = diagf[row + j] = diagb[row - j + n] = false;
             }
         }
 
+        // lc46. Permutations
         public IList<string> Permutation(string s)
         {
             var ret = new List<string>();
-            PermutationBt(0, s.ToCharArray(), ret);
+            PermutationBt(s, new List<char>(), ret, new bool[s.Length]);
             return ret;
         }
 
-        void PermutationBt(int pos, char[] path, IList<string> res)
+        void PermutationBt(string s, List<char> path, IList<string> res, bool[] used)
+        {
+            if (path.Count == s.Length)
+            {
+                res.Add(new string(path.ToArray()));
+                return;
+            }
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (used[i]) continue;
+                used[i] = true;
+                path.Add(s[i]);
+                PermutationBt(s, path, res, used);
+                path.RemoveAt(path.Count - 1);
+                used[i] = false;
+            }
+        }
+
+        // lc47. Permutations II
+        // s may have duplicate chars
+        public IList<string> PermutationDup(string s)
+        {
+            var ret = new List<string>();
+            var cs = s.ToCharArray();
+            Array.Sort(cs); // dedup
+            PermutationDupBt(cs, new List<char>(), ret, new bool[s.Length]);
+            return ret;
+        }
+
+        /*
+         * 1, sort the array to easy dedup;
+         * 2, we make the dup chars in original order. e.g. (here we add the index of the char in subscript to distinguish them)
+         * [a, b, b, c] => [a_0, b_1, b_2, c_3], so
+         * [... b_1 ... b_2 ...] is same as [... b_2 ... b_1 ...], so we only count/select the first one,
+         * that means we will use b_2 only if b_1 has been used.
+         */ 
+        void PermutationDupBt(char[] cs, List<char> path, IList<string> res, bool[] used)
+        {
+            if (path.Count == cs.Length)
+            {
+                res.Add(new string(path.ToArray()));
+                return;
+            }
+
+            for (int i = 0; i < cs.Length; i++)
+            {
+                if (used[i] || (i > 0 && cs[i-1] == cs[i] && !used[i-1])) continue; // dedup
+                used[i] = true;
+                path.Add(cs[i]);
+                PermutationDupBt(cs, path, res, used);
+                path.RemoveAt(path.Count - 1);
+                used[i] = false;
+            }
+        }
+
+        //========= Permutation variants =======================
+        void PermutationVariant(int pos, char[] path, IList<string> res)
         {
             if (pos == path.Length)
             {
@@ -53,22 +111,12 @@ namespace alg.backtracking
             for (int i = pos; i < path.Length; i++)
             {
                 Swap(path, pos, i);
-                PermutationBt(pos + 1, path, res);
+                PermutationVariant(pos + 1, path, res);
                 Swap(path, pos, i);
             }
         }
 
-        // s may have duplicate chars
-        public IList<string> PermutationDup(string s)
-        {
-            var ret = new List<string>();
-            var cs = s.ToCharArray();
-            Array.Sort(cs);
-            PermutationDupBt(0, cs, ret);
-            return ret;
-        }
-
-        void PermutationDupBt(int pos, char[] path, IList<string> res)
+        void PermutationDupVariant(int pos, char[] path, IList<string> res)
         {
             if (pos == path.Length)
             {
@@ -80,29 +128,31 @@ namespace alg.backtracking
             {
                 if (i > pos && path[pos] == path[i]) continue; // dedup
                 Swap(path, pos, i); // transit to next permutation
-                PermutationDupBt(pos + 1, path.ToArray(), res); // make a copy of path
+                PermutationDupVariant(pos + 1, path.ToArray(), res); // make a copy of path
             }
         }
+        //========= Permutation variants end =======================
 
         public IList<int[]> Subset(int[] nums, int k)
         {
             var ret = new List<int[]>();
-            SubsetBt(nums, 0, 0, new int[k], ret);
+            SubsetBt(nums, k, 0, new List<int>(), ret);
             return ret;
         }
 
-        void SubsetBt(int[] nums, int start, int pos, int[] path, IList<int[]> res)
+        void SubsetBt(int[] nums, int k, int start, List<int> path, IList<int[]> res)
         {
-            if (pos == path.Length)
+            if (path.Count == k)
             {
                 res.Add(path.ToArray());
                 return;
             }
 
-            for (int i = start; i < nums.Length; i++)
+            for (int i = start; i < nums.Length; i++) // note: from start, not 0
             {
-                path[pos] = nums[i];
-                SubsetBt(nums, i + 1, pos + 1, path, res);
+                path.Add(nums[i]);
+                SubsetBt(nums, k, i + 1, path, res);
+                path.RemoveAt(path.Count - 1);
             }
         }
 
