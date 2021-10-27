@@ -12,7 +12,7 @@ namespace alg
         static void Main(string[] args)
         {
             Console.WriteLine("Standard_Backtracking");
-            new alg.dp.Dp2Matrix().Test();
+            new alg.backtracking.Standard_Backtracking().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

@@ -13,24 +13,27 @@ namespace alg.backtracking
         public IList<int[]> SolveQueens(int n)
         {
             var ret = new List<int[]>();
-            SolveQueensBt(n, 0, new int[n], ret, new bool[n], new bool[2 * n], new bool[2 * n]);
+            SolveQueensBt(n, new List<int>(), ret, new bool[n], new bool[2 * n], new bool[2 * n]);
             return ret;
         }
 
-        void SolveQueensBt(int n, int row, int[] path, IList<int[]> res, bool[] cols, bool[] diagf, bool[] diagb)
+        // parameters: input, path, result, other tracking parameters
+        void SolveQueensBt(int n, List<int> path, IList<int[]> res, bool[] cols, bool[] diagf, bool[] diagb)
         {
-            if (row == n)
+            if (path.Count == n)
             {
                 res.Add(path.ToArray());
                 return;
             }
 
+            int row = path.Count;
             for (int j = 0; j < n; j++)
             {
                 if (cols[j] || diagf[row + j] || diagb[row - j + n]) continue;
-                path[row] = j;
                 cols[j] = diagf[row + j] = diagb[row - j + n] = true;
-                SolveQueensBt(n, row + 1, path, res, cols, diagf, diagb);
+                path.Add(j);
+                SolveQueensBt(n, path, res, cols, diagf, diagb);
+                path.RemoveAt(path.Count - 1);
                 cols[j] = diagf[row + j] = diagb[row - j + n] = false;
             }
         }
@@ -136,11 +139,11 @@ namespace alg.backtracking
         public IList<int[]> Subset(int[] nums, int k)
         {
             var ret = new List<int[]>();
-            SubsetBt(nums, k, 0, new List<int>(), ret);
+            SubsetBt(nums, k, new List<int>(), ret, 0);
             return ret;
         }
 
-        void SubsetBt(int[] nums, int k, int start, List<int> path, IList<int[]> res)
+        void SubsetBt(int[] nums, int k, List<int> path, IList<int[]> res, int start)
         {
             if (path.Count == k)
             {
@@ -151,7 +154,7 @@ namespace alg.backtracking
             for (int i = start; i < nums.Length; i++) // note: from start, not 0
             {
                 path.Add(nums[i]);
-                SubsetBt(nums, k, i + 1, path, res);
+                SubsetBt(nums, k, path, res, i + 1);
                 path.RemoveAt(path.Count - 1);
             }
         }
