@@ -6,43 +6,14 @@ using System.Linq;
 
 /*
  * tags: shortest path, dp, greedy, heap
- * BellmanFord: Time(VE), Space(V); can detect negative cycle; can return shortest paths from vertex 0 to all other vertice.
  * FloydWarshall: Time(V^3), Space(V^2); can detect negative cycle; can return shortest paths between any two vertice.
+ * BellmanFord: Time(VE), Space(V); can detect negative cycle; can return shortest paths from vertex 0 to all other vertice.
  * Dijkstra: Time((V+E)logV), Space(V); can't handle negative distances; can return shortest paths from vertex 0 to all other vertice.
  */
 namespace alg.dp
 {
     public class ShortestPath
     {
-        /*
-         * Time(VE), Space(V)
-         * can detect negative cycle; can return shortest paths from vertex 0 to all other vertice.
-         * loop n times to 'relax' all edges
-         */
-        int[] BellmanFord(int n, IList<Edge> edges)
-        {
-            var dist = new int[n];
-            Array.Fill(dist, INF);
-            dist[0] = 0;
-            var prev = new int[n];  // used for recovering the path
-
-            for (int i = 0; i < n; i++)
-            {
-                foreach (var e in edges)
-                {
-                    if (dist[e.dst] > dist[e.src] + e.w)
-                    {
-                        dist[e.dst] = dist[e.src] + e.w;
-                        prev[e.dst] = e.src;
-                    }
-                }
-            }
-
-            bool hasNegativeCyle = edges.Any(e => dist[e.dst] > dist[e.src] + e.w);
-
-            return dist;
-        }
-
         /*
          * Time(V^3), Space(V^2)
          * can detect negative cycle; can return shortest paths between any two vertice.
@@ -72,58 +43,67 @@ namespace alg.dp
         }
 
         /*
+         * Time(VE), Space(V)
+         * can detect negative cycle; can return shortest paths from vertex 0 to all other vertice.
+         * loop n times to 'relax' all edges
+         */
+        int[] BellmanFord(int n, IList<int[]> edges)
+        {
+            var dist = new int[n];
+            Array.Fill(dist, INF);
+            dist[0] = 0;
+            var prev = new int[n];  // used for recovering the path
+
+            for (int i = 0; i < n; i++)
+            {
+                foreach (var e in edges)
+                {
+                    int src = e[0], dst = e[1], w = e[2];
+                    if (dist[dst] > dist[src] + w)
+                    {
+                        dist[dst] = dist[src] + w;
+                        prev[dst] = src;
+                    }
+                }
+            }
+
+            bool hasNegativeCyle = edges.Any(e => dist[e[1]] > dist[e[0]] + e[2]);
+
+            return dist;
+        }
+
+        /*
          * Time((V+E)logV), Space(V)
          * can't handle negative distances; can return shortest paths from vertex 0 to all other vertice.
-         * 1. add all vertices to a minimum heap
+         * 1. initialize the distance of vetex 0 to 0 and all others to INF.
+         * 2. add all vertice to a minimum heap based on their distances from vetex 0
          * 2. loop until heap is empty, extract min from heap and update the distance of its all adjacent vertices.
          */
-        int[] Dijkstra(int n, LinkedList<Edge>[] adj)
+        int[] Dijkstra(int n, IList<int[]>[] adj)
         {
-            var prev = new int[n]; // used to recover path
-            var heap = new Heap(n);
-            heap.Update(0, 0);
+            var dist = new int[n];
+            for (int i = 1; i < n; i++)
+                dist[i] = INF;
+            var heap = new HeapArray(dist);
+
+            var prev = new int[n]; // used to recover the path
 
             for (int i = 0; i < n-1; i++)
             {
                 var min = heap.ExtractMin();
                 foreach (var e in adj[min])
                 {
-                    if (heap.Dist[e.dst] > heap.Dist[e.src] + e.w)
+                    int src = e[0], dst = e[1], w = e[2];
+                    if (dist[dst] > dist[src] + w)
                     {
-                        heap.Update(e.dst, heap.Dist[e.src] + e.w);
-                        prev[e.dst] = e.src;
+                        heap.Update(dst, dist[src] + w);
+                        dist[dst] = dist[src] + w;
+                        prev[dst] = src;
                     }
                 }
             }
 
-            return heap.Dist;
-        }
-
-        class Heap
-        {
-            public Heap(int n)
-            {
-                Dist = new int[n];
-                Array.Fill(Dist, INF);
-                Nodes = new SortedSet<int>(Comparer<int>.Create((i, j) => Dist[i] != Dist[j] ? Dist[i] - Dist[j] : i - j));
-            }
-
-            public int ExtractMin()
-            {
-                int min = Nodes.Min;
-                Nodes.Remove(min);
-                return min;
-            }
-
-            public void Update(int i, int value)
-            {
-                Nodes.Remove(i);
-                Dist[i] = value;
-                Nodes.Add(i);
-            }
-
-            public int[] Dist;
-            private SortedSet<int> Nodes;
+            return dist;
         }
 
         const int INF = Edge.INF;
@@ -138,15 +118,17 @@ namespace alg.dp
                 {INF, 1, 5, INF, INF },
                 {INF, INF, INF, -3, INF },
             };
-            var exp = new int[] { 0, -1, 2, -2, 1 };
-            Console.WriteLine(exp.SequenceEqual(BellmanFord(5, Edge.MatrixToFlatEdges(matrix))));
-            Console.WriteLine(exp.SequenceEqual(FloydWarshall(5, matrix)));
+            var exp = "0, -1, 2, -2, 1";
+            Console.WriteLine(exp == string.Join(", ", FloydWarshall(5, matrix)));
+            Console.WriteLine(exp == string.Join(", ", BellmanFord(5, Edge.MatrixToListEdges(matrix))));
 
             for (int i = 0; i < matrix.GetLength(0); i++)
                 for (int j = 0; j < matrix.GetLength(1); j++)
                     matrix[i, j] = Math.Abs(matrix[i, j]);
-            exp = new int[] { 0, 1, 4, 6, 3 };
-            Console.WriteLine(exp.SequenceEqual(Dijkstra(5, Edge.MatrixToAdjEdges(matrix))));
+            exp = "0, 1, 4, 6, 3";
+            Console.WriteLine(exp == string.Join(", ", FloydWarshall(5, matrix)));
+            Console.WriteLine(exp == string.Join(", ", BellmanFord(5, Edge.MatrixToListEdges(matrix))));
+            Console.WriteLine(exp == string.Join(", ", Dijkstra(5, Edge.MatrixToAdjEdges(matrix))));
 
         }
     }

@@ -34,43 +34,42 @@ namespace alg.graph
             return hashCode;
         }
 
-        public static IList<Edge> MatrixToFlatEdges(int[,] matrix)
+        public static List<int[]> MatrixToListEdges(int[,] matrix)
         {
             int n = matrix.GetLength(0);
-            var edges = new List<Edge>();
+            var edges = new List<int[]>();
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < n; j++)
                     if (matrix[i, j] != INF)
-                        edges.Add(new Edge(i, j, matrix[i, j]));
+                        edges.Add(new int[] { i, j, matrix[i, j] });
             return edges;
         }
 
-        public static int[,] FlatUndirectedEdgesToMatrix(int n, IList<Edge> edges)
+        public static List<int[]>[] ListEdgesToAdjEdges(int n, List<int[]> edges)
         {
-            var matrix = new int[n, n];
+            var adj = new List<int[]>[n];
             for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
-                    matrix[i, j] = INF;
+                adj[i] = new List<int[]>();
 
             foreach (var e in edges)
             {
-                matrix[e.src, e.dst] = e.w;
-                matrix[e.dst, e.src] = e.w;
+                adj[e[0]].Add(new int[] { e[0], e[1], e[2] });
+                adj[e[1]].Add(new int[] { e[1], e[0], e[2] });
             }
 
-            return matrix;
+            return adj;
         }
 
-        public static LinkedList<Edge>[] MatrixToAdjEdges(int[,] matrix)
+        public static List<int[]>[] MatrixToAdjEdges(int[,] matrix)
         {
             int n = matrix.GetLength(0);
-            var edges = new LinkedList<Edge>[n];
+            var edges = new List<int[]>[n];
             for (int i = 0; i < n; i++)
             {
-                edges[i] = new LinkedList<Edge>();
+                edges[i] = new List<int[]>();
                 for (int j = 0; j < n; j++)
                     if (matrix[i, j] != INF)
-                        edges[i].AddLast(new Edge(i, j, matrix[i, j]));
+                        edges[i].Add(new int[] { i, j, matrix[i, j] });
             }
             return edges;
         }

@@ -9,7 +9,7 @@ using System.Linq;
  * dp[i] is the length of LIS ending with nums[i].
  * dp[i] = max(dp[k] + 1), where k=[0..i-1] and nums[k] < nums[i].
  * base case: dp[0]=1
- * Since dp is ordered, so we can binary search nums[i] in dp 
+ * Since dp is ordered, like monotonic stack. so we can binary search nums[i] in dp 
  * to replace (dp[k] if nums[i]<dp[k], so dp[i] only contains the smallest tail number of all increasing subsequence with same length) 
  * or insert (nums[i] if nums[i]>dp[i-1]).
  */
@@ -39,28 +39,33 @@ namespace alg.dp
         IList<int> LisPath(int[] nums)
         {
             int n = nums.Length;
-            var idx = new int[n]; // store the index of the number instead of the number itself to easy reconstructing the path
             int len = 0;
+            var dp = new int[n];
+            var dpidx = new int[n]; // store the index of the number instead of the number itself to easy reconstructing the path
             var pre = new int[n]; // store the index of predecessor of nums[i] in the LIS ending at nums[i]
 
             for (int i = 0; i < n; i++)
             {
-                int lo = 0, hi = len - 1;
-                while (lo <= hi)
+                int idx = Array.BinarySearch(dp, 0, len, nums[i]);
+                if (idx < 0)
                 {
-                    int mid = (lo + hi) / 2;
-                    if (nums[idx[mid]] < nums[i]) lo = mid + 1;
-                    else hi = mid - 1;
+                    idx = ~idx;
+                    dp[idx] = nums[i];
+                    dpidx[idx] = i;
+                    if (idx == len) len++;
                 }
 
-                idx[lo] = i;
-                if (lo == len) len++;
-                if (lo > 0) pre[i] = idx[lo - 1];
+                if (idx > 0) pre[i] = dpidx[idx - 1];
             }
 
+            // constuct the path from pre backward
             var res = new int[len];
-            for (int i = idx[len - 1], k = len - 1; k >= 0; k--, i = pre[i])
-                res[k] = nums[i];
+            int ni = dpidx[len - 1];
+            for (int k = len - 1; k >= 0; k--)
+            {
+                res[k] = nums[ni];
+                ni = pre[ni];
+            }
 
             return res.ToList();
         }

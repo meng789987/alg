@@ -22,7 +22,7 @@ namespace alg.dp
 
             for (int i = 0; i < a.Length; i++)
             {
-                for (int j = 0; j < b.Length; i++)
+                for (int j = 0; j < b.Length; j++)
                 {
                     if (a[i] == b[j]) dp[i + 1, j + 1] = dp[i, j] + 1;
                     else dp[i + 1, j + 1] = Math.Max(dp[i, j + 1], dp[i + 1, j]);
@@ -38,14 +38,15 @@ namespace alg.dp
             var dp = new int[a.Length + 1, b.Length + 1];
             for (int i = 0; i < a.Length; i++)
             {
-                for (int j = 0; j < b.Length; i++)
+                for (int j = 0; j < b.Length; j++)
                 {
                     if (a[i] == b[j]) dp[i + 1, j + 1] = dp[i, j] + 1;
                     else dp[i + 1, j + 1] = Math.Max(dp[i, j + 1], dp[i + 1, j]);
                 }
             }
 
-            // construct the path independently
+            // construct the path backward by comparing which way is from to dp[i+1, j+1]
+            // it is from dp[i-1, j] if dp[i-1, j] > dp[i, j-1]
             var cs = new char[dp[a.Length, b.Length]];
             for (int i = a.Length - 1, j = b.Length - 1, k = cs.Length - 1; k >= 0;)
             {

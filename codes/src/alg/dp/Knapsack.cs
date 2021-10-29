@@ -70,6 +70,7 @@ namespace alg.dp
          * Time(nc), Space(c)
          * only work for integer weights/capacity, where c is capacity
          * dp[i, c] = max(dp[i-1, c], dp[i-1, c-weight[i]] + values[i])
+         * base cases: dp[0, c]=dp[i, 0]=0
          */
         int Knapsack_Dp_Bounded(int[] values, int[] weights, int capacity)
         {
@@ -89,6 +90,7 @@ namespace alg.dp
          * Time(nc), Space(c)
          * only work for integer weights/capacity, where c is capacity
          * dp[c] = max(dp[c-weight[i]] + values[i]), i=[0..n-1]
+         * base cases: dp[0, c]=dp[i, 0]=0
          */
         int Knapsack_Dp_Unbounded(int[] values, int[] weights, int capacity)
         {
@@ -96,7 +98,7 @@ namespace alg.dp
             var dp = new int[capacity + 1];
             for (int i = 0; i < values.Length; i++)
             {
-                for (int c = weights[i]; c <= capacity; c++)
+                for (int c = weights[i]; c <= capacity; c++) // item can be reused.
                     dp[c] = Math.Max(dp[c], dp[c - weights[i]] + values[i]);
             }
 
