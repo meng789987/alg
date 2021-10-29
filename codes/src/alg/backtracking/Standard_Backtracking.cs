@@ -103,6 +103,26 @@ namespace alg.backtracking
         }
 
         //========= Permutation variants =======================
+        void NextPermutation(int[] a)
+        {
+            int n = a.Length;
+
+            // find the rightmost item that is greater than its previous item
+            int i = n - 1;
+            while (i > 0 && a[i - 1] >= a[i]) i--;
+
+            // swap it(a[i-1]) with the smallest item in a[i..n-1] that is greater than it
+            if (i > 0)
+            {
+                int j = n - 1;
+                while (j > i && a[j] < a[i - 1]) j--;
+                Swap(a, i - 1, j);
+            }
+
+            // reverse a[i..n-1]
+            Array.Reverse(a, i, n - i);
+        }
+
         void PermutationVariant(int pos, char[] path, IList<string> res)
         {
             if (pos == path.Length)
@@ -184,6 +204,12 @@ namespace alg.backtracking
             Console.WriteLine(Permutation("abcd").Count == Fac(4));
             Console.WriteLine(Permutation("abcde").Count == Fac(5));
 
+            var nums = new int[] { 1, 1, 2, 2 };
+            NextPermutation(nums);
+            Console.WriteLine("1, 2, 1, 2" == string.Join(", ", nums));
+            NextPermutation(nums);
+            Console.WriteLine("1, 2, 2, 1" == string.Join(", ", nums));
+
             Console.WriteLine(PermutationDup("abc").Count == Fac(3));
             Console.WriteLine(PermutationDup("abab").Count == Fac(4) / Fac(2) / Fac(2));
             Console.WriteLine(PermutationDup("abcaa").Count == Fac(5) / Fac(3));
@@ -191,7 +217,7 @@ namespace alg.backtracking
             Console.WriteLine(PermutationDup("acacbacb").Count == Fac(8) / Fac(3) / Fac(3) / Fac(2));
             Console.WriteLine(PermutationDup("adbacbc").Count == Fac(7) / Fac(2) / Fac(2) / Fac(2));
 
-            var nums = new int[] { 1, 2, 3, 4, 5 };
+            nums = new int[] { 1, 2, 3, 4, 5 };
             Console.WriteLine(Subset(nums, 3).Count == Fac(5) / Fac(2) / Fac(3));
         }
     }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace alg.greedy
+namespace alg.tree
 {
     public class MinimumSpanningTree
     {

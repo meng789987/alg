@@ -10,7 +10,7 @@ using System.Linq;
  * BellmanFord: Time(VE), Space(V); can detect negative cycle; can return shortest paths from vertex 0 to all other vertice.
  * Dijkstra: Time((V+E)logV), Space(V); can't handle negative distances; can return shortest paths from vertex 0 to all other vertice.
  */
-namespace alg.dp
+namespace alg.graph
 {
     public class ShortestPath
     {
