@@ -42,9 +42,9 @@ namespace alg.array
         public void Test()
         {
             var nums = new int[] { 3, 4, 5, 2, 7, 234, 84, 24 };
-            var exp = new int[] { 84, 24, 3, 4, 5, 2, 7, 234 };
             Rotate(nums, 2);
-            Console.WriteLine(exp.SequenceEqual(nums));
+            var exp = "84, 24, 3, 4, 5, 2, 7, 234";
+            Console.WriteLine(exp == string.Join(", ", nums));
         }
     }
 }

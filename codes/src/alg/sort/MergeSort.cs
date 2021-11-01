@@ -38,6 +38,10 @@ namespace alg.sort
             }
         }
 
+        // Time(n^2), Space(1) for insertion sort
+        // Time(n), Space(n) for using extra space with different 'inplace' meaning
+        // others Time(nlogn), Space(1) but super complex, e.g.
+        // http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.88.1155&rep=rep1&type=pdf
         private void MergeInPlace(int[] a, int lo, int m, int hi)
         {
             for (int j = m + 1; j <= hi; j++)

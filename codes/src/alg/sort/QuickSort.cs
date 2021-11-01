@@ -18,54 +18,51 @@ namespace alg.sort
         private void SortRc(int[] a, int lo, int hi)
         {
             if (lo >= hi) return;
-            int p = Partition3Way(a, lo, hi, a[hi]);
-            SortRc(a, lo, p - 1);
-            SortRc(a, p + 1, hi);
+            int p = PartitionHoare(a, lo, hi);
+            SortRc(a, lo, p-1);
+            SortRc(a, p+1, hi);
         }
 
+        // partition a[lo..hi] into 3 parts: a[lo..i-1] < pivot == a[i] <= a[i+1..hi]
+        // in the below, i=new_lo. the right part may have some elements equals with pivot
         private int Partition(int[] a, int lo, int hi)
         {
-            int pivot = a[hi];
-            int i = lo;
-            for (int j = lo; j < hi; j++)
+            int pivot = a[hi]; // swap the pivot element to the right part last one
+            for (int k = lo; k <= hi; k++)
             {
-                if (a[j] < pivot)
-                {
-                    Swap(a, i, j);
-                    i++;
-                }
+                if (a[k] < pivot) Swap(a, k, lo++);
             }
-            Swap(a, i, hi);
-            return i;
+            Swap(a, lo, hi); // swap the pivot to the correct location
+            return lo;
+        }
+
+         // partition a[lo..hi] into 3 parts: a[lo..i] < pivot == a[j-1] < a[j..hi]
+         // in the below, i=new_lo-1, j=new_hi+1
+        private int Partition3Way(int[] a, int lo, int hi)
+        {
+            int pivot = a[hi]; // pivot can be anyone in a[lo..hi]
+            for (int k = lo; k <= hi; )
+            {
+                if (a[k] < pivot) Swap(a, k++, lo++);
+                else if (a[k] > pivot) Swap(a, k, hi--);
+                else k++;
+            }
+            return hi;
         }
 
         // this requires to recursively call SortRc(a, lo, p) instead of SortRc(a, lo, p - 1);
+        // as we don't put the pivot at a[p]. we just partition as a[lo..j] <=  a[j+1..hi]
         private int PartitionHoare(int[] a, int lo, int hi)
         {
             int pivot = a[lo];
             int i = lo - 1, j = hi + 1;
             while (true)
             {
-                do { i++; } while (a[i] < pivot);
-                do { j--; } while (a[j] > pivot);
-                if (i >= j) return j;
+                do { i++; } while (a[i] < pivot); // no need to check range as either we have a pivot,
+                do { j--; } while (a[j] > pivot); // or we had swapped one in last loop as stopper
+                if (i >= j) return j; // return j (not i)
                 Swap(a, i, j);
             }
-        }
-
-        /*
-         * partition a into 3 parts: a[lo..i-1] < pivot == a[i..j] < a[j+1..hi]
-         */
-        private int Partition3Way(int[] a, int lo, int hi, int pivot)
-        {
-            int i = lo;
-            while (i <= hi)
-            {
-                if (a[i] < pivot) Swap(a, i++, lo++);
-                else if (a[i] > pivot) Swap(a, i, hi--);
-                else i++;
-            }
-            return i - 1;
         }
 
         void Swap(int[] a, int i, int j)
@@ -77,17 +74,25 @@ namespace alg.sort
 
         public void Test()
         {
-            var nums = new int[] { 3, 4, 5, 2, 7, 234, 84, 24 };
-            var exp = nums.ToArray();
+            var nums = new int[] { 3, 0, 1 };
+            var exp = "0, 1, 3";
             Sort(nums);
-            Array.Sort(exp);
-            Console.WriteLine(exp.SequenceEqual(nums));
+            Console.WriteLine(exp == string.Join(", ", nums));
+
+            nums = new int[] { 3, 4, 5, 2, 7, 234, 84, 24 };
+            exp = "2, 3, 4, 5, 7, 24, 84, 234";
+            Sort(nums);
+            Console.WriteLine(exp == string.Join(", ", nums));
 
             nums = new int[] { 2, 3, 5, 3, 5, 1, 7, 8 };
-            exp = nums.ToArray();
+            exp = "1, 2, 3, 3, 5, 5, 7, 8";
             Sort(nums);
-            Array.Sort(exp);
-            Console.WriteLine(exp.SequenceEqual(nums));
+            Console.WriteLine(exp == string.Join(", ", nums));
+
+            nums = new int[] { 9, 6, 4, 2, 3, 5, 7, 0, 1 };
+            exp = "0, 1, 2, 3, 4, 5, 6, 7, 9";
+            Sort(nums);
+            Console.WriteLine(exp == string.Join(", ", nums));
         }
     }
 }

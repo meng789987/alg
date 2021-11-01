@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Standard_Backtracking");
-            new alg.backtracking.Standard_Backtracking().Test();
+            Console.WriteLine("QuickSort");
+            new alg.sort.QuickSort().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");
