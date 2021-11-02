@@ -18,7 +18,7 @@ namespace alg.sort
         private void SortRc(int[] a, int lo, int hi)
         {
             if (lo >= hi) return;
-            int p = PartitionHoare(a, lo, hi);
+            int p = Partition3Way(a, lo, hi);
             SortRc(a, lo, p-1);
             SortRc(a, p+1, hi);
         }
@@ -41,13 +41,13 @@ namespace alg.sort
         private int Partition3Way(int[] a, int lo, int hi)
         {
             int pivot = a[hi]; // pivot can be anyone in a[lo..hi]
-            for (int k = lo; k <= hi; )
+            for (int k = lo; k <= hi; k++)
             {
-                if (a[k] < pivot) Swap(a, k++, lo++);
-                else if (a[k] > pivot) Swap(a, k, hi--);
-                else k++;
+                if (a[k] < pivot) Swap(a, k, lo++);
+                else if (a[k] > pivot) Swap(a, k--, hi--); // keep current k to verify
             }
             return hi;
+
         }
 
         // this requires to recursively call SortRc(a, lo, p) instead of SortRc(a, lo, p - 1);
@@ -58,8 +58,9 @@ namespace alg.sort
             int i = lo - 1, j = hi + 1;
             while (true)
             {
-                do { i++; } while (a[i] < pivot); // no need to check range as either we have a pivot,
-                do { j--; } while (a[j] > pivot); // or we had swapped one in last loop as stopper
+                // no need to check range as either we have a pivot, or we had swapped one in last loop as stopper
+                do { i++; } while (a[i] < pivot); 
+                do { j--; } while (a[j] > pivot); // 
                 if (i >= j) return j; // return j (not i)
                 Swap(a, i, j);
             }
