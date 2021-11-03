@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("QuickSort");
-            new alg.sort.QuickSort().Test();
+            Console.WriteLine("Monotonic_Stack");
+            new alg.strings.Kmp().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

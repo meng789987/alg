@@ -7,6 +7,9 @@ using System.Linq;
  * Time(n), Space(n)
  * kmp[j] is the length of longest substring of the pattern ending at j matched the prefix of pattern, so we don't need to restart matching from the beginning,
  * if str[i] != pattern[j], we can reset j=kmp[j-1] instead of j=0, because pattern[0..len] == pattern[j-len..j] where len=kmp[j]-1.
+ * e.g. ABABCABAB       => kmp: 00
+ *        ABABCABAB     => kmp: 0012
+ *           ABABCABAB  => kmp: 001201234
  */
 namespace alg.strings
 {

@@ -89,16 +89,5 @@ namespace alg
                 return ib.MoveNext() ? -1 : 0;
             }
         }
-
-        public static bool AllIndex<T>(this IEnumerable<T> a, Func<int, bool> pred)
-        {
-            var count = a.Count();
-            for (int i = 0; i < count; i++)
-            {
-                if (!pred(i)) return false;
-            }
-
-            return true;
-        }
     }
 }
