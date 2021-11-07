@@ -18,7 +18,7 @@ namespace alg.strings
         {
             if (string.IsNullOrEmpty(s)) return s;
 
-            var ss = new char[s.Length * 2]; // can be optimized to omit
+            var ss = new char[s.Length * 2]; // can be optimized to omit, see LongestPalindrome2
             for (int i = 0; i < s.Length; i++)
                 ss[2 * i + 1] = s[i];
 

@@ -40,9 +40,11 @@ namespace alg.dp
          * Lc072_Edit_Distance: Given two words word1 and word2, find the minimum number of operations required to convert word1 to word2.
          * Only 3 operations are permitted on a word: Insert/Delete/Replace a character.
          * DP: Time(mn), Space(n)
-         * dp[i, j] is the minimum number of operations required to convert a[0..i-1] to b[0..j-1]
-         * dp[i, j] = dp[i-1, j-1], if a[i-1]==b[j-1]
-         *         or 1 + min(dp[i-1, j], dp[i, j-1], dp[i-1, j-1]), respective to Insert/Delete/Replace a character
+         * dp[i+1, j+1] is the minimum number of operations required to convert a[0..i] to b[0..j]
+         * dp[i+1, j+1] = dp[i, j], if a[i]==b[j]
+         *         or 1 + min(dp[i, j+1], //insert
+         *                    dp[i+1, j], //delete
+         *                    dp[i, j]),  //Replace a character
          * base case: dp[0, j]=j, dp[i, 0]=i
          */
         public int EditDistance(string word1, string word2)
@@ -52,14 +54,14 @@ namespace alg.dp
             for (int i = 0; i <= m; i++) dp[i, 0] = i;
             for (int j = 0; j <= n; j++) dp[0, j] = j;
 
-            for (int i = 1; i <= m; i++)
+            for (int i = 0; i < m; i++)
             {
-                for (int j = 1; j <= n; j++)
+                for (int j = 0; j < n; j++)
                 {
-                    if (word1[i - 1] == word2[j - 1])
-                        dp[i, j] = dp[i - 1, j - 1];
+                    if (word1[i] == word2[j])
+                        dp[i + 1, j + 1] = dp[i, j];
                     else
-                        dp[i, j] = 1 + Math.Min(Math.Min(dp[i - 1, j], dp[i, j - 1]), dp[i - 1, j - 1]);
+                        dp[i + 1, j + 1] = 1 + Math.Min(Math.Min(dp[i, j + 1], dp[i + 1, j]), dp[i, j]);
                 }
             }
 
@@ -69,9 +71,10 @@ namespace alg.dp
         /*
          * Lc044_Wildcard_Matching: support only '?' and '*' in pattern. '*' can match 0-n any chars
          * DP: Time(mn), Space(n)
-         * dp[i, j] is true if s[0..i-1] match to p[0..j-1]
-         * dp[i, j] = dp[i-1, j-1], if s[i-1]==p[j-1] or p[j-1]=='?'
-         *         or dp[i, j-1] || dp[i-1, j], if p[j-1]=='*', // match 0 or 1, respective to Delete/Insert a character
+         * dp[i+1, j+1] is true if s[0..i] match to p[0..j]
+         * dp[i+1, j+1] = dp[i, j], if s[i]==p[j] or p[j]=='?'
+         *         or dp[i+1, j] // '*' match 0, respective to Delete
+         *         || dp[i, j+1], if p[j]=='*', // '*' match 1, respective to Insert
          * base case: dp[0, 0]=true, dp[0, j]=true if all p[0..j-1] are '*'
          */
         public bool IsMatch_Dp(string s, string p)
@@ -81,14 +84,14 @@ namespace alg.dp
             dp[0, 0] = true;
             for (int j = 1; j <= n && p[j - 1] == '*'; j++) dp[0, j] = true;
 
-            for (int i = 1; i <= m; i++)
+            for (int i = 0; i < m; i++)
             {
-                for (int j = 1; j <= n; j++)
+                for (int j = 0; j < n; j++)
                 {
-                    if (s[i - 1] == p[j - 1] || p[j - 1] == '?')
-                        dp[i, j] = dp[i - 1, j - 1];
-                    else if (p[j - 1] == '*')
-                        dp[i, j] = dp[i, j - 1] || dp[i - 1, j];
+                    if (s[i] == p[j] || p[j] == '?')
+                        dp[i + 1, j + 1] = dp[i, j];
+                    else if (p[j] == '*')
+                        dp[i + 1, j + 1] = dp[i + 1, j] || dp[i, j + 1];
                 }
             }
 
@@ -98,9 +101,12 @@ namespace alg.dp
         /*
          * Lc010_Regular_Expression_Matching: support only '.' and '*' in pattern. '*' Matches zero or more of the preceding char.
          * DP: Time(mn), Space(n)
-         * dp[i, j] is true if s[0..i-1] match to p[0..j-1]
-         * dp[i, j] = dp[i-1, j-1], if s[i-1] match p[j-1]
-         *         or dp[i, j-2] || dp[i, j-1] || (dp[i-1, j] && s[i-1] match p[j-2]), if p[j-1]=='*', // 'x*' match 0 or 1 or 2, respective to Delete/Insert a character
+         * dp[i+1, j+1] is true if s[0..i] match to p[0..j]
+         * dp[i+1, j+1] = dp[i, j], if s[i] match p[j]
+         *         // 'x*' match 0 or 1 or 2, respective to Delete/Insert a character
+         *         or dp[i+1, j-1] // 'x*' match 0, respective to Delete
+         *         || dp[i+1, j] // 'x*' match 1 'x', respective to Delete '*'
+         *         || (dp[i, j+1] && s[i] match p[j]), if p[j]=='*', // 'x*' match 2 'xx', respective to Insert
          * base case: dp[0, 0]=true, dp[0, 2j]=true if all p[0..2i-1] are '*', i<j
          */
         public bool IsMatch_Regex(string s, string p)
@@ -110,15 +116,16 @@ namespace alg.dp
             dp[0, 0] = true;
             for (int j = 2; j <= n && p[j - 1] == '*'; j += 2) dp[0, j] = true;
 
-            for (int i = 1; i <= m; i++)
+            for (int i = 0; i < m; i++)
             {
-                for (int j = 1; j <= n; j++)
+                for (int j = 0; j < n; j++)
                 {
-                    if (s[i - 1] == p[j - 1] || p[j - 1] == '.')
-                        dp[i, j] = dp[i - 1, j - 1];
-                    else if (p[j - 1] == '*')
-                        dp[i, j] = dp[i, j - 2] || dp[i, j - 1] 
-                            || (dp[i - 1, j] && (s[i - 1] == p[j - 2] || p[j - 2] == '.'));
+                    if (s[i] == p[j] || p[j] == '.')
+                        dp[i + 1, j + 1] = dp[i, j];
+                    else if (p[j] == '*')
+                        dp[i + 1, j + 1] = dp[i + 1, j - 1]
+                            || dp[i + 1, j]
+                            || (dp[i, j + 1] && (s[i] == p[j - 1] || p[j - 1] == '.'));
                 }
             }
 

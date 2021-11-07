@@ -6,9 +6,9 @@ using System.Linq;
 /*
  * tags: dp
  * Time(mn), Space(mn)
- * dp[i, j] is the length of LCS for a[0..i-1] and b[0..j-1]
- * dp[i, j] = dp[i-1, j-1] + 1, if a[i-1]==b[j-1]
- *         or max(dp[i-1, j], dp[i, j-1])
+ * dp[i+1, j+1] is the length of LCS for a[0..i] and b[0..j]
+ * dp[i+1, j+1] = dp[i, j] + 1, if a[i]==b[j]
+ *         or max(dp[i, j+1], dp[i+1, j])
  * base case: dp[0, j]=dp[i, 0]=0, i=[0..m], j=[0..n]
  * This can be optimized for character set, see diff.exe
  */

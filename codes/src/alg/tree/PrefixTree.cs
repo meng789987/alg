@@ -19,9 +19,9 @@ namespace alg.tree
         {
             if (string.IsNullOrEmpty(word)) return;
             var node = _root;
-            foreach (var w in word)
+            foreach (var c in word)
             {
-                int ci = w - 'a';
+                int ci = c - 'a';
                 if (node.Children[ci] == null)
                     node.Children[ci] = new Node();
                 node = node.Children[ci];
