@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("RegularExpression");
-            new alg.dp.RegularExpression().Test();
+            Console.WriteLine("TopologicalSort");
+            new alg.graph.TopologicalSort().Test();
             //Test();
 
             Console.WriteLine("Press any key to exit ...");

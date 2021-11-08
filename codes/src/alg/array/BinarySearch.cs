@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 /*
- * tags: binary seach, saddleback binary search in a sorted list, in a sorted matrix, in two sorted lists.
+ * tags: binary seach, min-max, saddleback binary search in a sorted list, in a sorted matrix, in two sorted lists.
  */
 namespace alg.array
 {
@@ -65,95 +65,37 @@ namespace alg.array
          */
         public int Kth(int[,] matrix, int k)
         {
-            int n = matrix.GetLength(0);
-            var indice = new int[n];
-            for (int i = 0; i < n; i++) indice[i] = i;
-
-            return Biselect(matrix, indice, k, k)[0];
+            // removed due to complication, see the change history for implementation
+            return SaddlebackBs(matrix, k);
         }
 
-        int[] Biselect(int[,] matrix, int[] selected, int lk, int rk)
+        /*
+         * tags: min-max
+         * Time(nlogw), Space(1), w is maxValue-minValue
+         * Lc 875. Koko Eating Bananas
+         * Lc 2064. Minimized Maximum of Products Distributed to Any Store.
+         * similar to, place n-color balls into m buckets, each bucket should have same color of balls, 
+         * there is a bucket with maximum number of ball, find the mimimized maximum number 
+         */
+        public int MinimizedMaximum(int n, int[] balls)
         {
-            int n = selected.Length;
-            // base case
-            if (n <= 2)
+            int lo = 0, hi = balls.Max();
+            while (lo < hi)
             {
-                var nums = new int[n * n];
-                int k = 0;
-                foreach (var i in selected)
-                    foreach (var j in selected)
-                        nums[k++] = matrix[i, j];
-                Array.Sort(nums);
-                return new int[] { nums[lk - 1], nums[rk - 1] };
+                int mi = (lo + hi) / 2;
+
+                // is possible to fit?
+                int count = 0; // needed buckets if place at-most mi balls in each bucket
+                foreach (var cnt in balls)
+                    count += (cnt + mi - 1) / mi;
+
+                if (count <= n) // yes, possible
+                    hi = mi; // try less
+                else
+                    lo = mi + 1;
             }
 
-            // subproblem
-            var nselected = new int[n / 2 + 1];
-            for (int i = 0; i < n / 2; i++)
-                nselected[i] = selected[2 * i];
-            nselected[n / 2] = selected[n - 1];
-            int nlk = (lk + 3) / 4;
-            int nrk = n % 2 == 0 ? (rk + 4 * n + 3) / 4 + 1 : (rk + 2 * n) / 4 + 1;
-            var nr = Biselect(matrix, nselected, nlk, nrk);
-            int loValue = nr[0], hiValue = nr[1];
-
-            // prepare rank-(hi), rank+(lo) with saddleback search
-            int cntSmaller = 0, cntGreater = 0;
-            int[][] listBetween = new int[n][];
-            for (int js = n, jg = n, i = 0; i < n; i++)
-            {
-                while (js > 0 && matrix[selected[i], selected[js - 1]] >= hiValue) js--;
-                while (jg > 0 && matrix[selected[i], selected[jg - 1]] > loValue) jg--;
-                cntSmaller += js;
-                cntGreater += n - jg;
-                listBetween[i] = new int[Math.Max(0, js - jg)];
-                for (int j = jg; j < js; j++)
-                    //if (nr.loValue < matrix[selected[i], selected[j]] && matrix[selected[i], selected[j]] < nr.hiValue)
-                    listBetween[i][j - jg] = matrix[selected[i], selected[j]];
-            }
-
-            // compute result
-            bool hasMerged = false;
-            int lo = cntSmaller < lk ? hiValue
-                : lk + cntGreater <= n * n ? loValue
-                : Pick(listBetween, lk + cntGreater - n * n, ref hasMerged);
-            int hi = cntSmaller < rk ? hiValue
-                : rk + cntGreater <= n * n ? loValue
-                : Pick(listBetween, rk + cntGreater - n * n, ref hasMerged);
-
-            return new int[] { lo, hi };
-        }
-
-        // return k-th smallest number in an unsorted list
-        // use median-of-medians [quicksort] partition function to complete within strict O(n)
-        // here use n-way merge sort to mimic
-        int Pick(int[][] data, int k, ref bool hasMerged)
-        {
-            if (!hasMerged)
-            {
-                hasMerged = true;
-                Merge(data, 0, data.Length - 1);
-            }
-            return data[0][k - 1];
-        }
-
-        void Merge(int[][] data, int lo, int hi)
-        {
-            if (lo >= hi) return;
-
-            int mid = (lo + hi) / 2;
-            Merge(data, lo, mid);
-            Merge(data, mid + 1, hi);
-
-            int[] ls = data[lo], rs = data[mid + 1];
-            int[] aux = new int[ls.Length + rs.Length];
-            for (int i = 0, j = 0, k = 0; k < aux.Length; k++)
-            {
-                if (i < ls.Length && (j >= rs.Length || ls[i] < rs[j]))
-                    aux[k] = ls[i++];
-                else aux[k] = rs[j++];
-            }
-            data[lo] = aux;
+            return lo;
         }
 
         public void Test()
@@ -175,6 +117,13 @@ namespace alg.array
             matrix = new int[,] { { 1, 3, 5 }, { 6, 7, 12 }, { 11, 14, 14 } };
             Console.WriteLine(SaddlebackBs(matrix, 5) == 7);
             Console.WriteLine(Kth(matrix, 8) == 14);
+
+            var balls = new int[] { 11, 6 };
+            Console.WriteLine(MinimizedMaximum(6, balls) == 3);
+            Console.WriteLine(MinimizedMaximum(4, balls) == 6);
+
+            balls = new int[] { 15, 10, 10 };
+            Console.WriteLine(MinimizedMaximum(7, balls) == 5);
         }
     }
 }
