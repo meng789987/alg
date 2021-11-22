@@ -6,48 +6,51 @@ using System.Linq;
 
 /*
  * tags: TSP(Travelling Salesman Problem)
- * TSP is a NP-hard problem, and can be solved in O(n^2*2^n) using Dynamic Programming. The decision version of TSP is NP-Complete.
- * If the edges are satisfied the triangle inequality, then we can use MST to get an approximate solution whose cost is less than twice of the optimal one.
+ * TSP is a NP-hard problem, it could be O(n!) using backtracking. The decision version of TSP is NP-Complete.
+ * However, it can be solved in O(n^2*2^n) using Dynamic Programming with Bit Mask. 
+ * If the edges are satisfied the triangle inequality, 
+ * then we can use MST to get an approximate solution whose cost is less than twice of the optimal one.
  */
 namespace alg.dp
 {
     public class TravellingSalesmanProblem
     {
         /*
-         * Time(2^nn^2), Space(2^nn)
+         * Time(n^2*2^n), Space(n*2^n)
          * dp[S, i] is the shortest path from 0 to i while travaling node subset S, which includes node 0 and i.
          * dp[S, i] = min(dp[S-{i}, j] + dist[j, i]), j is in S-{i}.
+         * base case: dp[{1,i}, i] = dist[0, i]
          */
         int Tsp_Dp(int[,] graph)
         {
             int n = graph.GetLength(0), fullSet = (1 << n) - 1;
             var dp = new int[1 << n, n];
 
-            for (int S = 1; S <= fullSet; S += 2)
+            for (int S = 1; S <= fullSet; S += 2) // step is 2 as we always keep node 0.
             {
                 for (int i = 1; i < n; i++)
                 {
-                    if (((S >> i) & 1) == 0) continue;
-                    int nS = S ^ (1 << i);
-                    if (nS == 1)
+                    if ((S & (1 << i)) == 0) continue; // set S doesn't include node i yet
+                    int from = S - (1 << i); // travel to i-th node from other set without i
+                    if (from == 1) // base case
                         dp[S, i] = graph[0, i];
                     else
                     {
                         dp[S, i] = int.MaxValue;
                         for (int j = 1; j < n; j++)
                         {
-                            if (((nS >> j) & 1) == 0) continue;
-                            dp[S, i] = Math.Min(dp[S, i], dp[nS, j] + graph[j, i]);
+                            if ((from & (1 << j)) == 0) continue;
+                            dp[S, i] = Math.Min(dp[S, i], dp[from, j] + graph[j, i]);
                         }
                     }
                 }
             }
 
-            int ret = int.MaxValue;
+            int res = int.MaxValue;
             for (int i = 1; i < n; i++)
-                ret = Math.Min(ret, dp[fullSet, i] + graph[i, 0]);
+                res = Math.Min(res, dp[fullSet, i] + graph[i, 0]);
 
-            return ret;
+            return res;
         }
 
         public void Test()

@@ -11,11 +11,11 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("TopologicalSort");
-            new alg.graph.TopologicalSort().Test();
+            Console.WriteLine("KSubsets");
+            new alg.dp.KSubsets().Test();
             //Test();
 
-            Console.WriteLine("Press any key to exit ...");
+            Console.WriteLine("done");
             Console.ReadKey();
         }
 
