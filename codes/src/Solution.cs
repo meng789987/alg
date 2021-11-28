@@ -11,8 +11,8 @@ namespace alg
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("KSubsets");
-            new alg.dp.KSubsets().Test();
+            Console.WriteLine("MaxSumOfSubarray");
+            new alg.dp.MaxSumOfSubarray().Test();
             //Test();
 
             Console.WriteLine("done");

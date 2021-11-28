@@ -98,6 +98,38 @@ namespace alg.array
             return lo;
         }
 
+        int LowerBound(int[] nums, long val)
+        {
+            if (nums.Last() < val)
+                return nums.Length;
+
+            int lo = 0, hi = nums.Length - 1;
+            while (lo < hi)
+            {
+                int mi = lo + (hi - lo) / 2;
+                if (nums[mi] >= val) hi = mi; // greater than or equal to
+                else lo = mi + 1;
+            }
+
+            return lo;
+        }
+
+        int UpperBound(int[] nums, long val)
+        {
+            if (nums.Last() <= val)
+                return nums.Length;
+
+            int lo = 0, hi = nums.Length - 1;
+            while (lo < hi)
+            {
+                int mi = lo + (hi - lo) / 2;
+                if (nums[mi] > val) hi = mi; // strictly greater
+                else lo = mi + 1;
+            }
+
+            return lo;
+        }
+
         public void Test()
         {
             var nums = new int[] { 2, 3, 4, 5, 7, 24, 234 };
@@ -124,6 +156,10 @@ namespace alg.array
 
             balls = new int[] { 15, 10, 10 };
             Console.WriteLine(MinimizedMaximum(7, balls) == 5);
+
+            nums = new int[] { 2, 3, 4, 4, 4, 24, 234 };
+            Console.WriteLine(LowerBound(nums, 4) == 2);
+            Console.WriteLine(UpperBound(nums, 4) == 5);
         }
     }
 }
